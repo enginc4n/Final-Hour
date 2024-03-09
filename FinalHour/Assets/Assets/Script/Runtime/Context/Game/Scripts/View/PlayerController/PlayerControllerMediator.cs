@@ -65,7 +65,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnFireBulletAction()
     {
-      dispatcher.Dispatch(GameEvents.FireBullet, view.gameObject.transform.position);
+      dispatcher.Dispatch(GameEvents.FireBullet, view.gameObject.transform);
     }
 
     private void OnSlowTimeAction()

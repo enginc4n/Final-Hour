@@ -11,18 +11,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Command
     {
         public override void Execute()
         {
-            Vector3 position = (Vector3)evt.data;
-            SpawnObject(position);
+            Transform transform = (Transform)evt.data;
+            SpawnObject(transform);
         }
 
-        private IPromise SpawnObject(Vector3 position)
+        private IPromise SpawnObject(Transform transform)
         {
             Promise promise = new();
 
             AsyncOperationHandle asyncOperationHandle = Addressables.InstantiateAsync(
                 AddressableKeys.Bullet,
-                position,
-                Quaternion.identity
+                transform.position,
+                Quaternion.identity,
+                transform
             );
             asyncOperationHandle.Completed += handle =>
             {
