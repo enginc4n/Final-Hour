@@ -233,8 +233,7 @@ namespace strange.extensions.context.impl
 			base.addCoreComponents();
 			injectionBinder.Bind<IInstanceProvider>().Bind<IInjectionBinder>().ToValue(injectionBinder);
 			injectionBinder.Bind<IContext>().ToValue(this).ToName(ContextKeys.CONTEXT);
-			//injectionBinder.Bind<ICommandBinder>().To<SignalCommandBinder>().ToSingleton();
-			injectionBinder.Bind<ICommandBinder>().To<CommandBinder>().ToSingleton();
+			injectionBinder.Bind<ICommandBinder>().To<SignalCommandBinder>().ToSingleton();
 			//This binding is for local dispatchers
 			injectionBinder.Bind<IEventDispatcher>().To<EventDispatcher>();
 			//This binding is for the common system bus
