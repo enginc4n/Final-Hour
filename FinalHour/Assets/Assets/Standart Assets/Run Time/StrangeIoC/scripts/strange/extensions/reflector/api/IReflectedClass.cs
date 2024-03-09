@@ -25,6 +25,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -37,13 +38,13 @@ namespace strange.extensions.reflector.api
 
 		/// Get/set the preferred constructor's list of parameters
 		Type[] ConstructorParameters{ get; set;}
+		object[] ConstructorParameterNames { get; set; }
 
 		/// Get/set any PostConstructors. This includes inherited PostConstructors.
 		MethodInfo[] PostConstructors{ get; set;}
 
 		/// Get/set the list of setter injections. This includes inherited setters.
-		KeyValuePair<Type, PropertyInfo>[] Setters{ get; set;}
-		object[] SetterNames{ get; set;}
+		ReflectedAttribute[] Setters { get; set; }
 
 		/// For testing. Allows a unit test to assert whether the binding was
 		/// generated on the current call, or on a prior one.
@@ -55,12 +56,30 @@ namespace strange.extensions.reflector.api
 		Type[] constructorParameters{ get; set;}
 		/// [Obsolete"Strange migration to conform to C# guidelines. Removing camelCased publics"]
 		MethodInfo[] postConstructors{ get; set;}
-		/// [Obsolete"Strange migration to conform to C# guidelines. Removing camelCased publics"]
-		KeyValuePair<Type, PropertyInfo>[] setters{ get; set;}
-		/// [Obsolete"Strange migration to conform to C# guidelines. Removing camelCased publics"]
-		object[] setterNames{ get; set;}
+
+		/// MethodInfo to Attribute
+		/// Any attributed method is in this collection, including postconstructs
+		KeyValuePair<MethodInfo, Attribute>[] attrMethods { get; set; }
+
 		/// [Obsolete"Strange migration to conform to C# guidelines. Removing camelCased publics"]
 		bool preGenerated{ get; set;}
+
+
+		bool hasSetterFor(Type type);
+	}
+
+	public struct ReflectedAttribute
+	{
+		public Type type;
+		public object name;
+		public PropertyInfo propertyInfo;
+
+		public ReflectedAttribute(Type type, PropertyInfo propertyInfo, object name )
+		{
+			this.type = type;
+			this.propertyInfo = propertyInfo;
+			this.name = name;
+		}
 	}
 }
 

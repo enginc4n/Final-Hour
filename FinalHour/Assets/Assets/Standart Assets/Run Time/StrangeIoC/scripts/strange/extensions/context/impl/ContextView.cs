@@ -52,7 +52,7 @@ namespace strange.extensions.context.impl
 		/// </summary>
 		protected virtual void OnDestroy()
 		{
-			if (context != null)
+			if (context != null && Context.firstContext != null)
 				Context.firstContext.RemoveContext(context);
 		}
 
@@ -63,6 +63,7 @@ namespace strange.extensions.context.impl
 		public bool registeredWithContext {get;set;}
 
 		public bool autoRegisterWithContext{ get; set; }
+		public bool shouldRegister { get { return true; }}
 
 		#endregion
 	}

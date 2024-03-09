@@ -53,6 +53,33 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2d66447-39f6-4f61-8c6e-ff2138ee0236"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SlowTime"",
+                    ""type"": ""Button"",
+                    ""id"": ""d9d60e8e-640e-4bee-8e9a-9a26d575a669"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedUpTime"",
+                    ""type"": ""Button"",
+                    ""id"": ""8a4a1884-1f96-48bc-bb9c-6c4ba9a31eac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -86,6 +113,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0941cb6f-8442-4515-8b1e-6bd84782653c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1203fe48-ab76-4726-a82e-2c7556aa72e8"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SlowTime"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b21f32a0-d487-4c1d-9b17-3cd3bab25a34"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedUpTime"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -676,6 +736,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_SlowTime = m_Player.FindAction("SlowTime", throwIfNotFound: true);
+        m_Player_SpeedUpTime = m_Player.FindAction("SpeedUpTime", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -750,6 +813,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Crouch;
+    private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_SlowTime;
+    private readonly InputAction m_Player_SpeedUpTime;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -757,6 +823,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        public InputAction @SlowTime => m_Wrapper.m_Player_SlowTime;
+        public InputAction @SpeedUpTime => m_Wrapper.m_Player_SpeedUpTime;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -775,6 +844,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @SlowTime.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlowTime;
+                @SlowTime.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlowTime;
+                @SlowTime.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSlowTime;
+                @SpeedUpTime.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUpTime;
+                @SpeedUpTime.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUpTime;
+                @SpeedUpTime.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUpTime;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -788,6 +866,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
+                @SlowTime.started += instance.OnSlowTime;
+                @SlowTime.performed += instance.OnSlowTime;
+                @SlowTime.canceled += instance.OnSlowTime;
+                @SpeedUpTime.started += instance.OnSpeedUpTime;
+                @SpeedUpTime.performed += instance.OnSpeedUpTime;
+                @SpeedUpTime.canceled += instance.OnSpeedUpTime;
             }
         }
     }
@@ -947,6 +1034,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
+        void OnSlowTime(InputAction.CallbackContext context);
+        void OnSpeedUpTime(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

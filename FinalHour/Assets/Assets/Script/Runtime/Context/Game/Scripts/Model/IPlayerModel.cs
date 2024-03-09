@@ -2,6 +2,9 @@
 {
   public interface IPlayerModel
   {
-    
+    bool isDashing { get; set; }
+    float remainingTime { get; set; }
+    float currentPlayerSpeed { get; set; }
+    float defaultSpeed { get; }
   }
 }

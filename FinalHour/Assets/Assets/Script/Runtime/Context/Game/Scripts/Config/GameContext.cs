@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using Assets.Script.Runtime.Context.Game.Scripts.Command;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
@@ -35,4 +34,3 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
     }
   }
 }
-#endif
