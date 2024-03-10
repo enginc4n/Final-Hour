@@ -28,6 +28,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     [PostConstruct]
     public void OnPostConstruct()
     {
+      score = 0;
       speedState = SpeedState.Normal;
       slowDownTimeSpeed = GameControlSettings.slowDownTimeSpeed;
       speedUpTimeSpeed = GameControlSettings.speedUpTimeSpeed;

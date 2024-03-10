@@ -35,6 +35,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.SetState(true);
       view.SetShadowOpacity(0);
       view.UpdateTimer(playerModel.remainingTime);
+      view.UpdateScore(playerModel.score);
       CountTime();
     }
     
