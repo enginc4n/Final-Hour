@@ -8,7 +8,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
   {
     [Inject(ContextKeys.CONTEXT_DISPATCHER)]
     public IEventDispatcher dispatcher { get; set; }
-
+    public SpeedState speedState { get; set; }
     public bool isAlive { get; set; }
     public int score { get; set; }
     public float slowDownTimeSpeed { get; set; }
@@ -26,6 +26,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     [PostConstruct]
     public void OnPostConstruct()
     {
+      speedState = SpeedState.Normal;
       slowDownTimeSpeed = GameControlSettings.slowDownTimeSpeed;
       speedUpTimeSpeed = GameControlSettings.speedUpTimeSpeed;
       remainingTime = GameControlSettings.startingTime;
@@ -43,6 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
         return;
       }
 
+      speedState = SpeedState.Slow;
       currentSpeed = slowDownTimeSpeed;
       dispatcher.Dispatch(GameEvent.SlowDown);
     }
@@ -54,6 +56,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
         return;
       }
 
+      speedState = SpeedState.Fast;
       currentSpeed = speedUpTimeSpeed;
       dispatcher.Dispatch(GameEvent.SpeedUp);
     }
@@ -65,6 +68,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
         return;
       }
 
+      speedState = SpeedState.Normal;
       currentSpeed = defaultSpeed;
       dispatcher.Dispatch(GameEvent.ReturnNormalSpeed);
     }

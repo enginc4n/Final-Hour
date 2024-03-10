@@ -1,3 +1,4 @@
+using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public TextMeshProUGUI timerText;
 
     public TextMeshProUGUI scoreText;
+
+    [SerializeField]
+    private GameObject speedUpBorder;
+
+    [SerializeField]
+    private GameObject slowDownBorder;
+    
+    [SerializeField]
+    private GameObject hourglassIcon;
+    
 
     public void UpdateTimer(float remainingTime)
     {
@@ -34,6 +45,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       }
 
       image.uvRect = new Rect(new Vector2(image.uvRect.position.x + currentSpeed * Time.deltaTime, image.uvRect.position.y), image.uvRect.size);
+    }
+
+    public void SetBorder(SpeedState speedState)
+    {
+      speedUpBorder.SetActive(speedState == SpeedState.Fast);
+      slowDownBorder.SetActive(speedState == SpeedState.Slow);
+      hourglassIcon.SetActive(speedState != SpeedState.Normal);
     }
   }
 }
