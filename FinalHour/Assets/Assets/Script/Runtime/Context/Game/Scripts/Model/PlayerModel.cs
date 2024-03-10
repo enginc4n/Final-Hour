@@ -107,6 +107,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public void Respawn()
     {
       OnPostConstruct();
+      dispatcher.Dispatch(PlayerEvent.Play);
     }
   }
 }

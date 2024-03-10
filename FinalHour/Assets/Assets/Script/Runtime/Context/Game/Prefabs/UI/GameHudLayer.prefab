@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8178661008803351235}
   - component: {fileID: 5452227544205384469}
-  - component: {fileID: 6546210377681368221}
-  - component: {fileID: 4219286159440497584}
+  - component: {fileID: 8610961755581256798}
+  - component: {fileID: 4783394392268484445}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -47,7 +47,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42353902294810961}
   m_CullTransparentMesh: 1
---- !u!114 &6546210377681368221
+--- !u!114 &8610961755581256798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4219286159440497584
+--- !u!114 &4783394392268484445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 6546210377681368221}
+  m_TargetGraphic: {fileID: 8610961755581256798}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []

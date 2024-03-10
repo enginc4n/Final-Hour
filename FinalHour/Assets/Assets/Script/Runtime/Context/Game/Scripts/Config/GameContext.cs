@@ -44,8 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       mediationBinder.Bind<BorderView>().To<BorderMediator>();
       mediationBinder.Bind<DeadPanelView>().To<DeadPanelMediator>();
       mediationBinder.Bind<AudioManagerView>().To<AudioManagerMediator>();
-
-      commandBinder.Bind(GameEvent.Start).To<StartCommand>();
+      
       commandBinder.Bind(PlayerEvent.FireBullet).To<SpawnBulletCommand>();
     }
   }
