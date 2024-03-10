@@ -37,7 +37,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
 
     private void OnPlayAgain()
     {
-      dispatcher.Dispatch(GameEvent.Start);
+      playerModel.Respawn();
     }
 
     public override void OnRemove()

@@ -102,7 +102,7 @@ MonoBehaviour:
   isCollectible: 0
   isBrokable: 1
   isDashable: 0
-  isDropTime: 0
+  isDropTime: 1
   rotationSpeed: 0
   obstacleRigidbody2D: {fileID: -272045842819407326}
   timeAdder: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}

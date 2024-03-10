@@ -2,6 +2,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.Command;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Game.Scripts.View;
+using Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Background;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Border;
 using Assets.Script.Runtime.Context.Game.Scripts.View.BulletController;
@@ -42,8 +43,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       mediationBinder.Bind<BackgroundView>().To<BackgroundMediator>();
       mediationBinder.Bind<BorderView>().To<BorderMediator>();
       mediationBinder.Bind<DeadPanelView>().To<DeadPanelMediator>();
-
-      commandBinder.Bind(GameEvent.Start).To<StartCommand>();
+      mediationBinder.Bind<AudioManagerView>().To<AudioManagerMediator>();
+      
       commandBinder.Bind(PlayerEvent.FireBullet).To<SpawnBulletCommand>();
     }
   }
