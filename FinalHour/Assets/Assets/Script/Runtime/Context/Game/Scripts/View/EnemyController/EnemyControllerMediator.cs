@@ -29,9 +29,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       view.dispatcher.AddListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
       view.dispatcher.AddListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
       
-      dispatcher.AddListener(GameEvent.SlowDown, OnSlowDown);
-      dispatcher.AddListener(GameEvent.SpeedUp, OnSpeedUp);
-      dispatcher.AddListener(GameEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
+      dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
+      dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
+      dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
     }
     
     public override void OnInitialize()
@@ -55,7 +55,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       view.MoveEnemy(playerModel.enemySpeed);
       StartPositionLoop();
       
-      dispatcher.Dispatch(GameEvent.EnemyStartedMoving);
+      dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
     }
     
     private void OnSpeedUp()
@@ -64,7 +64,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       view.MoveEnemy(-playerModel.enemySpeed);
       StartPositionLoop();
       
-      dispatcher.Dispatch(GameEvent.EnemyStartedMoving);
+      dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
     }
 
     private void OnReturnNormalSpeed()
@@ -72,7 +72,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       view.MoveEnemy(0);
       StopPositionLoop();
       
-      dispatcher.Dispatch(GameEvent.EnemyStoppedMoving);
+      dispatcher.Dispatch(PlayerEvent.EnemyStoppedMoving);
     }
     
     private void StartPositionLoop()
@@ -102,9 +102,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
 
-      dispatcher.RemoveListener(GameEvent.SlowDown, OnSlowDown);
-      dispatcher.RemoveListener(GameEvent.SpeedUp, OnSpeedUp);
-      dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
+      dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);
+      dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);
+      dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
     }
   }
 }

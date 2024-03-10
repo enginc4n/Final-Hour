@@ -48,7 +48,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
       speedState = SpeedState.Slow;
       currentSpeed = slowDownTimeSpeed;
-      dispatcher.Dispatch(GameEvent.SlowDown);
+      dispatcher.Dispatch(PlayerEvent.SlowDown);
     }
 
     public void SpeedUpTime()
@@ -60,7 +60,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
       speedState = SpeedState.Fast;
       currentSpeed = speedUpTimeSpeed;
-      dispatcher.Dispatch(GameEvent.SpeedUp);
+      dispatcher.Dispatch(PlayerEvent.SpeedUp);
     }
 
     public void ReturnNormalSpeed()
@@ -72,7 +72,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
       speedState = SpeedState.Normal;
       currentSpeed = defaultSpeed;
-      dispatcher.Dispatch(GameEvent.ReturnNormalSpeed);
+      dispatcher.Dispatch(PlayerEvent.ReturnNormalSpeed);
     }
 
     public void ChangeRemainingTime(float value)
@@ -99,7 +99,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     {
       currentSpeed = 0f;
       isAlive = false;
-      dispatcher.Dispatch(GameEvent.Died);
+      dispatcher.Dispatch(PlayerEvent.Died);
     }
   }
 }

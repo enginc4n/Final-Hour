@@ -5,6 +5,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.View;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Background;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Border;
 using Assets.Script.Runtime.Context.Game.Scripts.View.BulletController;
+using Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel;
 using Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.GameHud;
 using Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController;
@@ -40,8 +41,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       mediationBinder.Bind<ObstacleView>().To<ObstacleMediator>();
       mediationBinder.Bind<BackgroundView>().To<BackgroundMediator>();
       mediationBinder.Bind<BorderView>().To<BorderMediator>();
+      mediationBinder.Bind<DeadPanelView>().To<DeadPanelMediator>();
 
-      commandBinder.Bind(GameEvent.FireBullet).To<SpawnBulletCommand>();
+      commandBinder.Bind(GameEvent.Start).To<PlayCommand>();
+      commandBinder.Bind(PlayerEvent.FireBullet).To<SpawnBulletCommand>();
     }
   }
 }

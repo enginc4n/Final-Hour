@@ -24,7 +24,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(GameEvent.Died, OnDied);
+      dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
 
     private void OnDied()
@@ -85,7 +85,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(GameEvent.Died, OnDied);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }
 }

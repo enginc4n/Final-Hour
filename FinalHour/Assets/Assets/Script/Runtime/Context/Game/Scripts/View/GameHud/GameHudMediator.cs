@@ -21,15 +21,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(GameEvent.SlowDown, CountTime);
-      dispatcher.AddListener(GameEvent.SpeedUp, CountTime);
-      dispatcher.AddListener(GameEvent.ReturnNormalSpeed, CountTime);
-      dispatcher.AddListener(GameEvent.EnemyStartedMoving, StartShadowLoop);
-      dispatcher.AddListener(GameEvent.EnemyStoppedMoving, StopShadowLoop);
+      dispatcher.AddListener(PlayerEvent.SlowDown, CountTime);
+      dispatcher.AddListener(PlayerEvent.SpeedUp, CountTime);
+      dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, CountTime);
+      dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
+      dispatcher.AddListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
+      dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
 
     public override void OnInitialize()
     {
+      view.SetState(true);
       view.UpdateTimer(playerModel.remainingTime);
       CountTime();
     }
@@ -96,13 +98,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       }
     }
 
+    private void OnDied()
+    {
+      view.SetState(false);
+    }
+
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(GameEvent.SlowDown, CountTime);
-      dispatcher.RemoveListener(GameEvent.SpeedUp, CountTime);
-      dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, CountTime);
-      dispatcher.RemoveListener(GameEvent.EnemyStartedMoving, StartShadowLoop);
-      dispatcher.RemoveListener(GameEvent.EnemyStoppedMoving, StopShadowLoop);
+      dispatcher.RemoveListener(PlayerEvent.SlowDown, CountTime);
+      dispatcher.RemoveListener(PlayerEvent.SpeedUp, CountTime);
+      dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, CountTime);
+      dispatcher.RemoveListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
+      dispatcher.RemoveListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }
 }

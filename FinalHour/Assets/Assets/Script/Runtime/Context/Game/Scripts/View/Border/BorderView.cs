@@ -18,5 +18,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Border
       speedUpBorder.SetActive(speedState == SpeedState.Fast);
       slowDownBorder.SetActive(speedState == SpeedState.Slow);
     }
+    
+    public void SetState(bool isActive)
+    {
+      gameObject.SetActive(isActive);
+    }
   }
 }

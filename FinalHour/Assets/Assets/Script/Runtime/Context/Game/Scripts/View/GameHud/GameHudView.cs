@@ -41,5 +41,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       Color color = shadowImage.color;
       shadowImage.color = new Color(color.r, color.b, color.g, opacity);
     }
+    
+    public void SetState(bool isActive)
+    {
+      gameObject.SetActive(isActive);
+    }
   }
 }

@@ -59,3 +59,6 @@ TagManager:
   - name: Hud
     uniqueID: 2894322613
     locked: 0
+  - name: Dead
+    uniqueID: 4078428567
+    locked: 0
