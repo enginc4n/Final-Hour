@@ -32,6 +32,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void CountTime()
     {
+      view.SetBorder(playerModel.speedState);
       CancelInvoke();
       InvokeRepeating("UpdateRemainingTime", playerModel.timerCountSpeed, playerModel.timerCountSpeed);
     }

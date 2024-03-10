@@ -1,7 +1,10 @@
-﻿namespace Assets.Script.Runtime.Context.Game.Scripts.Model
+﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+
+namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
   public interface IPlayerModel
   {
+    public SpeedState speedState { get; }
     public bool isAlive { get; set; }
     int score { get; set; }
     float slowDownTimeSpeed { get; }
