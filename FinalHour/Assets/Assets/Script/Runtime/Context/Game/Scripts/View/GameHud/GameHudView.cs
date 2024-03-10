@@ -46,5 +46,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       gameObject.SetActive(isActive);
     }
+
+    public void OnSettings()
+    {
+      dispatcher.Dispatch(GameHudEvent.Settings, transform);
+    }
   }
 }

@@ -29,7 +29,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Command
       Promise promise = new();
 
       AsyncOperationHandle asyncOperationHandle = Addressables.InstantiateAsync(
-        AddressableKeys.Bullet,
+        GameAddressableKeys.Bullet,
         transform.position,
         Quaternion.identity,
         transform

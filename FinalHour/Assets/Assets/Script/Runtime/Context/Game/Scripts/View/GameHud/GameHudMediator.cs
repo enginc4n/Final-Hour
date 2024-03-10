@@ -1,11 +1,17 @@
 using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
+using Unity.XR.OpenVR;
 using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 {
+  public enum GameHudEvent
+  {
+    Settings
+  }
   public class GameHudMediator : EventMediator
   {
     [Inject]
@@ -21,6 +27,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public override void OnRegister()
     {
+      view.dispatcher.AddListener(GameHudEvent.Settings, OnSettings);
+      
       dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
       dispatcher.AddListener(PlayerEvent.SlowDown, CountTime);
       dispatcher.AddListener(PlayerEvent.SpeedUp, CountTime);
@@ -105,9 +113,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       view.SetState(false);
     }
+    
+    private void OnSettings()
+    {
+      dispatcher.Dispatch(GameEvent.OpenSettings, transform);
+    }
 
     public override void OnRemove()
     {
+      view.dispatcher.RemoveListener(GameHudEvent.Settings, OnSettings);
+      
       dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, CountTime);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, CountTime);

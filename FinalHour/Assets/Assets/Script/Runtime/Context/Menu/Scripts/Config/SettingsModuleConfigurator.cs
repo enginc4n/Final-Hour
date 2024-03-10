@@ -10,25 +10,16 @@ using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.Config
 {
-  public class MenuContext : MVCSContext
+  public class SettingsModuleConfigurator
   {
-    public MenuContext(MonoBehaviour view)
-      : base(view)
+    public static void All(MVCSContext context)
     {
-    }
-
-    public MenuContext(MonoBehaviour view, ContextStartupFlags flags)
-      : base(view, flags)
-    {
-    }
-
-    protected override void mapBindings()
-    {
-      SettingsModuleConfigurator.All(this);
+      context.injectionBinder.Bind<ISettingsModel>().To<SettingsModel>().ToSingleton();
       
-      mediationBinder.Bind<MenuControllerView>().To<MenuControllerMediator>();
-
-      commandBinder.Bind(GameEvent.Start).To<StartCommand>();
+      context.mediationBinder.Bind<SettingsPanelView>().To<SettingsPanelMediator>();
+      
+      context.commandBinder.Bind(GameEvent.OpenSettings).To<OpenSettingsCommand>();
+      context.commandBinder.Bind(GameEvent.Exit).To<ExitCommand>();
     }
   }
 }

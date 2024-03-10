@@ -27,7 +27,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
 
     public void OnSettings()
     {
-      dispatcher.Dispatch(GameEvent.OpenSettings);
+      dispatcher.Dispatch(GameEvent.OpenSettings,transform);
     }
 
     public override void OnRemove()

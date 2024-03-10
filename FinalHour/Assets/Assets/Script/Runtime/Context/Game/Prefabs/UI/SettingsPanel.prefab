@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7200900802785778992}
   - component: {fileID: 6468569749606796518}
+  - component: {fileID: 4699702684307695018}
   m_Layer: 5
   m_Name: SettingsPanel
   m_TagString: Untagged
@@ -48,6 +49,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367041895560287906}
   m_CullTransparentMesh: 1
+--- !u!114 &4699702684307695018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367041895560287906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 835421440289447a9e693139613fa7c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5793800198013075323
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +143,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4221993200353677057}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4699702684307695018}
+        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
+          Assembly-CSharp
+        m_MethodName: OnExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1182194433443709064
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -327,7 +353,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5604390943798284908}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4699702684307695018}
+        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
+          Assembly-CSharp
+        m_MethodName: OnClose
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &5786182605604610424
 CanvasRenderer:
   m_ObjectHideFlags: 0

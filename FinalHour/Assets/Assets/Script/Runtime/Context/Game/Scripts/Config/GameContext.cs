@@ -11,6 +11,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.GameHud;
 using Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Spawner;
+using Assets.Script.Runtime.Context.Menu.Scripts.Config;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
@@ -31,6 +32,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
 
     protected override void mapBindings()
     {
+      SettingsModuleConfigurator.All(this);
+      
       injectionBinder.Bind<IPlayerModel>().To<PlayerModel>().ToSingleton();
       injectionBinder.Bind<IEnemyModel>().To<EnemyModel>().ToSingleton();
 
@@ -44,7 +47,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       mediationBinder.Bind<BorderView>().To<BorderMediator>();
       mediationBinder.Bind<DeadPanelView>().To<DeadPanelMediator>();
       mediationBinder.Bind<AudioManagerView>().To<AudioManagerMediator>();
-      
+
       commandBinder.Bind(PlayerEvent.FireBullet).To<SpawnBulletCommand>();
     }
   }

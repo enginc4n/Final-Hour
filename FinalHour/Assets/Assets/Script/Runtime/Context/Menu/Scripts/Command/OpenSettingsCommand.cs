@@ -1,4 +1,7 @@
-﻿using strange.extensions.command.impl;
+﻿using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
+using Assets.Script.Runtime.Context.Menu.Scripts.Model;
+using Scripts.Runtime.Modules.Core.PromiseTool;
+using strange.extensions.command.impl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -7,22 +10,43 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Command
 {
   public class OpenSettingsCommand : EventCommand
   {
+    [Inject]
+    public ISettingsModel settingsModel { get; set; }
     public override void Execute()
     {
-      InstantiateGameObject();
+      if (!settingsModel.isOpen)
+      {
+        Transform transform = (Transform)evt.data;
+
+        SpawnObject(transform);
+      }
+      else
+      { 
+        settingsModel.CloseSettings();
+      }
     }
 
-    void InstantiateGameObject()
+    private IPromise SpawnObject( Transform transform)
     {
-      AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>("SettingsPanel");
+      Promise promise = new();
 
-      handle.Completed += (op) =>
+      AsyncOperationHandle asyncOperationHandle = Addressables.InstantiateAsync(
+        MenuAddressableKeys.SettingsPanel,
+        transform
+      );
+      asyncOperationHandle.Completed += handle =>
       {
-        if (op.Status != AsyncOperationStatus.Succeeded)
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        { 
+          settingsModel.OpenSettings((GameObject)handle.Result);
+          promise.Resolve();
+        }
+        else
         {
-          Debug.LogError("Failed to load addressable asset: " + op.DebugName);
+          promise.Reject(handle.OperationException);
         }
       };
+      return promise;
     }
   }
 }
