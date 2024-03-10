@@ -157,12 +157,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       if (enable)
       {
         inputActionMap.Enable();
+        animator.SetBool("isDead", false);
       } 
       else
       {
         inputActionMap.Disable();
-        animator.SetTrigger("dead");
-      }
+        animator.SetBool("isDead", true);      }
     }
 
     public void ChangeColor(Color color)

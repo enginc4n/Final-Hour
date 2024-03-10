@@ -30,9 +30,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       view.dispatcher.AddListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
       
       dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
+      dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
+      dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
     }
     
     public override void OnInitialize()
@@ -98,15 +100,34 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
         yield return null;
       }
     }
+
+    private void OnDied()
+    {
+      view.MoveEnemy(0);
+    }
+
+    private void OnCrashObstacle()
+    {
+      StartCoroutine(CrashRoutine());
+    }
+
+    private IEnumerator CrashRoutine()
+    {
+      OnSlowDown();
+      yield return new WaitForSeconds(0.5f);
+      OnReturnNormalSpeed();
+    }
     
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
 
       dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
+      dispatcher.RemoveListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
     }
   }
 }

@@ -9,6 +9,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     Died,
     EnemyStartedMoving,
     EnemyStoppedMoving,
-    Play
+    Play,
+    CrashObstacle
   }
 }

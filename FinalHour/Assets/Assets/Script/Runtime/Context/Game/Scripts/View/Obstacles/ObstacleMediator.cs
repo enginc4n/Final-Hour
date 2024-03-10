@@ -62,9 +62,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void CrashObstacleProcess()
     {
-      playerModel.remainingTime -= GameControlSettings.removeTimeAmount;
       Destroy(view.gameObject);
       view.InstantiateObject(view.crushParticle);
+      dispatcher.Dispatch(PlayerEvent.CrashObstacle);
     }
 
     private void OnUpdateSpeed()

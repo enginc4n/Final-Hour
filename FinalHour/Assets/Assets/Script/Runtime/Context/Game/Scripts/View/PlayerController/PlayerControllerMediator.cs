@@ -36,11 +36,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
 
       dispatcher.AddListener(PlayerEvent.Died, OnDeathProcess);
+      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
     }
     
     public override void OnInitialize()
     {
       playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
+      view.SetActionMapState(true);
     }
 
     private void OnCrouchAction()
@@ -130,6 +132,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.RemoveListener(PlayerControllerEvents.Crouch, OnCrouchAction);
 
       dispatcher.RemoveListener(PlayerEvent.Died, OnDeathProcess);
+      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
     }
   }
 }
