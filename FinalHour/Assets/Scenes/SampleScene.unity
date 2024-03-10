@@ -383,6 +383,54 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8497182741174021961, guid: cc3a109ff6aaef94cbc617f5f6392c38, type: 3}
     - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[0].maxHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[0].minHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[1].maxHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[1].minHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[2].maxHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[2].minHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[3].maxHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[3].minHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[4].maxHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[4].minHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[5].maxHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
+      propertyPath: weightedObjects.Array.data[5].minHeight
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
       propertyPath: weightedObjects.Array.data[6].maxHeight
       value: 2.3
       objectReference: {fileID: 0}
