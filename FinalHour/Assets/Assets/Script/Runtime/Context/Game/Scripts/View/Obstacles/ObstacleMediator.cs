@@ -75,7 +75,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void OnDied()
     {
-      DestroyImmediate(gameObject);
+      Destroy(gameObject);
     }
 
     public override void OnRemove()
