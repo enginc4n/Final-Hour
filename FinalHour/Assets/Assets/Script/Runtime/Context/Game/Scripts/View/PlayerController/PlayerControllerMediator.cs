@@ -35,12 +35,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.AddListener(PlayerControllerEvents.Jump, OnJumpAction);
       view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
 
-      dispatcher.AddListener(GameEvent.Died, OnDeathProcess);
+      dispatcher.AddListener(PlayerEvent.Died, OnDeathProcess);
+      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
     }
     
     public override void OnInitialize()
     {
       playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
+      view.SetActionMapState(true);
     }
 
     private void OnCrouchAction()
@@ -55,7 +57,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnDeathProcess()
     {
-      view.DeathProcess();
+      view.SetActionMapState(false);
     }
 
     private void OnJumpAction()
@@ -102,7 +104,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnFireBulletAction()
     {
-      dispatcher.Dispatch(GameEvent.FireBullet, view.gameObject.transform);
+      dispatcher.Dispatch(PlayerEvent.FireBullet, view.gameObject.transform);
     }
 
     private void OnSlowDownTimeAction()
@@ -127,9 +129,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.RemoveListener(PlayerControllerEvents.SpeedUpTime, OnSpeedUpTimeAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Jump, OnJumpAction);
-      view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
+      view.dispatcher.RemoveListener(PlayerControllerEvents.Crouch, OnCrouchAction);
 
-      dispatcher.RemoveListener(GameEvent.Died, OnDeathProcess);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDeathProcess);
+      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
     }
   }
 }

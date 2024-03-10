@@ -18,8 +18,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     [Header("Refrences")]
     public Rigidbody2D obstacleRigidbody2D;
 
-    [SerializeField]
-    private GameObject timeAdder;
+    public GameObject timeAdder;
 
     public ParticleSystem collectParticle;
 
@@ -58,7 +57,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
         return;
       }
 
-      if (other.gameObject.layer == LayerMask.NameToLayer("Destroyer"))
+      if (other.gameObject.layer == LayerMask.NameToLayer("Barrier"))
       {
         Destroy(gameObject);
       }
@@ -69,10 +68,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       obstacleRigidbody2D.velocity = speed;
     }
 
-    public Object InstantiateObject<T>(T objectToInstantiate) where T : Object
+    public void InstantiateObject<T>(T objectToInstantiate) where T : Object
     {
-      T instantiate = Instantiate(objectToInstantiate, transform.position, Quaternion.identity);
-      return instantiate;
+      Instantiate(objectToInstantiate, transform.position, Quaternion.identity);
     }
   }
 }

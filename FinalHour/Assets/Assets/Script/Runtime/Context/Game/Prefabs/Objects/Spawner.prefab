@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4070192896998140850
 Transform:
   m_ObjectHideFlags: 0
@@ -46,26 +46,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weightedObjects:
   - obj: {fileID: 3626357716841573596, guid: a210c514a65a2cc4283e7ee4d24217f1, type: 3}
-    weight: 10
-    minHeight: -2.36
-    maxHeight: 0.26
+    weight: 15
+    minHeight: -2.75
+    maxHeight: -2.75
   - obj: {fileID: 9145313837844221693, guid: 0d354ac87b3dd9b468eecd2c9aaa20cb, type: 3}
-    weight: 20
-    minHeight: -2.36
-    maxHeight: 0.26
+    weight: 10
+    minHeight: -2.75
+    maxHeight: -2.75
   - obj: {fileID: 550066902203417223, guid: 62f21c1ff50ca0d4f81c825314cb52d3, type: 3}
-    weight: 30
-    minHeight: -2.36
-    maxHeight: 0.26
+    weight: 10
+    minHeight: -2.75
+    maxHeight: -2.75
   - obj: {fileID: 4176128926188825328, guid: f57c0f0d428a663449bacda6a9aee939, type: 3}
-    weight: 20
-    minHeight: -2.36
-    maxHeight: 0.26
+    weight: 10
+    minHeight: -2.75
+    maxHeight: -2.75
   - obj: {fileID: 2909283366101930709, guid: 1c9aff8760c1ffd4d880b04ef1c7c82a, type: 3}
     weight: 10
-    minHeight: -2.36
-    maxHeight: 0.26
+    minHeight: -2.75
+    maxHeight: -2.75
   - obj: {fileID: 6778824324649852528, guid: 5a02ad6cfee7be34facffc03cbea69e4, type: 3}
+    weight: 15
+    minHeight: -2.75
+    maxHeight: -2.75
+  - obj: {fileID: 8235234232488996356, guid: ee3060efbf1cf8f4c853f80f3101aaac, type: 3}
+    weight: 5
+    minHeight: 2.36
+    maxHeight: 2.36
+  - obj: {fileID: 8235234232488996356, guid: ee3060efbf1cf8f4c853f80f3101aaac, type: 3}
     weight: 10
-    minHeight: -2.36
-    maxHeight: 0.26
+    minHeight: 2.36
+    maxHeight: 2.36
+  - obj: {fileID: 8676458394069373947, guid: cc3a109ff6aaef94cbc617f5f6392c38, type: 3}
+    weight: 10
+    minHeight: 2.36
+    maxHeight: 2.36
+  - obj: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}
+    weight: 5
+    minHeight: 2.36
+    maxHeight: 2.36

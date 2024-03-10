@@ -16,8 +16,8 @@ TagManager:
   - Player
   - Enemy
   - Destroyer
-  - 
-  - 
+  - Barrier
+  - Obstacle
   - 
   - 
   - 
@@ -58,4 +58,7 @@ TagManager:
     locked: 0
   - name: Hud
     uniqueID: 2894322613
+    locked: 0
+  - name: Dead
+    uniqueID: 4078428567
     locked: 0

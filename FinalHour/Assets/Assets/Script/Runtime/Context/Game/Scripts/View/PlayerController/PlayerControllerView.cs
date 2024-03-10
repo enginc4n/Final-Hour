@@ -1,3 +1,4 @@
+using System;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,7 +27,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public Rigidbody2D playerRigidbody2D;
 
     public BoxCollider2D playerBodyCollider;
-    public BoxCollider2D playerCrouchCollider;
+    public CapsuleCollider2D playerCrouchCollider;
     public SpriteRenderer spriteRenderer;
     public PlayerInput playerInput;
     public Animator animator;
@@ -72,6 +73,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
+      animator.SetBool("isJumping", true);
       dispatcher.Dispatch(PlayerControllerEvents.Jump);
     }
 
@@ -87,11 +89,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
+      animator.SetBool("isCrouch", true);
       dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
     private void CrouchFinished(InputAction.CallbackContext context)
     {
+      animator.SetBool("isCrouch", false);
       dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
@@ -149,9 +153,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       speedUpTime.Disable();
     }
 
-    public void DeathProcess()
+    public void SetActionMapState(bool enable)
     {
-      inputActionMap.Disable();
+      if (enable)
+      {
+        inputActionMap.Enable();
+        animator.SetBool("isDead", false);
+      } 
+      else
+      {
+        inputActionMap.Disable();
+        animator.SetBool("isDead", true);      }
     }
 
     public void ChangeColor(Color color)
@@ -173,6 +185,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public void ChangeAnimationSpeed(float speed)
     {
       animator.SetFloat("speed", speed);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+      if (other.gameObject.layer==LayerMask.NameToLayer("Ground"))
+      {
+        animator.SetBool("isJumping", false);
+      }
     }
   }
 }

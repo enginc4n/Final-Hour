@@ -1,4 +1,8 @@
-﻿namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
+﻿
+
+using UnityEngine;
+
+namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
 {
   public class GameControlSettings
   {
@@ -10,9 +14,13 @@
     public const float jumpSpeed = 11.5f;
     public const float movementSpeed = 0.5f;
     public const float bulletSpeed = 15f;
-    public const float spawnTime = 1.5f;
-    public const float obstacleSpeed = 3.5f;
-    public const float addTimeAmount = 5f;
+    public const float spawnTime = 4.5f;
+    public const float obstacleSpeed = 15.5f;
+    public const float addTimeAmount = 7f;
     public const float removeTimeAmount = 2f;
+    public const float dahsCost = 2f;
+    public const float fireCost = 4f;
+
+    public static readonly Vector3 EnemySpawnPosition = new Vector3(-14, 1, 0);
   }
 }

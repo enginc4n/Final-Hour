@@ -15,13 +15,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Border
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(GameEvent.SlowDown, UpdateBorder);
-      dispatcher.AddListener(GameEvent.SpeedUp, UpdateBorder);
-      dispatcher.AddListener(GameEvent.ReturnNormalSpeed, UpdateBorder);
+      dispatcher.AddListener(PlayerEvent.SlowDown, UpdateBorder);
+      dispatcher.AddListener(PlayerEvent.SpeedUp, UpdateBorder);
+      dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, UpdateBorder);
+      dispatcher.AddListener(PlayerEvent.Died, OnDied);
+      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
     }
 
     public override void OnInitialize()
     {
+      view.SetState(true);
       UpdateBorder();
     }
 
@@ -30,11 +33,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Border
       view.SetBorder(playerModel.speedState);
     }
 
+    private void OnDied()
+    {
+      view.SetState(false);
+    }
+
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(GameEvent.SlowDown, UpdateBorder);
-      dispatcher.RemoveListener(GameEvent.SpeedUp, UpdateBorder);
-      dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, UpdateBorder);
+      dispatcher.RemoveListener(PlayerEvent.SlowDown, UpdateBorder);
+      dispatcher.RemoveListener(PlayerEvent.SpeedUp, UpdateBorder);
+      dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, UpdateBorder);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
+      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
     }
   }
 }

@@ -15,9 +15,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.BulletController
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(GameEvent.SlowDown, OnUpdateSpeed);
-      dispatcher.AddListener(GameEvent.SpeedUp, OnUpdateSpeed);
-      dispatcher.AddListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
+      dispatcher.AddListener(PlayerEvent.SlowDown, OnUpdateSpeed);
+      dispatcher.AddListener(PlayerEvent.SpeedUp, OnUpdateSpeed);
+      dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnUpdateSpeed);
 
       OnUpdateSpeed();
     }
@@ -30,9 +30,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.BulletController
 
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(GameEvent.SlowDown, OnUpdateSpeed);
-      dispatcher.RemoveListener(GameEvent.SpeedUp, OnUpdateSpeed);
-      dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
+      dispatcher.RemoveListener(PlayerEvent.SlowDown, OnUpdateSpeed);
+      dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnUpdateSpeed);
+      dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnUpdateSpeed);
     }
   }
 }
