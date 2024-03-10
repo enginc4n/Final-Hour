@@ -37,7 +37,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
       dispatcher.AddListener(GameEvent.Died, OnDeathProcess);
     }
-    
+
     public override void OnInitialize()
     {
       playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
@@ -98,10 +98,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       yield return new WaitForSeconds(view.dashDuration / playerModel.currentSpeed);
       playerModel.isDashing = false;
       view.ChangeColor(Color.white);
+      playerModel.remainingTime -= GameControlSettings.dahsCost;
     }
 
     private void OnFireBulletAction()
     {
+      playerModel.remainingTime -= GameControlSettings.fireCost;
       dispatcher.Dispatch(GameEvent.FireBullet, view.gameObject.transform);
     }
 

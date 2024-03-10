@@ -9777,6 +9777,7 @@ GameObject:
   - component: {fileID: 3384366999043453945}
   - component: {fileID: 3384366999043453946}
   - component: {fileID: 3384366999043453947}
+  - component: {fileID: -3541808889282888529}
   m_Layer: 0
   m_Name: Flash_blue_purple
   m_TagString: Untagged
@@ -14671,6 +14672,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-3541808889282888529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384366999043453948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf9e6380ff276a49b2a2da7618da37d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3384366999421433560
 GameObject:
   m_ObjectHideFlags: 0

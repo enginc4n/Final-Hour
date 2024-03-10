@@ -12,7 +12,9 @@
     public const float bulletSpeed = 15f;
     public const float spawnTime = 4.5f;
     public const float obstacleSpeed = 15.5f;
-    public const float addTimeAmount = 5f;
+    public const float addTimeAmount = 7f;
     public const float removeTimeAmount = 2f;
+    public const float dahsCost = 2f;
+    public const float fireCost = 4f;
   }
 }

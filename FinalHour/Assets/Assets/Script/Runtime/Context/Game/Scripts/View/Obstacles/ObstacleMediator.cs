@@ -27,6 +27,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       dispatcher.AddListener(GameEvent.SlowDown, OnUpdateSpeed);
       dispatcher.AddListener(GameEvent.SpeedUp, OnUpdateSpeed);
       dispatcher.AddListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
+      dispatcher.AddListener(GameEvent.Died, OnDied);
 
       OnUpdateSpeed();
     }
@@ -72,6 +73,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.TranslateObstacle(obstacleSpeed);
     }
 
+    private void OnDied()
+    {
+      DestroyImmediate(gameObject);
+    }
+
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
@@ -80,6 +86,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       dispatcher.RemoveListener(GameEvent.SlowDown, OnUpdateSpeed);
       dispatcher.RemoveListener(GameEvent.SpeedUp, OnUpdateSpeed);
       dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
+      dispatcher.RemoveListener(GameEvent.Died, OnDied);
     }
   }
 }
