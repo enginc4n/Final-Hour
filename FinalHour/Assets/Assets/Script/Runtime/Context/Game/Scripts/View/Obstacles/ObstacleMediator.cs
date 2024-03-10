@@ -24,8 +24,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void OnUpdateSpeed()
     {
-      float speed = playerModel.currentSpeed * GameControlSettings.obstacleSpeed;
-      Vector2 obstacleSpeed = new(-speed, 0f);
+      Vector2 obstacleSpeed = new(-playerModel.movementSpeed * GameControlSettings.obstacleSpeed, 0f);
       view.TranslateObstacle(obstacleSpeed);
     }
 
