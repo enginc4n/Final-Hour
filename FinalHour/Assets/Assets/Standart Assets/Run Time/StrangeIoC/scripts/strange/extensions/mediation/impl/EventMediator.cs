@@ -32,6 +32,19 @@ namespace strange.extensions.mediation.impl
 		[Inject(ContextKeys.CONTEXT_DISPATCHER)]
 		public IEventDispatcher dispatcher{ get; set;}
 
+		private void Start()
+		{
+			OnInitialize();
+		}
+
+		/**
+		 * Fires in views start
+		 *
+		 * Override and place your initialization code here.
+		 */
+		virtual public void OnInitialize()
+		{
+		}
 	}
 }
 

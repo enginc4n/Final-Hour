@@ -1,10 +1,11 @@
 namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
 {
-  public enum GameEvents
+  public enum GameEvent
   {
     FireBullet,
     SpeedUp,
-    SlownDown,
-    ReturnNormalSpeed
+    SlowDown,
+    ReturnNormalSpeed,
+    Died
   }
 }

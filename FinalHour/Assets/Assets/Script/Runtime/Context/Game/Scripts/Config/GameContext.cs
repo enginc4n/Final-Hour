@@ -2,6 +2,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.Command;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Game.Scripts.View.BulletController;
+using Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.GameHud;
 using Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController;
 using strange.extensions.context.api;
@@ -29,8 +30,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       mediationBinder.Bind<GameHudView>().To<GameHudMediator>();
       mediationBinder.Bind<PlayerControllerView>().To<PlayerControllerMediator>();
       mediationBinder.Bind<BulletControllerView>().To<BulletControllerMediator>();
+      mediationBinder.Bind<EnemyControllerView>().To<EnemyControllerMediator>();
 
-      commandBinder.Bind(GameEvents.FireBullet).To<SpawnBulletCommand>();
+      commandBinder.Bind(GameEvent.FireBullet).To<SpawnBulletCommand>();
     }
   }
 }

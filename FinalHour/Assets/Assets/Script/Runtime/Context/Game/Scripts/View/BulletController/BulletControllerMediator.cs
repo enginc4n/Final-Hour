@@ -15,24 +15,24 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.BulletController
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(GameEvents.SlownDown, OnUpdateSpeed);
-      dispatcher.AddListener(GameEvents.SpeedUp, OnUpdateSpeed);
-      dispatcher.AddListener(GameEvents.ReturnNormalSpeed, OnUpdateSpeed);
+      dispatcher.AddListener(GameEvent.SlowDown, OnUpdateSpeed);
+      dispatcher.AddListener(GameEvent.SpeedUp, OnUpdateSpeed);
+      dispatcher.AddListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
 
       OnUpdateSpeed();
     }
 
     private void OnUpdateSpeed()
     {
-      Vector2 bulletSpeed = new(playerModel.currentPlayerSpeed * view.bulletSpeed, 0f);
+      Vector2 bulletSpeed = new(playerModel.bulletSpeed, 0f);
       view.TranslateBullet(bulletSpeed);
     }
 
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(GameEvents.SlownDown, OnUpdateSpeed);
-      dispatcher.RemoveListener(GameEvents.SpeedUp, OnUpdateSpeed);
-      dispatcher.RemoveListener(GameEvents.ReturnNormalSpeed, OnUpdateSpeed);
+      dispatcher.RemoveListener(GameEvent.SlowDown, OnUpdateSpeed);
+      dispatcher.RemoveListener(GameEvent.SpeedUp, OnUpdateSpeed);
+      dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
     }
   }
 }

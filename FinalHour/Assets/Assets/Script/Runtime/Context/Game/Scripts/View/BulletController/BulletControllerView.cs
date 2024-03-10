@@ -6,7 +6,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.BulletController
   public class BulletControllerView : EventView
   {
     public Rigidbody2D bulletRigidBody;
-    public float bulletSpeed;
 
     public void TranslateBullet(Vector2 bulletSpeed)
     {

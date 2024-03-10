@@ -28,7 +28,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       view.dispatcher.AddListener(PlayerControllerEvents.FireBulletAction, OnFireBulletAction);
       view.dispatcher.AddListener(PlayerControllerEvents.Dash, OnDashAction);
-      view.dispatcher.AddListener(PlayerControllerEvents.SlowDownTime, OnSlowTimeAction);
+      view.dispatcher.AddListener(PlayerControllerEvents.SlowDownTime, OnSlowDownTimeAction);
       view.dispatcher.AddListener(PlayerControllerEvents.SpeedUpTime, OnSpeedUpTimeAction);
       view.dispatcher.AddListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
       view.dispatcher.AddListener(PlayerControllerEvents.Jump, OnJumpAction);
@@ -36,14 +36,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnJumpAction()
     {
-      float adjustedJumpSpeed = view.jumpSpeed * playerModel.currentPlayerSpeed;
+      float adjustedJumpSpeed = playerModel.jumpSpeed;
       view.playerRigidboyd2d.velocity += new Vector2(0f, adjustedJumpSpeed);
     }
 
     private void OnReturnNormalSpeed()
-    {
-      playerModel.currentPlayerSpeed = playerModel.defaultSpeed;
-      dispatcher.Dispatch(GameEvents.ReturnNormalSpeed);
+    { 
+      playerModel.ReturnNormalSpeed();
     }
 
     private void OnDashAction()
@@ -58,33 +57,31 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       playerModel.isDashing = true;
       view.ChangeColor(Color.blue);
-      yield return new WaitForSeconds(view.dashDuration / playerModel.currentPlayerSpeed);
+      yield return new WaitForSeconds(view.dashDuration / playerModel.currentSpeed);
       playerModel.isDashing = false;
       view.ChangeColor(Color.white);
     }
 
     private void OnFireBulletAction()
     {
-      dispatcher.Dispatch(GameEvents.FireBullet, view.gameObject.transform);
+      dispatcher.Dispatch(GameEvent.FireBullet, view.gameObject.transform);
     }
 
-    private void OnSlowTimeAction()
-    {
-      playerModel.currentPlayerSpeed = view.slowTimeSpeed;
-      dispatcher.Dispatch(GameEvents.SlownDown);
+    private void OnSlowDownTimeAction()
+    { 
+      playerModel.SlowDownTime();
     }
 
     private void OnSpeedUpTimeAction()
-    {
-      playerModel.currentPlayerSpeed = view.speedUpTimeSpeed;
-      dispatcher.Dispatch(GameEvents.SpeedUp);
+    { 
+      playerModel.SpeedUpTime();
     }
 
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(PlayerControllerEvents.FireBulletAction, OnFireBulletAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Dash, OnDashAction);
-      view.dispatcher.RemoveListener(PlayerControllerEvents.SlowDownTime, OnSlowTimeAction);
+      view.dispatcher.RemoveListener(PlayerControllerEvents.SlowDownTime, OnSlowDownTimeAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.SpeedUpTime, OnSpeedUpTimeAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Jump, OnJumpAction);

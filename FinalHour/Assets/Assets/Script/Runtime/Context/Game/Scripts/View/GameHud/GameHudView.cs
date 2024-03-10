@@ -1,4 +1,5 @@
 using strange.extensions.mediation.impl;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,24 +9,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
   {
     public RawImage image;
 
-    public float defaultSpeed;
+    public TextMeshProUGUI timerText;
+    
+    public TextMeshProUGUI scoreText;
 
-    public float score;
-
-    public float addingScoreAmount;
-
-    public float decrementTimeAmount;
-
-    private float _currentSpeed;
-
-    private void Update()
+    public void UpdateTimer(float remainingTime)
     {
-      AddScore();
+      timerText.text = remainingTime.ToString();
     }
-
-    private void AddScore()
+    
+    public void UpdateScore(int score)
     {
-      score += addingScoreAmount;
+      scoreText.text = score.ToString();
     }
 
     public void ParallaxEffect(float currentSpeed)

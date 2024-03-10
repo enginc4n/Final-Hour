@@ -1,3 +1,4 @@
+using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using strange.extensions.mediation.impl;
 
@@ -11,15 +12,52 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     [Inject]
     public IPlayerModel playerModel { get; set; }
 
-    private void Update()
+    public override void OnRegister()
     {
-      view.ParallaxEffect(playerModel.currentPlayerSpeed * 0.5f);
-      DecrementTime();
+      dispatcher.AddListener(GameEvent.SlowDown,  CountTime);
+      dispatcher.AddListener(GameEvent.SpeedUp,  CountTime);
+      dispatcher.AddListener(GameEvent.ReturnNormalSpeed, CountTime);
     }
 
-    private void DecrementTime()
+    public override void OnInitialize()
     {
-      playerModel.remainingTime -= view.decrementTimeAmount;
+      view.UpdateTimer(playerModel.remainingTime);
+      CountTime();
+    }
+
+    private void Update()
+    {
+      view.ParallaxEffect(playerModel.movementSpeed);
+    }
+
+    private void CountTime()
+    {
+      CancelInvoke();
+      InvokeRepeating("UpdateRemainingTime", playerModel.timerCountSpeed, playerModel.timerCountSpeed); 
+    }
+    
+    
+    private void UpdateRemainingTime()
+    {
+      if (playerModel.remainingTime > 0)
+      {
+        playerModel.remainingTime  -= 1f; 
+        view.UpdateTimer(playerModel.remainingTime);
+        
+        playerModel.score  += 1; 
+        view.UpdateScore(playerModel.score);
+      }
+      else
+      { 
+        playerModel.Die();
+      }
+    }
+    
+    public override void OnRemove()
+    {
+      dispatcher.RemoveListener(GameEvent.SlowDown,  CountTime);
+      dispatcher.RemoveListener(GameEvent.SpeedUp,  CountTime);
+      dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, CountTime);
     }
   }
 }

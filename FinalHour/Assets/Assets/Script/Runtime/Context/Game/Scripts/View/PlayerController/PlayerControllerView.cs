@@ -6,23 +6,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 {
   public class PlayerControllerView : EventView
   {
-    public float jumpSpeed;
-
     [SerializeField]
     private float fireRate;
 
     [SerializeField]
     private float dashRate;
 
-    public float slowTimeSpeed;
-
-    public float speedUpTimeSpeed;
-
     public float dashDuration;
 
     public Rigidbody2D playerRigidboyd2d;
 
-    private CapsuleCollider2D playerBodyCollider;
+    public CapsuleCollider2D playerBodyCollider;
     private BoxCollider2D playerCrouchCollider;
     private PlayerInputActions playerInputActions;
     private InputAction crouch;
