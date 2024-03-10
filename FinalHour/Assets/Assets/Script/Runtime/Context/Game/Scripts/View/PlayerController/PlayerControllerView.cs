@@ -26,7 +26,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public Rigidbody2D playerRigidboyd2d;
 
     public BoxCollider2D playerBodyCollider;
-    public BoxCollider2D playerCrouchCollider;
+    public CapsuleCollider2D playerCrouchCollider;
     public SpriteRenderer spriteRenderer;
     public PlayerInput playerInput;
     public Animator animator;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3685893812981044425}
   - component: {fileID: 6772053443770963154}
   - component: {fileID: -6823570847291551748}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Obstacle 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 732220089
-  m_SortingLayer: 2
+  m_SortingLayerID: 407280229
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0e6e2647f514a334d922616306f7f746, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -128,7 +128,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -151,7 +151,7 @@ MonoBehaviour:
   isDashable: 0
   isDropTime: 0
   rotationSpeed: 0
-  obstacleRigidbody2D: {fileID: 2386970288576672835, guid: ee3060efbf1cf8f4c853f80f3101aaac, type: 3}
+  obstacleRigidbody2D: {fileID: 6772053443770963154}
   timeAdder: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}
   collectParticle: {fileID: 3384366999043453946, guid: 7c19ad7a926fc084ea69d9ba4fedeeab, type: 3}
   crushParticle: {fileID: 8176850701479282266, guid: b219c04f384e7f345bb8ae1fef443965, type: 3}

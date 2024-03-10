@@ -22,12 +22,22 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     public override void OnRegister()
     {
       view.dispatcher.AddListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
+      view.dispatcher.AddListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
 
       dispatcher.AddListener(GameEvent.SlowDown, OnUpdateSpeed);
       dispatcher.AddListener(GameEvent.SpeedUp, OnUpdateSpeed);
       dispatcher.AddListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
 
       OnUpdateSpeed();
+    }
+
+    private void OnObstacleIsBroken()
+    {
+      view.InstantiateObject(view.crushParticle);
+      if (view.isDropTime)
+      {
+        view.InstantiateObject(view.timeAdder);
+      }
     }
 
     private void OnCrashWithPlayer()
@@ -46,16 +56,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     {
       playerModel.remainingTime += GameControlSettings.addTimeAmount;
       Destroy(view.gameObject);
-      ParticleSystem instantiateObject = view.InstantiateObject(view.collectParticle) as ParticleSystem;
-      Destroy(instantiateObject, 3f);
+      view.InstantiateObject(view.collectParticle);
     }
 
     private void CrashObstacleProcess()
     {
       playerModel.remainingTime -= GameControlSettings.removeTimeAmount;
       Destroy(view.gameObject);
-      ParticleSystem instantiateObject = view.InstantiateObject(view.crushParticle) as ParticleSystem;
-      Destroy(instantiateObject, 3f);
+      view.InstantiateObject(view.crushParticle);
     }
 
     private void OnUpdateSpeed()
@@ -67,6 +75,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
+      view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
 
       dispatcher.RemoveListener(GameEvent.SlowDown, OnUpdateSpeed);
       dispatcher.RemoveListener(GameEvent.SpeedUp, OnUpdateSpeed);

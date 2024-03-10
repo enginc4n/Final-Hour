@@ -10,8 +10,8 @@
     public const float jumpSpeed = 11.5f;
     public const float movementSpeed = 0.5f;
     public const float bulletSpeed = 15f;
-    public const float spawnTime = 1.5f;
-    public const float obstacleSpeed = 3.5f;
+    public const float spawnTime = 4.5f;
+    public const float obstacleSpeed = 15.5f;
     public const float addTimeAmount = 5f;
     public const float removeTimeAmount = 2f;
   }
