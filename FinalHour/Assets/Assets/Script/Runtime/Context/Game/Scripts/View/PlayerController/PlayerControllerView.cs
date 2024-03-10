@@ -23,7 +23,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public float dashDuration;
 
     [Header("References")]
-    public Rigidbody2D playerRigidboyd2d;
+    public Rigidbody2D playerRigidbody2D;
 
     public BoxCollider2D playerBodyCollider;
     public BoxCollider2D playerCrouchCollider;
@@ -42,6 +42,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void Awake()
     {
       playerInputActions = new PlayerInputActions();
+      playerRigidbody2D = GetComponent<Rigidbody2D>();
       inputActionMap = playerInput.actions.FindActionMap("Player");
     }
 
@@ -166,7 +167,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public void ChangeGravityScale(float scale)
     {
-      playerRigidboyd2d.gravityScale = scale;
+      playerRigidbody2D.gravityScale = scale;
     }
 
     public void ChangeAnimationSpeed(float speed)
