@@ -14,8 +14,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(GameEvent.SlowDown,  CountTime);
-      dispatcher.AddListener(GameEvent.SpeedUp,  CountTime);
+      dispatcher.AddListener(GameEvent.SlowDown, CountTime);
+      dispatcher.AddListener(GameEvent.SpeedUp, CountTime);
       dispatcher.AddListener(GameEvent.ReturnNormalSpeed, CountTime);
     }
 
@@ -33,30 +33,29 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     private void CountTime()
     {
       CancelInvoke();
-      InvokeRepeating("UpdateRemainingTime", playerModel.timerCountSpeed, playerModel.timerCountSpeed); 
+      InvokeRepeating("UpdateRemainingTime", playerModel.timerCountSpeed, playerModel.timerCountSpeed);
     }
-    
-    
+
     private void UpdateRemainingTime()
     {
       if (playerModel.remainingTime > 0)
       {
-        playerModel.remainingTime  -= 1f; 
+        playerModel.ChangeRemainingTime(-1f);
         view.UpdateTimer(playerModel.remainingTime);
-        
-        playerModel.score  += 1; 
+
+        playerModel.ChangeScore(1);
         view.UpdateScore(playerModel.score);
       }
       else
-      { 
+      {
         playerModel.Die();
       }
     }
-    
+
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(GameEvent.SlowDown,  CountTime);
-      dispatcher.RemoveListener(GameEvent.SpeedUp,  CountTime);
+      dispatcher.RemoveListener(GameEvent.SlowDown, CountTime);
+      dispatcher.RemoveListener(GameEvent.SpeedUp, CountTime);
       dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, CountTime);
     }
   }

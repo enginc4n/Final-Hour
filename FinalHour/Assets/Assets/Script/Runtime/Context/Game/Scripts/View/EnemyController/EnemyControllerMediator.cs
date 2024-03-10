@@ -29,6 +29,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void OnCaughtPlayer()
     { 
       playerModel.Die();
+      view.MoveEnemy(0f);
     }
     
     private void OnSlowDown()

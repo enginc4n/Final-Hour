@@ -6,34 +6,42 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 {
   public class PlayerControllerView : EventView
   {
+    [Header("Fire Settings")]
     [SerializeField]
     private float fireRate;
 
     [SerializeField]
+    private float fireCost;
+
+    [Header("Dash Settings")]
+    [SerializeField]
     private float dashRate;
+
+    [SerializeField]
+    private float dashCost;
 
     public float dashDuration;
 
+    [Header("References")]
     public Rigidbody2D playerRigidboyd2d;
 
-    public CapsuleCollider2D playerBodyCollider;
-    private BoxCollider2D playerCrouchCollider;
+    public BoxCollider2D playerBodyCollider;
+    public BoxCollider2D playerCrouchCollider;
+    public SpriteRenderer spriteRenderer;
+    public PlayerInput playerInput;
+
     private PlayerInputActions playerInputActions;
+    private InputActionMap inputActionMap;
     private InputAction crouch;
-    private InputAction fire;
     private InputAction slowTime;
     private InputAction speedUpTime;
-    private SpriteRenderer spriteRenderer;
-
     private float dashCoolDown;
     private float fireCoolDown;
 
     private void Awake()
     {
-      playerBodyCollider = GetComponent<CapsuleCollider2D>();
-      playerCrouchCollider = GetComponent<BoxCollider2D>();
-      spriteRenderer = GetComponent<SpriteRenderer>();
       playerInputActions = new PlayerInputActions();
+      inputActionMap = playerInput.actions.FindActionMap("Player");
     }
 
     private void OnEnable()
@@ -47,6 +55,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       speedUpTime = playerInputActions.Player.SpeedUpTime;
       speedUpTime.Enable();
       speedUpTime.canceled += ReturnNormalSpeed;
+      inputActionMap.Enable();
     }
 
     private void OnJump(InputValue inputValue)
@@ -76,12 +85,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      SetColliders();
+      dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
     private void CrouchFinished(InputAction.CallbackContext context)
     {
-      SetColliders();
+      dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
     private void OnFire(InputValue inputValue)
@@ -98,12 +107,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
       fireCoolDown = Time.time + 1f / fireRate;
       dispatcher.Dispatch(PlayerControllerEvents.FireBulletAction);
-    }
-
-    private void SetColliders()
-    {
-      playerBodyCollider.enabled = !playerBodyCollider.enabled;
-      playerCrouchCollider.enabled = !playerCrouchCollider.enabled;
     }
 
     private void OnDash(InputValue inputValue)
@@ -132,11 +135,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.Dispatch(PlayerControllerEvents.SlowDownTime);
     }
 
-    public void ChangeColor(Color color)
-    {
-      spriteRenderer.color = color;
-    }
-
     private void ReturnNormalSpeed(InputAction.CallbackContext context)
     {
       dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
@@ -147,6 +145,22 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       crouch.Disable();
       slowTime.Disable();
       speedUpTime.Disable();
+    }
+
+    public void DeathProcess()
+    {
+      inputActionMap.Disable();
+    }
+
+    public void ChangeColor(Color color)
+    {
+      spriteRenderer.color = color;
+    }
+
+    public void SetColliders()
+    {
+      playerBodyCollider.enabled = !playerBodyCollider.enabled;
+      playerCrouchCollider.enabled = !playerCrouchCollider.enabled;
     }
   }
 }

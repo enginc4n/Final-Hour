@@ -2,6 +2,7 @@
 {
   public interface IPlayerModel
   {
+    public bool isAlive { get; set; }
     int score { get; set; }
     float slowDownTimeSpeed { get; }
     float speedUpTimeSpeed { get; }
@@ -18,5 +19,7 @@
     void SpeedUpTime();
     void ReturnNormalSpeed();
     void Die();
+    void ChangeScore(int value);
+    void ChangeRemainingTime(float value);
   }
 }

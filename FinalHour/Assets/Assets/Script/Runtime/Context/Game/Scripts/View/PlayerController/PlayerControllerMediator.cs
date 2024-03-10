@@ -13,7 +13,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     SlowDownTime,
     SpeedUpTime,
     ReturnNormalSpeed,
-    Jump
+    Jump,
+    Crouch
   }
 
   public class PlayerControllerMediator : EventMediator
@@ -32,25 +33,55 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.AddListener(PlayerControllerEvents.SpeedUpTime, OnSpeedUpTimeAction);
       view.dispatcher.AddListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
       view.dispatcher.AddListener(PlayerControllerEvents.Jump, OnJumpAction);
+      view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
+
+      dispatcher.AddListener(GameEvent.Died, OnDeathProcess);
+    }
+
+    private void OnCrouchAction()
+    {
+      if (!playerModel.isAlive)
+      {
+        return;
+      }
+
+      view.SetColliders();
+    }
+
+    private void OnDeathProcess()
+    {
+      view.DeathProcess();
     }
 
     private void OnJumpAction()
     {
+      if (!playerModel.isAlive)
+      {
+        return;
+      }
+
       float adjustedJumpSpeed = playerModel.jumpSpeed;
       view.playerRigidboyd2d.velocity += new Vector2(0f, adjustedJumpSpeed);
     }
 
     private void OnReturnNormalSpeed()
-    { 
+    {
       playerModel.ReturnNormalSpeed();
     }
 
     private void OnDashAction()
     {
-      if (!playerModel.isDashing)
+      if (!playerModel.isAlive)
       {
-        StartCoroutine(DashTimer());
+        return;
       }
+
+      if (playerModel.isDashing)
+      {
+        return;
+      }
+
+      StartCoroutine(DashTimer());
     }
 
     private IEnumerator DashTimer()
@@ -68,12 +99,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     }
 
     private void OnSlowDownTimeAction()
-    { 
+    {
       playerModel.SlowDownTime();
     }
 
     private void OnSpeedUpTimeAction()
-    { 
+    {
       playerModel.SpeedUpTime();
     }
 
@@ -85,6 +116,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.RemoveListener(PlayerControllerEvents.SpeedUpTime, OnSpeedUpTimeAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Jump, OnJumpAction);
+      view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
+
+      dispatcher.RemoveListener(GameEvent.Died, OnDeathProcess);
     }
   }
 }
