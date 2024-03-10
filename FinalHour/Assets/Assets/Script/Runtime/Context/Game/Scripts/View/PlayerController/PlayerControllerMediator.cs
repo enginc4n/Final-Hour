@@ -68,7 +68,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       }
 
       float adjustedJumpSpeed = playerModel.jumpSpeed;
-      view.playerRigidboyd2d.velocity += new Vector2(0f, adjustedJumpSpeed);
+      view.playerRigidbody2D.velocity += new Vector2(0f, adjustedJumpSpeed);
       dispatcher.Dispatch(SoundEvents.Jump);
     }
 
@@ -112,7 +112,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnSlowDownTimeAction()
     {
       playerModel.SlowDownTime();
-      view.ChangeGravityScale(0.55f);
+      view.ChangeGravityScale(0.5f);
       view.ChangeAnimationSpeed(AnimationPlayingSpeed.slowDownRunAnimation);
       dispatcher.Dispatch(SoundEvents.SlowDownSpeed);
     }
@@ -120,7 +120,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnSpeedUpTimeAction()
     {
       playerModel.SpeedUpTime();
-      view.ChangeGravityScale(5.5f);
+      view.ChangeGravityScale(6.0f);
       view.ChangeAnimationSpeed(AnimationPlayingSpeed.speedUpRunAnimation);
       dispatcher.Dispatch(SoundEvents.SpeedUpTime);
     }
