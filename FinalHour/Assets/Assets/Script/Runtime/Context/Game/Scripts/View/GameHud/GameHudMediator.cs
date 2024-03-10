@@ -24,15 +24,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.UpdateTimer(playerModel.remainingTime);
       CountTime();
     }
-
-    private void Update()
-    {
-      view.ParallaxEffect(playerModel.movementSpeed);
-    }
-
+    
     private void CountTime()
     {
-      view.SetBorder(playerModel.speedState);
+      view.SetIcon(playerModel.speedState);
       CancelInvoke();
       InvokeRepeating("UpdateRemainingTime", playerModel.timerCountSpeed, playerModel.timerCountSpeed);
     }

@@ -2,6 +2,8 @@ using Assets.Script.Runtime.Context.Game.Scripts.Command;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Game.Scripts.View;
+using Assets.Script.Runtime.Context.Game.Scripts.View.Background;
+using Assets.Script.Runtime.Context.Game.Scripts.View.Border;
 using Assets.Script.Runtime.Context.Game.Scripts.View.BulletController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.GameHud;
@@ -35,6 +37,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       mediationBinder.Bind<EnemyControllerView>().To<EnemyControllerMediator>();
       mediationBinder.Bind<SpawnerView>().To<SpawnerMediator>();
       mediationBinder.Bind<ObstacleView>().To<ObstacleMediator>();
+      mediationBinder.Bind<BackgroundView>().To<BackgroundMediator>();
+      mediationBinder.Bind<BorderView>().To<BorderMediator>();
 
       commandBinder.Bind(GameEvent.FireBullet).To<SpawnBulletCommand>();
     }

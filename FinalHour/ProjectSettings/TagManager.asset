@@ -47,3 +47,12 @@ TagManager:
   - name: Player
     uniqueID: 732220089
     locked: 0
+  - name: Enemy
+    uniqueID: 407280229
+    locked: 0
+  - name: Border
+    uniqueID: 1851576463
+    locked: 0
+  - name: Hud
+    uniqueID: 2894322613
+    locked: 0
