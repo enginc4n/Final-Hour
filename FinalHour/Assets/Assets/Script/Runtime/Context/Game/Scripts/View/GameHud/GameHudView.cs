@@ -15,7 +15,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public void UpdateTimer(float remainingTime)
     {
-      timerText.text = Mathf.Ceil(remainingTime).ToString();
+      int minutes = Mathf.FloorToInt(remainingTime / 60f);
+      int seconds = Mathf.FloorToInt(remainingTime % 60f);
+      
+      timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void UpdateScore(int score)
