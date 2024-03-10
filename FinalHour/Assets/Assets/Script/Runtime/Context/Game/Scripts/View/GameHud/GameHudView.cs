@@ -15,6 +15,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     [SerializeField]
     private GameObject hourglassIcon;
     
+    [SerializeField]
+    private Graphic shadowImage;
 
     public void UpdateTimer(float remainingTime)
     {
@@ -32,6 +34,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public void SetIcon(SpeedState speedState)
     {
       hourglassIcon.SetActive(speedState != SpeedState.Normal);
+    }
+
+    public void SetShadowOpacity(float opacity)
+    {
+      Color color = shadowImage.color;
+      shadowImage.color = new Color(color.r, color.b, color.g, opacity);
     }
   }
 }

@@ -1,4 +1,6 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using UnityEngine;
+
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
@@ -6,6 +8,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
   {
     public SpeedState speedState { get; }
     public bool isAlive { get; set; }
+    public float position { get; set; }
     int score { get; set; }
     float slowDownTimeSpeed { get; }
     float speedUpTimeSpeed { get; }

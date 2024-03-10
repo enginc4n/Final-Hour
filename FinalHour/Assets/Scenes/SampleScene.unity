@@ -1171,6 +1171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRigidBody: {fileID: 5396698723505708734}
+  enemyBoxCollider: {fileID: 5396698723505708737}
   enemyAnimator: {fileID: 5396698723505708736}
 --- !u!95 &5396698723505708736
 Animator:

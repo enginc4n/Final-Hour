@@ -1,6 +1,7 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
+using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
@@ -11,6 +12,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public SpeedState speedState { get; set; }
     public bool isAlive { get; set; }
     public int score { get; set; }
+    public float position { get; set; }
     public float slowDownTimeSpeed { get; set; }
     public float speedUpTimeSpeed { get; set; }
     public bool isDashing { get; set; }

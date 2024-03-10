@@ -30,6 +30,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
     protected override void mapBindings()
     {
       injectionBinder.Bind<IPlayerModel>().To<PlayerModel>().ToSingleton();
+      injectionBinder.Bind<IEnemyModel>().To<EnemyModel>().ToSingleton();
 
       mediationBinder.Bind<GameHudView>().To<GameHudMediator>();
       mediationBinder.Bind<PlayerControllerView>().To<PlayerControllerMediator>();
