@@ -29,6 +29,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public BoxCollider2D playerCrouchCollider;
     public SpriteRenderer spriteRenderer;
     public PlayerInput playerInput;
+    public Animator animator;
 
     private PlayerInputActions playerInputActions;
     private InputActionMap inputActionMap;
@@ -166,6 +167,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public void ChangeGravityScale(float scale)
     {
       playerRigidboyd2d.gravityScale = scale;
+    }
+
+    public void ChangeAnimationSpeed(float speed)
+    {
+      animator.SetFloat("speed", speed);
     }
   }
 }

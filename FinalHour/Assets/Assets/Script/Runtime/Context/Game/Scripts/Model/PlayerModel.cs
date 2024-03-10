@@ -18,21 +18,21 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public float currentSpeed { get; set; }
     public float defaultSpeed { get; set; }
     public float timerCountSpeed => 1 / currentSpeed;
-    public float bulletSpeed => currentSpeed * 15f;
-    public float movementSpeed => currentSpeed * 0.5f;
-    public float jumpSpeed => currentSpeed * 11.5f;
+    public float bulletSpeed => currentSpeed * GameControlSettings.bulletSpeed;
+    public float movementSpeed => currentSpeed * GameControlSettings.movementSpeed;
+    public float jumpSpeed => currentSpeed * GameControlSettings.jumpSpeed;
     public float enemySpeed { get; set; }
 
     [PostConstruct]
     public void OnPostConstruct()
     {
-      slowDownTimeSpeed = 0.5f;
-      speedUpTimeSpeed = 2f;
-
-      defaultSpeed = 1f;
+      slowDownTimeSpeed = GameControlSettings.slowDownTimeSpeed;
+      speedUpTimeSpeed = GameControlSettings.speedUpTimeSpeed;
+      remainingTime = GameControlSettings.startingTime;
+      enemySpeed = GameControlSettings.enemySpeed;
+      defaultSpeed = GameControlSettings.defaultSpeed;
       currentSpeed = defaultSpeed;
-      remainingTime = 60f;
-      enemySpeed = 2;
+
       isAlive = true;
     }
 

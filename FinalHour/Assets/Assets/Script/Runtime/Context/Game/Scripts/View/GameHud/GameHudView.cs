@@ -10,14 +10,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public RawImage image;
 
     public TextMeshProUGUI timerText;
-    
+
     public TextMeshProUGUI scoreText;
 
     public void UpdateTimer(float remainingTime)
     {
-      timerText.text = remainingTime.ToString();
+      timerText.text = Mathf.Ceil(remainingTime).ToString();
     }
-    
+
     public void UpdateScore(int score)
     {
       scoreText.text = score.ToString();

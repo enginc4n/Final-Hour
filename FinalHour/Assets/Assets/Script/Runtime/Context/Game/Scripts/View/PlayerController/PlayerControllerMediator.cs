@@ -68,6 +68,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       playerModel.ReturnNormalSpeed();
       view.ChangeGravityScale(2f);
+      view.ChangeAnimationSpeed(AnimationPlayingSpeed.defaultSpeedRunAnimation);
     }
 
     private void OnDashAction()
@@ -103,12 +104,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       playerModel.SlowDownTime();
       view.ChangeGravityScale(0.55f);
+      view.ChangeAnimationSpeed(AnimationPlayingSpeed.slowDownRunAnimation);
     }
 
     private void OnSpeedUpTimeAction()
     {
       playerModel.SpeedUpTime();
       view.ChangeGravityScale(5.5f);
+      view.ChangeAnimationSpeed(AnimationPlayingSpeed.speedUpRunAnimation);
     }
 
     public override void OnRemove()
