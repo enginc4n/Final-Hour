@@ -5,6 +5,12 @@ using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View
 {
+  public enum ObstacleEvents
+  {
+    ObstacleIsBroken,
+    CrashWithPlayer
+  }
+
   public class ObstacleMediator : EventMediator
   {
     [Inject]
@@ -15,11 +21,41 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     public override void OnRegister()
     {
+      view.dispatcher.AddListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
+
       dispatcher.AddListener(GameEvent.SlowDown, OnUpdateSpeed);
       dispatcher.AddListener(GameEvent.SpeedUp, OnUpdateSpeed);
       dispatcher.AddListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
 
       OnUpdateSpeed();
+    }
+
+    private void OnCrashWithPlayer()
+    {
+      if (view.isCollectible)
+      {
+        CollectibleProcess();
+      }
+      else
+      {
+        CrashObstacleProcess();
+      }
+    }
+
+    private void CollectibleProcess()
+    {
+      playerModel.remainingTime += GameControlSettings.addTimeAmount;
+      Destroy(view.gameObject);
+      ParticleSystem instantiateObject = view.InstantiateObject(view.collectParticle) as ParticleSystem;
+      Destroy(instantiateObject, 3f);
+    }
+
+    private void CrashObstacleProcess()
+    {
+      playerModel.remainingTime -= GameControlSettings.removeTimeAmount;
+      Destroy(view.gameObject);
+      ParticleSystem instantiateObject = view.InstantiateObject(view.crushParticle) as ParticleSystem;
+      Destroy(instantiateObject, 3f);
     }
 
     private void OnUpdateSpeed()
@@ -30,6 +66,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     public override void OnRemove()
     {
+      view.dispatcher.RemoveListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
+
       dispatcher.RemoveListener(GameEvent.SlowDown, OnUpdateSpeed);
       dispatcher.RemoveListener(GameEvent.SpeedUp, OnUpdateSpeed);
       dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);

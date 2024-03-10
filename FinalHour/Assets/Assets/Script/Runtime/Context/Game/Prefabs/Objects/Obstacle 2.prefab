@@ -99,7 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13cf8dbf9de448d0b9940cc6ef35c996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCollectible: 0
+  isBrokable: 0
+  isDashable: 0
+  isDropTime: 0
+  rotationSpeed: 0
   obstacleRigidbody2D: {fileID: -1713170034880442329}
+  timeAdder: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}
+  collectParticle: {fileID: 3384366999043453946, guid: 7c19ad7a926fc084ea69d9ba4fedeeab, type: 3}
+  crushParticle: {fileID: 8176850701479282266, guid: b219c04f384e7f345bb8ae1fef443965, type: 3}
 --- !u!50 &-1713170034880442329
 Rigidbody2D:
   serializedVersion: 4
@@ -131,7 +139,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.028262973, y: -0.12718403}
