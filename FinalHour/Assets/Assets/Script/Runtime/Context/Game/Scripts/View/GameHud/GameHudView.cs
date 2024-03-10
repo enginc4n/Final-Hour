@@ -8,21 +8,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 {
   public class GameHudView : EventView
   {
-    public RawImage image;
-
     public TextMeshProUGUI timerText;
 
     public TextMeshProUGUI scoreText;
-
-    [SerializeField]
-    private GameObject speedUpBorder;
-
-    [SerializeField]
-    private GameObject slowDownBorder;
     
     [SerializeField]
     private GameObject hourglassIcon;
     
+    [SerializeField]
+    private Graphic shadowImage;
 
     public void UpdateTimer(float remainingTime)
     {
@@ -36,22 +30,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       scoreText.text = score.ToString();
     }
-
-    public void ParallaxEffect(float currentSpeed)
+    
+    public void SetIcon(SpeedState speedState)
     {
-      if (image.uvRect.x >= 1)
-      {
-        image.uvRect = new Rect(new Vector2(0, image.uvRect.y), image.uvRect.size);
-      }
-
-      image.uvRect = new Rect(new Vector2(image.uvRect.position.x + currentSpeed * Time.deltaTime, image.uvRect.position.y), image.uvRect.size);
+      hourglassIcon.SetActive(speedState != SpeedState.Normal);
     }
 
-    public void SetBorder(SpeedState speedState)
+    public void SetShadowOpacity(float opacity)
     {
-      speedUpBorder.SetActive(speedState == SpeedState.Fast);
-      slowDownBorder.SetActive(speedState == SpeedState.Slow);
-      hourglassIcon.SetActive(speedState != SpeedState.Normal);
+      Color color = shadowImage.color;
+      shadowImage.color = new Color(color.r, color.b, color.g, opacity);
     }
   }
 }

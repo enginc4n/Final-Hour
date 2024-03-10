@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4070192896998140861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4070192896998140850}
+  - component: {fileID: 4070192896998140851}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4070192896998140850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4070192896998140861}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.15, y: 0.014742851, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4070192896998140851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4070192896998140861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4959681c0b8d47598a4d12113468369c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weightedObjects:
+  - obj: {fileID: 3626357716841573596, guid: a210c514a65a2cc4283e7ee4d24217f1, type: 3}
+    weight: 10
+    minHeight: -2.36
+    maxHeight: 0.26
+  - obj: {fileID: 9145313837844221693, guid: 0d354ac87b3dd9b468eecd2c9aaa20cb, type: 3}
+    weight: 20
+    minHeight: -2.36
+    maxHeight: 0.26
+  - obj: {fileID: 550066902203417223, guid: 62f21c1ff50ca0d4f81c825314cb52d3, type: 3}
+    weight: 30
+    minHeight: -2.36
+    maxHeight: 0.26
+  - obj: {fileID: 4176128926188825328, guid: f57c0f0d428a663449bacda6a9aee939, type: 3}
+    weight: 20
+    minHeight: -2.36
+    maxHeight: 0.26
+  - obj: {fileID: 2909283366101930709, guid: 1c9aff8760c1ffd4d880b04ef1c7c82a, type: 3}
+    weight: 10
+    minHeight: -2.36
+    maxHeight: 0.26
+  - obj: {fileID: 6778824324649852528, guid: 5a02ad6cfee7be34facffc03cbea69e4, type: 3}
+    weight: 10
+    minHeight: -2.36
+    maxHeight: 0.26

@@ -6,6 +6,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
   public class EnemyControllerView : EventView
   {
     public Rigidbody2D enemyRigidBody;
+    public BoxCollider2D enemyBoxCollider;
     public Animator enemyAnimator;
 
     public void MoveEnemy(float enemySpeed)
@@ -17,6 +18,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     {
       if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
       {
+        //dispatcher.Dispatch(EnemyControllerEvent.HitLimit);
         return;
       }
 

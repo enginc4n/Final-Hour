@@ -37,6 +37,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
       dispatcher.AddListener(GameEvent.Died, OnDeathProcess);
     }
+    
+    public override void OnInitialize()
+    {
+      playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
+    }
 
     private void OnCrouchAction()
     {
