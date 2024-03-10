@@ -1,4 +1,3 @@
-using System;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,7 +34,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private PlayerInputActions playerInputActions;
     private InputActionMap inputActionMap;
     private InputAction crouch;
-    private InputAction slowTime;
+    private InputAction slowDownTime;
     private InputAction speedUpTime;
     private float dashCoolDown;
     private float fireCoolDown;
@@ -51,9 +50,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       crouch = playerInputActions.Player.Crouch;
       crouch.Enable();
       crouch.canceled += CrouchFinished;
-      slowTime = playerInputActions.Player.SlowTime;
-      slowTime.Enable();
-      slowTime.canceled += ReturnNormalSpeed;
+      slowDownTime = playerInputActions.Player.SlowTime;
+      slowDownTime.Enable();
+      slowDownTime.canceled += ReturnNormalSpeed;
       speedUpTime = playerInputActions.Player.SpeedUpTime;
       speedUpTime.Enable();
       speedUpTime.canceled += ReturnNormalSpeed;
@@ -148,7 +147,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnDisable()
     {
       crouch.Disable();
-      slowTime.Disable();
+      slowDownTime.Disable();
       speedUpTime.Disable();
     }
 
@@ -188,7 +187,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-      if (other.gameObject.layer==LayerMask.NameToLayer("Ground"))
+      if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
       {
         animator.SetBool("isJumping", false);
       }

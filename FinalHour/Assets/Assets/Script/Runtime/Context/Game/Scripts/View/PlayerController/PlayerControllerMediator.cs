@@ -38,7 +38,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.AddListener(PlayerEvent.Died, OnDeathProcess);
       dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
     }
-    
+
     public override void OnInitialize()
     {
       playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
@@ -69,6 +69,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
       float adjustedJumpSpeed = playerModel.jumpSpeed;
       view.playerRigidboyd2d.velocity += new Vector2(0f, adjustedJumpSpeed);
+      dispatcher.Dispatch(SoundEvents.Jump);
     }
 
     private void OnReturnNormalSpeed()
@@ -105,6 +106,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnFireBulletAction()
     {
       dispatcher.Dispatch(PlayerEvent.FireBullet, view.gameObject.transform);
+      dispatcher.Dispatch(SoundEvents.Fire);
     }
 
     private void OnSlowDownTimeAction()
@@ -112,6 +114,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       playerModel.SlowDownTime();
       view.ChangeGravityScale(0.55f);
       view.ChangeAnimationSpeed(AnimationPlayingSpeed.slowDownRunAnimation);
+      dispatcher.Dispatch(SoundEvents.SlowDownSpeed);
     }
 
     private void OnSpeedUpTimeAction()
@@ -119,6 +122,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       playerModel.SpeedUpTime();
       view.ChangeGravityScale(5.5f);
       view.ChangeAnimationSpeed(AnimationPlayingSpeed.speedUpRunAnimation);
+      dispatcher.Dispatch(SoundEvents.SpeedUpTime);
     }
 
     public override void OnRemove()

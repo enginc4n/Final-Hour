@@ -58,6 +58,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       playerModel.remainingTime += GameControlSettings.addTimeAmount;
       Destroy(view.gameObject);
       view.InstantiateObject(view.collectParticle);
+      dispatcher.Dispatch(SoundEvents.Collect);
     }
 
     private void CrashObstacleProcess()
@@ -65,6 +66,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       Destroy(view.gameObject);
       view.InstantiateObject(view.crushParticle);
       dispatcher.Dispatch(PlayerEvent.CrashObstacle);
+      dispatcher.Dispatch(SoundEvents.Destroy);
     }
 
     private void OnUpdateSpeed()

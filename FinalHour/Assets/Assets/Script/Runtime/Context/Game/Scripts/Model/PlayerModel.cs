@@ -1,7 +1,6 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
-using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
@@ -9,6 +8,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
   {
     [Inject(ContextKeys.CONTEXT_DISPATCHER)]
     public IEventDispatcher dispatcher { get; set; }
+
     public SpeedState speedState { get; set; }
     public bool isAlive { get; set; }
     public int score { get; set; }
@@ -101,6 +101,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
       currentSpeed = 0f;
       isAlive = false;
       dispatcher.Dispatch(PlayerEvent.Died);
+      dispatcher.Dispatch(SoundEvents.DeathSound);
     }
 
     public void Respawn()

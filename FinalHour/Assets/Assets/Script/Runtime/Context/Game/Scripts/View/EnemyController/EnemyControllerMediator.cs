@@ -11,6 +11,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     CaughtPlayer,
     HitLimit
   }
+
   public class EnemyControllerMediator : EventMediator
   {
     [Inject]
@@ -18,7 +19,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     [Inject]
     public IPlayerModel playerModel { get; set; }
-    
+
     [Inject]
     public IEnemyModel enemyModel { get; set; }
 
@@ -28,7 +29,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     {
       view.dispatcher.AddListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
       view.dispatcher.AddListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
-      
+
       dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
@@ -36,7 +37,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
       dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
     }
-    
+
     public override void OnInitialize()
     {
       view.ResetPosition();
@@ -48,25 +49,29 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     }
 
     private void OnCaughtPlayer()
-    { 
+    {
       playerModel.Die();
       view.MoveEnemy(0f);
     }
-    
+
     private void OnSlowDown()
     {
       view.MoveEnemy(playerModel.enemySpeed);
       StartPositionLoop();
-      
+
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
     }
-    
+
     private void OnSpeedUp()
     {
-      if (view.enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Default"))) return;
+      if (view.enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Default")))
+      {
+        return;
+      }
+
       view.MoveEnemy(-playerModel.enemySpeed);
       StartPositionLoop();
-      
+
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
     }
 
@@ -74,22 +79,25 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     {
       view.MoveEnemy(0);
       StopPositionLoop();
-      
+
       dispatcher.Dispatch(PlayerEvent.EnemyStoppedMoving);
     }
-    
+
     private void StartPositionLoop()
     {
       _positionLoop ??= StartCoroutine(PositionLoop());
     }
-    
+
     private void StopPositionLoop()
     {
-      if (_positionLoop == null) return;
+      if (_positionLoop == null)
+      {
+        return;
+      }
+
       StopCoroutine(_positionLoop);
       _positionLoop = null;
     }
-
 
     private IEnumerator PositionLoop()
     {
@@ -109,6 +117,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void OnCrashObstacle()
     {
       StartCoroutine(CrashRoutine());
+      dispatcher.Dispatch(SoundEvents.EnemyCloser);
     }
 
     private IEnumerator CrashRoutine()
@@ -117,7 +126,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       yield return new WaitForSeconds(0.5f);
       OnReturnNormalSpeed();
     }
-    
+
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
