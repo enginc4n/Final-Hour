@@ -1,3 +1,4 @@
+using System;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -71,6 +72,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
+      animator.SetBool("isJumping", true);
       dispatcher.Dispatch(PlayerControllerEvents.Jump);
     }
 
@@ -86,11 +88,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
+      animator.SetBool("isCrouch", true);
       dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
     private void CrouchFinished(InputAction.CallbackContext context)
     {
+      animator.SetBool("isCrouch", false);
       dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
@@ -151,6 +155,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public void DeathProcess()
     {
       inputActionMap.Disable();
+      animator.SetTrigger("dead");
     }
 
     public void ChangeColor(Color color)
@@ -172,6 +177,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public void ChangeAnimationSpeed(float speed)
     {
       animator.SetFloat("speed", speed);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+      if (other.gameObject.layer==LayerMask.NameToLayer("Ground"))
+      {
+        animator.SetBool("isJumping", false);
+      }
     }
   }
 }
