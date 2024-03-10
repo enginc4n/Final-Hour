@@ -67,6 +67,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnReturnNormalSpeed()
     {
       playerModel.ReturnNormalSpeed();
+      view.ChangeGravityScale(2f);
     }
 
     private void OnDashAction()
@@ -101,11 +102,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnSlowDownTimeAction()
     {
       playerModel.SlowDownTime();
+      view.ChangeGravityScale(0.55f);
     }
 
     private void OnSpeedUpTimeAction()
     {
       playerModel.SpeedUpTime();
+      view.ChangeGravityScale(5.5f);
     }
 
     public override void OnRemove()

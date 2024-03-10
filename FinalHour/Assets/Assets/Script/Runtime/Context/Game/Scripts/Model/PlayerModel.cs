@@ -20,7 +20,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public float timerCountSpeed => 1 / currentSpeed;
     public float bulletSpeed => currentSpeed * 15f;
     public float movementSpeed => currentSpeed * 0.5f;
-    public float jumpSpeed => currentSpeed * 10f;
+    public float jumpSpeed => currentSpeed * 11.5f;
     public float enemySpeed { get; set; }
 
     [PostConstruct]

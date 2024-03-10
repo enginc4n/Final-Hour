@@ -162,5 +162,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       playerBodyCollider.enabled = !playerBodyCollider.enabled;
       playerCrouchCollider.enabled = !playerCrouchCollider.enabled;
     }
+
+    public void ChangeGravityScale(float scale)
+    {
+      playerRigidboyd2d.gravityScale = scale;
+    }
   }
 }
