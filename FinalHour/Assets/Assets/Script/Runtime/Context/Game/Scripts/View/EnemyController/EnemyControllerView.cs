@@ -17,7 +17,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     
     public void MoveEnemy(float enemySpeed)
     {
-      enemyRigidBody.velocity = new Vector2(enemySpeed, 0f);
+      enemyRigidBody.velocity = new Vector2(enemySpeed / Time.timeScale, 0f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

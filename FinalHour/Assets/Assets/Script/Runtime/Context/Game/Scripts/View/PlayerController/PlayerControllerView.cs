@@ -176,16 +176,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       playerCrouchCollider.enabled = !playerCrouchCollider.enabled;
     }
 
-    public void ChangeGravityScale(float scale)
-    {
-      playerRigidbody2D.gravityScale = scale;
-    }
-
-    public void ChangeAnimationSpeed(float speed)
-    {
-      animator.SetFloat("speed", speed);
-    }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
       if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))

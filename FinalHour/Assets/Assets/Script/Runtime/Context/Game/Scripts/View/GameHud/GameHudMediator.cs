@@ -51,7 +51,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       view.SetIcon(playerModel.speedState);
       CancelInvoke();
-      InvokeRepeating("UpdateRemainingTime", playerModel.timerCountSpeed, playerModel.timerCountSpeed);
+      InvokeRepeating("UpdateRemainingTime", 1f, 1f);
     }
 
     private void UpdateRemainingTime()

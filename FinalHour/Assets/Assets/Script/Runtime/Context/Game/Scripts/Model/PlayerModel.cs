@@ -1,6 +1,7 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
+using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
@@ -42,37 +43,37 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public void SlowDownTime()
     {
+      Time.timeScale = 0.5f;
       if (!isAlive)
       {
         return;
       }
 
       speedState = SpeedState.Slow;
-      currentSpeed = slowDownTimeSpeed;
       dispatcher.Dispatch(PlayerEvent.SlowDown);
     }
 
     public void SpeedUpTime()
     {
+      Time.timeScale = 2f;
       if (!isAlive)
       {
         return;
       }
 
       speedState = SpeedState.Fast;
-      currentSpeed = speedUpTimeSpeed;
       dispatcher.Dispatch(PlayerEvent.SpeedUp);
     }
 
     public void ReturnNormalSpeed()
     {
+      Time.timeScale = 1f;
       if (!isAlive)
       {
         return;
       }
 
       speedState = SpeedState.Normal;
-      currentSpeed = defaultSpeed;
       dispatcher.Dispatch(PlayerEvent.ReturnNormalSpeed);
     }
 

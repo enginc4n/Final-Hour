@@ -1,6 +1,7 @@
 using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -24,6 +25,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     [Inject]
     public IPlayerModel playerModel { get; set; }
+
+    private Tweener _jumpTween;
 
     public override void OnRegister()
     {
@@ -67,16 +70,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      float adjustedJumpSpeed = playerModel.jumpSpeed;
-      view.playerRigidbody2D.velocity += new Vector2(0f, adjustedJumpSpeed);
+      view.playerRigidbody2D.DOMoveY(1.5f, 1);
       dispatcher.Dispatch(SoundEvents.Jump);
     }
 
     private void OnReturnNormalSpeed()
     {
       playerModel.ReturnNormalSpeed();
-      view.ChangeGravityScale(2f);
-      view.ChangeAnimationSpeed(AnimationPlayingSpeed.defaultSpeedRunAnimation);
     }
 
     private void OnDashAction()
@@ -112,16 +112,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnSlowDownTimeAction()
     {
       playerModel.SlowDownTime();
-      view.ChangeGravityScale(0.5f);
-      view.ChangeAnimationSpeed(AnimationPlayingSpeed.slowDownRunAnimation);
       dispatcher.Dispatch(SoundEvents.SlowDownSpeed);
     }
 
     private void OnSpeedUpTimeAction()
     {
       playerModel.SpeedUpTime();
-      view.ChangeGravityScale(6.0f);
-      view.ChangeAnimationSpeed(AnimationPlayingSpeed.speedUpRunAnimation);
       dispatcher.Dispatch(SoundEvents.SpeedUpTime);
     }
 
