@@ -60,9 +60,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     
     private void OnSpeedUp()
     {
-      Debug.LogError("SpeedUp");
       if (view.enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Default"))) return;
-      Debug.LogError("NotTouchingBorder");
       view.MoveEnemy(-playerModel.enemySpeed);
       StartPositionLoop();
       
