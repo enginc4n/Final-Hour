@@ -55,7 +55,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnDeathProcess()
     {
-      view.DeathProcess();
+      view.SetActionMapState(false);
     }
 
     private void OnJumpAction()
@@ -127,7 +127,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.RemoveListener(PlayerControllerEvents.SpeedUpTime, OnSpeedUpTimeAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Jump, OnJumpAction);
-      view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
+      view.dispatcher.RemoveListener(PlayerControllerEvents.Crouch, OnCrouchAction);
 
       dispatcher.RemoveListener(PlayerEvent.Died, OnDeathProcess);
     }

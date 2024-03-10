@@ -24,10 +24,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.AddListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.AddListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
 
-      dispatcher.AddListener(GameEvent.SlowDown, OnUpdateSpeed);
-      dispatcher.AddListener(GameEvent.SpeedUp, OnUpdateSpeed);
-      dispatcher.AddListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
-      dispatcher.AddListener(GameEvent.Died, OnDied);
+      dispatcher.AddListener(PlayerEvent.SlowDown, OnUpdateSpeed);
+      dispatcher.AddListener(PlayerEvent.SpeedUp, OnUpdateSpeed);
+      dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnUpdateSpeed);
+      dispatcher.AddListener(PlayerEvent.Died, OnDied);
 
       OnUpdateSpeed();
     }
@@ -83,10 +83,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.RemoveListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
 
-      dispatcher.RemoveListener(GameEvent.SlowDown, OnUpdateSpeed);
-      dispatcher.RemoveListener(GameEvent.SpeedUp, OnUpdateSpeed);
-      dispatcher.RemoveListener(GameEvent.ReturnNormalSpeed, OnUpdateSpeed);
-      dispatcher.RemoveListener(GameEvent.Died, OnDied);
+      dispatcher.RemoveListener(PlayerEvent.SlowDown, OnUpdateSpeed);
+      dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnUpdateSpeed);
+      dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnUpdateSpeed);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }
 }

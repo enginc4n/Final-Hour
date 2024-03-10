@@ -1,4 +1,8 @@
-﻿namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
+﻿
+
+using UnityEngine;
+
+namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
 {
   public class GameControlSettings
   {
@@ -16,5 +20,7 @@
     public const float removeTimeAmount = 2f;
     public const float dahsCost = 2f;
     public const float fireCost = 4f;
+
+    public static readonly Vector3 EnemySpawnPosition = new Vector3(-14, 1, 0);
   }
 }

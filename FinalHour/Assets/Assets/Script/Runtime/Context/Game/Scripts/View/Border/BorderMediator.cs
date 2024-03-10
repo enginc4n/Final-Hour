@@ -19,6 +19,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Border
       dispatcher.AddListener(PlayerEvent.SpeedUp, UpdateBorder);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, UpdateBorder);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
+      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
     }
 
     public override void OnInitialize()
@@ -43,6 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Border
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, UpdateBorder);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, UpdateBorder);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
+      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
     }
   }
 }

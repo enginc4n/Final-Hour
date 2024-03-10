@@ -152,10 +152,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       speedUpTime.Disable();
     }
 
-    public void DeathProcess()
+    public void SetActionMapState(bool enable)
     {
-      inputActionMap.Disable();
-      animator.SetTrigger("dead");
+      if (enable)
+      {
+        inputActionMap.Enable();
+      } 
+      else
+      {
+        inputActionMap.Disable();
+        animator.SetTrigger("dead");
+      }
     }
 
     public void ChangeColor(Color color)

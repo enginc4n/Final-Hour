@@ -23,7 +23,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
 
     public void OnPlayAgain()
     {
-      
+      dispatcher.Dispatch(DeadPanelEvent.PlayAgain);
     }
   }
 }

@@ -18,8 +18,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(DeadPanelEvent.PlayAgain, OnPlayAgain);
+      view.dispatcher.AddListener(DeadPanelEvent.PlayAgain, OnPlayAgain);
       
+      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
 
@@ -36,13 +37,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
 
     private void OnPlayAgain()
     {
-      dispatcher.Dispatch(PlayerEvent.Play);
+      dispatcher.Dispatch(GameEvent.Start);
     }
 
     public override void OnRemove()
     {
       dispatcher.RemoveListener(DeadPanelEvent.PlayAgain, OnPlayAgain);
       
+      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }

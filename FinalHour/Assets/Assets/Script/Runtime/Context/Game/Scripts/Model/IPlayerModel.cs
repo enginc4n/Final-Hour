@@ -25,6 +25,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     void SpeedUpTime();
     void ReturnNormalSpeed();
     void Die();
+    void Respawn();
     void ChangeScore(int value);
     void ChangeRemainingTime(float value);
   }

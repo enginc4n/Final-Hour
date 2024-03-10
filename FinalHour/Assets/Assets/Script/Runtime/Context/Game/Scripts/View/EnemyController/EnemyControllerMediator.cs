@@ -29,6 +29,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       view.dispatcher.AddListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
       view.dispatcher.AddListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
       
+      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
@@ -36,7 +37,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     
     public override void OnInitialize()
     {
-      enemyModel.spawnPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;
+      view.ResetPosition();
     }
 
     private void UpdateModel()
@@ -102,6 +103,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
 
+      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);

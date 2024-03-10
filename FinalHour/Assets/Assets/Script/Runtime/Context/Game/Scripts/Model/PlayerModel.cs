@@ -101,5 +101,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
       isAlive = false;
       dispatcher.Dispatch(PlayerEvent.Died);
     }
+
+    public void Respawn()
+    {
+      OnPostConstruct();
+    }
   }
 }

@@ -21,6 +21,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public override void OnRegister()
     {
+      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
       dispatcher.AddListener(PlayerEvent.SlowDown, CountTime);
       dispatcher.AddListener(PlayerEvent.SpeedUp, CountTime);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, CountTime);
@@ -32,6 +33,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public override void OnInitialize()
     {
       view.SetState(true);
+      view.SetShadowOpacity(0);
       view.UpdateTimer(playerModel.remainingTime);
       CountTime();
     }
@@ -84,7 +86,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void UpdateShadow()
     {
-      float spawnDistance = Mathf.Abs(playerModel.position - enemyModel.spawnPosition);
+      float spawnDistance = Mathf.Abs(playerModel.position - GameControlSettings.EnemySpawnPosition.x);
       float currentDistance = Mathf.Abs(playerModel.position - enemyModel.position);
 
       if (currentDistance > spawnDistance)
@@ -105,6 +107,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public override void OnRemove()
     {
+      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, CountTime);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, CountTime);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, CountTime);

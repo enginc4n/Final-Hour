@@ -8,14 +8,16 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Command
 {
-  public class PlayCommand : EventCommand
+  public class StartCommand : EventCommand
   {
     [Inject]
     public IPlayerModel playerModel { get; set; }
 
     public override void Execute()
     {
-      playerModel.isAlive = true;
+      playerModel.Respawn();
+      
+      dispatcher.Dispatch(PlayerEvent.Play);
     }
     
   }

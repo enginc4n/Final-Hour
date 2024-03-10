@@ -43,7 +43,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       mediationBinder.Bind<BorderView>().To<BorderMediator>();
       mediationBinder.Bind<DeadPanelView>().To<DeadPanelMediator>();
 
-      commandBinder.Bind(GameEvent.Start).To<PlayCommand>();
+      commandBinder.Bind(GameEvent.Start).To<StartCommand>();
       commandBinder.Bind(PlayerEvent.FireBullet).To<SpawnBulletCommand>();
     }
   }
