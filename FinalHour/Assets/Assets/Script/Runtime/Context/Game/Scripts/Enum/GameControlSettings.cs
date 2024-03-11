@@ -8,12 +8,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
   { 
     //GameSpeed
     public const float StartingGameSpeed = 0.5f;
-    public const float MaxGameSpeed = 100f;
+    public const float MaxGameSpeed = 5f;
     public const float GameSpeedUpRate= 5f;
     public const float GameSpeedUpAmount = 0.05f;
  
     public const float startingTime = 60f;
-    public const float spawnRate = 6f;
+    public const float spawnRate = 3f;
     public const float addTimeAmount = 7f;
     
     //Jump
@@ -35,7 +35,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     //TimeControlSettings
     public const float DefaultGameSpeed = 1f;
     public const float SlowGameSpeed = 0.5f;
-    public const float FastGameSpeed = 2f;
+    public const float FastGameSpeed = 1.75f;
 
     //Enemy
     public const float enemySpeed = 2f;
