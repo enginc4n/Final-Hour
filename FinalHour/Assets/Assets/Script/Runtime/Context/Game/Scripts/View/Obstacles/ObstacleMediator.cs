@@ -35,6 +35,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void OnObstacleIsBroken()
     {
+      Destroy(view.gameObject);
       view.InstantiateObject(view.crushParticle);
       if (view.isDropTime)
       {

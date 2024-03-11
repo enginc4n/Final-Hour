@@ -45,7 +45,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       {
         if (isBrokable)
         {
-          Destroy(gameObject);
           dispatcher.Dispatch(ObstacleEvents.ObstacleIsBroken);
           return;
         }
