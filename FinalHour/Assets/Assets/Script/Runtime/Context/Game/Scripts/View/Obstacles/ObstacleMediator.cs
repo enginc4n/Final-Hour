@@ -25,6 +25,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.AddListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
       dispatcher.AddListener(PlayerEvent.GameSpeedUp, OnGameSpeedUp);
+      Debug.LogError("add listen");
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
 
@@ -35,12 +36,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void OnObstacleIsBroken()
     {
-      Destroy(view.gameObject);
       view.InstantiateObject(view.crushParticle);
-      if (view.isDropTime)
-      {
-        view.InstantiateObject(view.timeAdder);
-      }
+      // if (view.isDropTime)
+      // {
+      //   view.InstantiateObject(view.timeAdder);
+      // }
+      
+      Destroy(view.gameObject);
     }
 
     private void OnCrashWithPlayer()
@@ -61,24 +63,23 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     private void CollectibleProcess()
     {
       playerModel.remainingTime += GameControlSettings.addTimeAmount;
-      Destroy(view.gameObject);
       view.InstantiateObject(view.collectParticle);
       dispatcher.Dispatch(SoundEvent.Collect);
+      Destroy(view.gameObject);
     }
 
     private void CrashObstacleProcess()
     {
-      Destroy(view.gameObject);
       view.InstantiateObject(view.crushParticle);
       dispatcher.Dispatch(PlayerEvent.CrashObstacle);
       dispatcher.Dispatch(SoundEvent.Destroy);
+      Destroy(view.gameObject);
     }
 
     private void OnGameSpeedUp()
     {
       view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed*20f, 0));
     }
-
     
     private void OnDied()
     {
@@ -91,6 +92,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
       dispatcher.RemoveListener(PlayerEvent.GameSpeedUp, OnGameSpeedUp);
+      Debug.LogError("remove listen");
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }
