@@ -10,14 +10,26 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(SoundEvents.Jump, OnJump);
-      dispatcher.AddListener(SoundEvents.Fire, OnFire);
-      dispatcher.AddListener(SoundEvents.DeathSound, OnDeath);
-      dispatcher.AddListener(SoundEvents.Collect, OnCollect);
-      dispatcher.AddListener(SoundEvents.Destroy, OnDestroyObject);
-      dispatcher.AddListener(SoundEvents.SlowDownSpeed, OnSlowDownTime);
-      dispatcher.AddListener(SoundEvents.SpeedUpTime, OnSpeedUpTime);
-      dispatcher.AddListener(SoundEvents.EnemyCloser, OnEnemyCloser);
+      dispatcher.AddListener(SoundEvent.StartGame, OnStartGame);
+      dispatcher.AddListener(SoundEvent.Menu, OnMenu);
+      dispatcher.AddListener(SoundEvent.Jump, OnJump);
+      dispatcher.AddListener(SoundEvent.Fire, OnFire);
+      dispatcher.AddListener(SoundEvent.DeathSound, OnDeath);
+      dispatcher.AddListener(SoundEvent.Collect, OnCollect);
+      dispatcher.AddListener(SoundEvent.Destroy, OnDestroyObject);
+      dispatcher.AddListener(SoundEvent.SlowDownSpeed, OnSlowDownTime);
+      dispatcher.AddListener(SoundEvent.SpeedUpTime, OnSpeedUpTime);
+      dispatcher.AddListener(SoundEvent.EnemyCloser, OnEnemyCloser);
+    }
+    
+    private void OnStartGame()
+    {
+      view.LoopAudioClip(view.gameTheme);
+    }
+    
+    private void OnMenu()
+    {
+      view.LoopAudioClip(view.menuTheme);
     }
 
     private void OnEnemyCloser()
@@ -59,17 +71,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     {
       view.PlayAudioClip(view.jumpClip);
     }
-
+    
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(SoundEvents.Jump, OnJump);
-      dispatcher.RemoveListener(SoundEvents.Fire, OnFire);
-      dispatcher.RemoveListener(SoundEvents.DeathSound, OnDeath);
-      dispatcher.RemoveListener(SoundEvents.Collect, OnCollect);
-      dispatcher.RemoveListener(SoundEvents.Destroy, OnDestroyObject);
-      dispatcher.RemoveListener(SoundEvents.SlowDownSpeed, OnSlowDownTime);
-      dispatcher.RemoveListener(SoundEvents.SpeedUpTime, OnSpeedUpTime);
-      dispatcher.AddListener(SoundEvents.EnemyCloser, OnEnemyCloser);
+      dispatcher.RemoveListener(SoundEvent.StartGame, OnStartGame);
+      dispatcher.RemoveListener(SoundEvent.Menu, OnMenu);
+      dispatcher.RemoveListener(SoundEvent.Jump, OnJump);
+      dispatcher.RemoveListener(SoundEvent.Fire, OnFire);
+      dispatcher.RemoveListener(SoundEvent.DeathSound, OnDeath);
+      dispatcher.RemoveListener(SoundEvent.Collect, OnCollect);
+      dispatcher.RemoveListener(SoundEvent.Destroy, OnDestroyObject);
+      dispatcher.RemoveListener(SoundEvent.SlowDownSpeed, OnSlowDownTime);
+      dispatcher.RemoveListener(SoundEvent.SpeedUpTime, OnSpeedUpTime);
+      dispatcher.AddListener(SoundEvent.EnemyCloser, OnEnemyCloser);
     }
   }
 }

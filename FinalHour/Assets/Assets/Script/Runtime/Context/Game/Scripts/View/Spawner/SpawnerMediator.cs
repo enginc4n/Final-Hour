@@ -16,7 +16,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
     [Inject]
     public IPlayerModel playerModel { get; set; }
 
-    private float spawnInterval;
+
 
     private List<GameObject> spawnPool = new();
     private float totalWeight;
@@ -25,7 +25,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
     public override void OnRegister()
     {
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
-      dispatcher.AddListener(PlayerEvent.Play, Start);
     }
 
     private void OnDied()
@@ -35,8 +34,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
     private void Start()
     {
-      spawnInterval = GameControlSettings.spawnTime;
-
       foreach (SpawnerView.WeightedObject weightedObject in view.weightedObjects)
       {
         totalWeight += weightedObject.weight;
@@ -75,7 +72,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
         Instantiate(objToSpawn, spawnPosition, Quaternion.identity, transform);
 
-        yield return new WaitForSeconds(spawnInterval / playerModel.currentSpeed);
+        yield return new WaitForSeconds(GameControlSettings.spawnRate * playerModel.currentGameSpeed);
       }
     }
 
@@ -87,8 +84,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
     public override void OnRemove()
     {
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
-      dispatcher.RemoveListener(PlayerEvent.Play, Start);
-
     }
   }
 }

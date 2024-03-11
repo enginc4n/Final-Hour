@@ -29,8 +29,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     {
       view.dispatcher.AddListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
       view.dispatcher.AddListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
-
-      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
+      
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
@@ -56,7 +55,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void OnSlowDown()
     {
-      view.MoveEnemy(playerModel.enemySpeed);
+      view.MoveEnemy(GameControlSettings.enemySpeed);
       StartPositionLoop();
 
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
@@ -69,7 +68,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
         return;
       }
 
-      view.MoveEnemy(-playerModel.enemySpeed);
+      view.MoveEnemy(-GameControlSettings.enemySpeed);
       StartPositionLoop();
 
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
@@ -117,7 +116,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void OnCrashObstacle()
     {
       StartCoroutine(CrashRoutine());
-      dispatcher.Dispatch(SoundEvents.EnemyCloser);
+      dispatcher.Dispatch(SoundEvent.EnemyCloser);
     }
 
     private IEnumerator CrashRoutine()
@@ -130,8 +129,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
-
-      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
+      
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);

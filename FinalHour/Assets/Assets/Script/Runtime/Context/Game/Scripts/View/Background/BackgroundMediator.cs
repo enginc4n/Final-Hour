@@ -1,5 +1,8 @@
+using System.Collections;
+using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using strange.extensions.mediation.impl;
+using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
 {
@@ -10,11 +13,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
 
     [Inject]
     public IPlayerModel playerModel { get; set; }
-
-    private void Update()
-    {
-      view.ParallaxEffect(playerModel.movementSpeed);
-    }
     
+    public override void OnInitialize()
+    {
+      StartCoroutine(LoopBackground());   
+    }
+
+    private IEnumerator LoopBackground()
+    {
+      while (playerModel.isAlive)
+      {
+        view.ParallaxEffect(playerModel.currentGameSpeed);
+        yield return null;
+      }
+    }
   }
 }

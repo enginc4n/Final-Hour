@@ -3,7 +3,9 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Enum
   public enum GameEvent
   {
     Start,
-    OpenSettings,
-    Exit
+    SettingsPanel,
+    Exit,
+    Pause,
+    Continue
   }
 }

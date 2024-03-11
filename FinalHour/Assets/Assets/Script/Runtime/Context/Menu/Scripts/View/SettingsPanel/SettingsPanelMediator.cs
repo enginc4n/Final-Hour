@@ -14,8 +14,6 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel
     [Inject]
     public SettingsPanelView view { get; set; }
     
-    [Inject]
-    public ISettingsModel settingsModel { get; set; }
 
     public override void OnRegister()
     { 
@@ -25,7 +23,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel
     
     private void OnClose()
     { 
-      settingsModel.CloseSettings();
+      dispatcher.Dispatch(GameEvent.SettingsPanel);
     }
     
     private void OnExit()

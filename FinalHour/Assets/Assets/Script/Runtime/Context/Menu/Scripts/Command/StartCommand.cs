@@ -1,4 +1,5 @@
-﻿using strange.extensions.command.impl;
+﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using strange.extensions.command.impl;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.Command

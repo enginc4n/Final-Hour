@@ -1,3 +1,4 @@
+using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,47 +7,29 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 {
   public class PlayerControllerView : EventView
   {
-    [Header("Fire Settings")]
-    [SerializeField]
-    private float fireRate;
 
-    [SerializeField]
-    private float fireCost;
-
-    [Header("Dash Settings")]
-    [SerializeField]
-    private float dashRate;
-
-    [SerializeField]
-    private float dashCost;
-
-    public float dashDuration;
-
-    [Header("References")]
     public Rigidbody2D playerRigidbody2D;
-
-    public BoxCollider2D playerBodyCollider;
+    public CircleCollider2D playerBodyCollider;
     public CapsuleCollider2D playerCrouchCollider;
     public SpriteRenderer spriteRenderer;
     public PlayerInput playerInput;
     public Animator animator;
 
     private PlayerInputActions playerInputActions;
-    private InputActionMap inputActionMap;
+    public InputActionMap inputActionMap;
     private InputAction crouch;
     private InputAction slowDownTime;
     private InputAction speedUpTime;
     private float dashCoolDown;
     private float fireCoolDown;
 
-    private void Awake()
+    protected override void Awake()
     {
       playerInputActions = new PlayerInputActions();
-      playerRigidbody2D = GetComponent<Rigidbody2D>();
       inputActionMap = playerInput.actions.FindActionMap("Player");
     }
 
-    private void OnEnable()
+    public void EnableInputs()
     {
       crouch = playerInputActions.Player.Crouch;
       crouch.Enable();
@@ -110,7 +93,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      fireCoolDown = Time.time + 1f / fireRate;
+      fireCoolDown = Time.time + 1f / GameControlSettings.fireRate;
       dispatcher.Dispatch(PlayerControllerEvents.FireBulletAction);
     }
 
@@ -126,7 +109,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      dashCoolDown = Time.time + 1f / dashRate;
+      dashCoolDown = Time.time + 1f / GameControlSettings.dashRate;
       dispatcher.Dispatch(PlayerControllerEvents.Dash);
     }
 
@@ -144,24 +127,28 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
     }
-
-    private void OnDisable()
+    
+    public void DisableInputs()
     {
+      crouch.canceled -= CrouchFinished;
       crouch.Disable();
+      slowDownTime.canceled -= ReturnNormalSpeed;
       slowDownTime.Disable();
+      speedUpTime.canceled -= ReturnNormalSpeed;
       speedUpTime.Disable();
+      inputActionMap.Disable();
     }
 
     public void SetActionMapState(bool enable)
     {
       if (enable)
       {
-        inputActionMap.Enable();
+        EnableInputs();
         animator.SetBool("isDead", false);
       } 
       else
-      {
-        inputActionMap.Disable();
+      { 
+        DisableInputs();
         animator.SetBool("isDead", true);      }
     }
 

@@ -6,10 +6,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 {
   public class AudioManagerView : EventView
   {
-    [FormerlySerializedAs("jumpSound")]
     [Header("Sounds")]
+    public AudioClip gameTheme;
+    public AudioClip menuTheme;
     public AudioClip jumpClip;
-
     public AudioClip deathSoundClip;
     public AudioClip slowDownSpeedClip;
     public AudioClip speedUpTimeClip;
@@ -24,6 +24,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     public void PlayAudioClip(AudioClip audioClip)
     {
       audioSource.PlayOneShot(audioClip);
+    }
+
+    public void LoopAudioClip(AudioClip audioClip)
+    {
+      audioSource.clip = audioClip;
+      audioSource.loop = true;
+      audioSource.Play();
     }
 
     public bool IsPlaying()

@@ -1,6 +1,6 @@
 ﻿namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
 {
-  public enum SoundEvents
+  public enum SoundEvent
   {
     DeathSound,
     SlowDownSpeed,
@@ -9,6 +9,8 @@
     Destroy,
     Fire,
     Jump,
-    EnemyCloser
+    EnemyCloser,
+    StartGame,
+    Menu
   }
 }

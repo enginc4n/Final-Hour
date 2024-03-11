@@ -1,6 +1,8 @@
 using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
+using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
@@ -25,8 +27,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     [Inject]
     public IPlayerModel playerModel { get; set; }
-
-    private Tweener _jumpTween;
+    
+    [Inject]
+    public ISpeedModel speedModel { get; set; }
 
     public override void OnRegister()
     {
@@ -38,31 +41,57 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.AddListener(PlayerControllerEvents.Jump, OnJumpAction);
       view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
 
-      dispatcher.AddListener(PlayerEvent.Died, OnDeathProcess);
-      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
+      dispatcher.AddListener(PlayerEvent.Died, OnDied); 
+      dispatcher.AddListener(GameEvent.Pause, OnPause);
+      dispatcher.AddListener(GameEvent.Continue, OnContinue);
     }
 
     public override void OnInitialize()
     {
       playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
+      
+      speedModel.ReturnNormalSpeed();
       view.SetActionMapState(true);
+
+      StartCoroutine(SpeedUpGame());
+    }
+
+
+    private IEnumerator SpeedUpGame()
+    {
+      while (playerModel.currentGameSpeed < GameControlSettings.MaxGameSpeed && playerModel.isAlive)
+      {
+        yield return new WaitForSeconds(GameControlSettings.GameSpeedUpRate);
+        playerModel.currentGameSpeed += GameControlSettings.GameSpeedUpAmount; 
+        dispatcher.Dispatch(PlayerEvent.GameSpeedUp);
+      }
     }
 
     private void OnCrouchAction()
     {
-      if (!playerModel.isAlive)
-      {
-        return;
-      }
-
       view.SetColliders();
     }
 
-    private void OnDeathProcess()
+    private void OnDied()
     {
+      speedModel.ReturnNormalSpeed();
+      
       view.SetActionMapState(false);
     }
-
+    
+    private void OnPause()
+    {
+      view.DisableInputs();
+    }
+    
+    private void OnContinue()
+    {
+      if (playerModel.isAlive)
+      {
+        view.EnableInputs();
+      }
+    }
+    
     private void OnJumpAction()
     {
       if (!playerModel.isAlive)
@@ -70,55 +99,54 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      view.playerRigidbody2D.DOMoveY(1.5f, 1);
-      dispatcher.Dispatch(SoundEvents.Jump);
+      view.playerRigidbody2D.DOMoveY(GameControlSettings.jumpHeight, GameControlSettings.jumpSpeed).SetSpeedBased();
+      dispatcher.Dispatch(SoundEvent.Jump);
     }
 
     private void OnReturnNormalSpeed()
     {
-      playerModel.ReturnNormalSpeed();
+      speedModel.ReturnNormalSpeed();
     }
 
     private void OnDashAction()
     {
-      if (!playerModel.isAlive)
-      {
-        return;
-      }
-
       if (playerModel.isDashing)
       {
         return;
       }
 
+      playerModel.ChangeRemainingTime(-GameControlSettings.dashCost);
       StartCoroutine(DashTimer());
     }
 
     private IEnumerator DashTimer()
     {
       playerModel.isDashing = true;
-      view.ChangeColor(Color.blue);
-      yield return new WaitForSeconds(view.dashDuration / playerModel.currentSpeed);
+      view.ChangeColor(new Color(0.3f, 0.8f, 1f, 0.75f));
+      playerModel.currentGameSpeed += 0.5f;
+      yield return new WaitForSeconds(GameControlSettings.dashDuration);
+      playerModel.currentGameSpeed -= 0.5f;
       playerModel.isDashing = false;
       view.ChangeColor(Color.white);
     }
 
     private void OnFireBulletAction()
     {
+      playerModel.ChangeRemainingTime(-GameControlSettings.fireCost);
       dispatcher.Dispatch(PlayerEvent.FireBullet, view.gameObject.transform);
-      dispatcher.Dispatch(SoundEvents.Fire);
+      dispatcher.Dispatch(SoundEvent.Fire);
     }
 
     private void OnSlowDownTimeAction()
     {
-      playerModel.SlowDownTime();
-      dispatcher.Dispatch(SoundEvents.SlowDownSpeed);
+      speedModel.SlowDownTime();
+      dispatcher.Dispatch(SoundEvent.SlowDownSpeed);
     }
 
     private void OnSpeedUpTimeAction()
     {
-      playerModel.SpeedUpTime();
-      dispatcher.Dispatch(SoundEvents.SpeedUpTime);
+      speedModel.SpeedUpTime();
+      dispatcher.Dispatch(SoundEvent.SpeedUpTime);
     }
 
     public override void OnRemove()
@@ -131,8 +159,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.RemoveListener(PlayerControllerEvents.Jump, OnJumpAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Crouch, OnCrouchAction);
 
-      dispatcher.RemoveListener(PlayerEvent.Died, OnDeathProcess);
-      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
+      dispatcher.RemoveListener(GameEvent.Pause, OnPause);
+      dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
     }
   }
 }

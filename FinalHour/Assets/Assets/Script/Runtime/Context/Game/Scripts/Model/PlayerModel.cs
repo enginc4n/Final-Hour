@@ -1,4 +1,5 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using UnityEngine;
@@ -9,82 +10,29 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
   {
     [Inject(ContextKeys.CONTEXT_DISPATCHER)]
     public IEventDispatcher dispatcher { get; set; }
-
-    public SpeedState speedState { get; set; }
+    
     public bool isAlive { get; set; }
+    public float currentGameSpeed { get; set; }
     public int score { get; set; }
     public float position { get; set; }
-    public float slowDownTimeSpeed { get; set; }
-    public float speedUpTimeSpeed { get; set; }
     public bool isDashing { get; set; }
     public float remainingTime { get; set; }
-    public float currentSpeed { get; set; }
-    public float defaultSpeed { get; set; }
-    public float timerCountSpeed => 1 / currentSpeed;
-    public float bulletSpeed => currentSpeed * GameControlSettings.bulletSpeed;
-    public float movementSpeed => currentSpeed * GameControlSettings.movementSpeed;
-    public float jumpSpeed => currentSpeed * GameControlSettings.jumpSpeed;
-    public float enemySpeed { get; set; }
 
     [PostConstruct]
     public void OnPostConstruct()
     {
+      currentGameSpeed = GameControlSettings.StartingGameSpeed;
       score = 0;
-      speedState = SpeedState.Normal;
-      slowDownTimeSpeed = GameControlSettings.slowDownTimeSpeed;
-      speedUpTimeSpeed = GameControlSettings.speedUpTimeSpeed;
       remainingTime = GameControlSettings.startingTime;
-      enemySpeed = GameControlSettings.enemySpeed;
-      defaultSpeed = GameControlSettings.defaultSpeed;
-      currentSpeed = defaultSpeed;
 
       isAlive = true;
     }
-
-    public void SlowDownTime()
-    {
-      Time.timeScale = 0.5f;
-      if (!isAlive)
-      {
-        return;
-      }
-
-      speedState = SpeedState.Slow;
-      dispatcher.Dispatch(PlayerEvent.SlowDown);
-    }
-
-    public void SpeedUpTime()
-    {
-      Time.timeScale = 2f;
-      if (!isAlive)
-      {
-        return;
-      }
-
-      speedState = SpeedState.Fast;
-      dispatcher.Dispatch(PlayerEvent.SpeedUp);
-    }
-
-    public void ReturnNormalSpeed()
-    {
-      Time.timeScale = 1f;
-      if (!isAlive)
-      {
-        return;
-      }
-
-      speedState = SpeedState.Normal;
-      dispatcher.Dispatch(PlayerEvent.ReturnNormalSpeed);
-    }
-
+    
     public void ChangeRemainingTime(float value)
     {
-      if (!isAlive)
-      {
-        return;
-      }
-
       remainingTime += value;
+      
+      dispatcher.Dispatch(PlayerEvent.UpdateRemainingTime);
     }
 
     public void ChangeScore(int value)
@@ -99,16 +47,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public void Die()
     {
-      currentSpeed = 0f;
       isAlive = false;
       dispatcher.Dispatch(PlayerEvent.Died);
-      dispatcher.Dispatch(SoundEvents.DeathSound);
-    }
-
-    public void Respawn()
-    {
-      OnPostConstruct();
-      dispatcher.Dispatch(PlayerEvent.Play);
+      dispatcher.Dispatch(SoundEvent.DeathSound);
     }
   }
 }

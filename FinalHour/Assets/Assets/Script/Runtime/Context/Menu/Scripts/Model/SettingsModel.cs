@@ -1,9 +1,16 @@
-﻿using UnityEngine;
+﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
+using strange.extensions.context.api;
+using strange.extensions.dispatcher.eventdispatcher.api;
+using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.Model
 {
   public class SettingsModel : ISettingsModel
   {
+    [Inject(ContextKeys.CONTEXT_DISPATCHER)]
+    public IEventDispatcher dispatcher { get; set; }
+    
     public bool isOpen { get; set;  }
 
     private GameObject openPanel;
@@ -16,7 +23,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Model
 
     public void CloseSettings()
     {
-      Object.Destroy(openPanel);
+      openPanel.SetActive(false);
       isOpen = false;
       openPanel = null;
     }

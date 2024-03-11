@@ -18,8 +18,9 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Config
       
       context.mediationBinder.Bind<SettingsPanelView>().To<SettingsPanelMediator>();
       
-      context.commandBinder.Bind(GameEvent.OpenSettings).To<OpenSettingsCommand>();
+      context.commandBinder.Bind(GameEvent.SettingsPanel).To<OpenSettingsCommand>();
       context.commandBinder.Bind(GameEvent.Exit).To<ExitCommand>();
+      context.commandBinder.Bind(GameEvent.Start).To<StartCommand>();
     }
   }
 }

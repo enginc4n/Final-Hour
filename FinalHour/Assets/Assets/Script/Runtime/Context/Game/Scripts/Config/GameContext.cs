@@ -12,6 +12,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.View.GameHud;
 using Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Spawner;
 using Assets.Script.Runtime.Context.Menu.Scripts.Config;
+using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       SettingsModuleConfigurator.All(this);
       
       injectionBinder.Bind<IPlayerModel>().To<PlayerModel>().ToSingleton();
+      injectionBinder.Bind<ISpeedModel>().To<SpeedModel>().ToSingleton();
       injectionBinder.Bind<IEnemyModel>().To<EnemyModel>().ToSingleton();
 
       mediationBinder.Bind<GameHudView>().To<GameHudMediator>();

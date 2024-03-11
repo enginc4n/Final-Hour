@@ -1,5 +1,6 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
@@ -20,7 +21,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
     {
       view.dispatcher.AddListener(DeadPanelEvent.PlayAgain, OnPlayAgain);
       
-      dispatcher.AddListener(PlayerEvent.Play, OnInitialize);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
 
@@ -37,14 +37,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
 
     private void OnPlayAgain()
     {
-      playerModel.Respawn();
+      dispatcher.Dispatch(GameEvent.Start);
     }
 
     public override void OnRemove()
     {
       dispatcher.RemoveListener(DeadPanelEvent.PlayAgain, OnPlayAgain);
       
-      dispatcher.RemoveListener(PlayerEvent.Play, OnInitialize);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }

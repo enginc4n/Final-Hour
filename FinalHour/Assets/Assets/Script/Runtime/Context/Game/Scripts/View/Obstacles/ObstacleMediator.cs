@@ -24,7 +24,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.AddListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.AddListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
+      dispatcher.AddListener(PlayerEvent.GameSpeedUp, OnGameSpeedUp);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
+    }
+
+    public override void OnInitialize()
+    {
+      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed*20f, 0));
     }
 
     private void OnObstacleIsBroken()
@@ -44,7 +50,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       }
       else
       {
-        CrashObstacleProcess();
+        if (!playerModel.isDashing)
+        {
+          CrashObstacleProcess();
+        }
       }
     }
 
@@ -53,7 +62,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       playerModel.remainingTime += GameControlSettings.addTimeAmount;
       Destroy(view.gameObject);
       view.InstantiateObject(view.collectParticle);
-      dispatcher.Dispatch(SoundEvents.Collect);
+      dispatcher.Dispatch(SoundEvent.Collect);
     }
 
     private void CrashObstacleProcess()
@@ -61,19 +70,26 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       Destroy(view.gameObject);
       view.InstantiateObject(view.crushParticle);
       dispatcher.Dispatch(PlayerEvent.CrashObstacle);
-      dispatcher.Dispatch(SoundEvents.Destroy);
+      dispatcher.Dispatch(SoundEvent.Destroy);
     }
 
+    private void OnGameSpeedUp()
+    {
+      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed*20f, 0));
+    }
+
+    
     private void OnDied()
     {
       Destroy(gameObject);
     }
-
+    
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
+      dispatcher.RemoveListener(PlayerEvent.GameSpeedUp, OnGameSpeedUp);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }

@@ -1,10 +1,14 @@
-﻿using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
+﻿using Assets.Script.Runtime.Context.Game.Scripts.Config;
+using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using Scripts.Runtime.Modules.Core.PromiseTool;
 using strange.extensions.command.impl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.Command
 {
@@ -12,41 +16,28 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Command
   {
     [Inject]
     public ISettingsModel settingsModel { get; set; }
+    
+    [Inject]
+    public ISpeedModel speedModel { get; set; }
     public override void Execute()
     {
       if (!settingsModel.isOpen)
       {
+        speedModel.Pause();
+        
         Transform transform = (Transform)evt.data;
-
-        SpawnObject(transform);
+        GameObject panel = ObjectPool.instance.GetPooledSettings();
+        panel.SetActive(true);
+        panel.transform.SetParent(transform);
+        panel.transform.localScale = Vector3.one;
+        
+        settingsModel.OpenSettings(panel);
       }
       else
-      { 
-        settingsModel.CloseSettings();
-      }
-    }
-
-    private IPromise SpawnObject( Transform transform)
-    {
-      Promise promise = new();
-
-      AsyncOperationHandle asyncOperationHandle = Addressables.InstantiateAsync(
-        MenuAddressableKeys.SettingsPanel,
-        transform
-      );
-      asyncOperationHandle.Completed += handle =>
       {
-        if (handle.Status == AsyncOperationStatus.Succeeded)
-        { 
-          settingsModel.OpenSettings((GameObject)handle.Result);
-          promise.Resolve();
-        }
-        else
-        {
-          promise.Reject(handle.OperationException);
-        }
-      };
-      return promise;
+        settingsModel.CloseSettings();
+        speedModel.Continue();
+      }
     }
   }
 }
