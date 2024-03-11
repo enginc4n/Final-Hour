@@ -61,9 +61,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       while (playerModel.currentGameSpeed < GameControlSettings.MaxGameSpeed && playerModel.isAlive)
       {
-        yield return new WaitForSeconds(GameControlSettings.GameSpeedUpRate);
+        yield return new WaitForSecondsRealtime(GameControlSettings.GameSpeedUpRate);
         playerModel.currentGameSpeed += GameControlSettings.GameSpeedUpAmount; 
         dispatcher.Dispatch(PlayerEvent.GameSpeedUp);
+        Debug.LogError(playerModel.currentGameSpeed);
       }
     }
 

@@ -82,7 +82,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       while (playerModel.remainingTime > 0 && playerModel.isAlive)
       {
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(GameControlSettings.SlowGameSpeed);
         
         playerModel.ChangeRemainingTime(+1f);
 
