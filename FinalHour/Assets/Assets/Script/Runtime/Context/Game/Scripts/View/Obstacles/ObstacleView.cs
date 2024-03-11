@@ -68,8 +68,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     }
 
     public void InstantiateObject<T>(T objectToInstantiate) where T : Object
-    {
-      Instantiate(objectToInstantiate, transform.position, Quaternion.identity);
-    }
+    { 
+      Instantiate(objectToInstantiate, transform.position, Quaternion.identity, transform.parent);
+    } 
   }
 }

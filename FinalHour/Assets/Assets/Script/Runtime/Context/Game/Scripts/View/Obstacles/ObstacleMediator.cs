@@ -37,10 +37,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     private void OnObstacleIsBroken()
     {
       view.InstantiateObject(view.crushParticle);
-      // if (view.isDropTime)
-      // {
-      //   view.InstantiateObject(view.timeAdder);
-      // }
+      if (view.isDropTime)
+      {
+        view.InstantiateObject(view.timeAdder);
+      }
       
       Destroy(view.gameObject);
     }
