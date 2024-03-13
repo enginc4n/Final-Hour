@@ -28,12 +28,18 @@ Death is chasing you; evade ostacles by jumping or crouching. Speed up time when
 
 ## 👥 Creators 
 * Beril Taner (UI/UX Designer / 2D Artist)
+ 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/beril-taner-014909/)
 * Engin Can Altınöz (Game Developer)
+  
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/enginc4n/)
+[![itchio](https://img.shields.io/badge/itchio-enginc4n-critical?logo)](https://enginc4n.itch.io/)
+
 * Nuri Özgür Sarıgöz (Game Developer / Game Designer)
+  
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nuri-%C3%B6zg%C3%BCr-sar%C4%B1g%C3%B6z/)
 * Çağan Kiper (Game Developer / Sound Designer)
+  
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/cagan-kiper/)
 
 #### Game Link:
