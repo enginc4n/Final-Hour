@@ -27,7 +27,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     [Inject]
     public IPlayerModel playerModel { get; set; }
-    
+
     [Inject]
     public ISpeedModel speedModel { get; set; }
 
@@ -41,7 +41,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.AddListener(PlayerControllerEvents.Jump, OnJumpAction);
       view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
 
-      dispatcher.AddListener(PlayerEvent.Died, OnDied); 
+      dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
     }
@@ -49,20 +49,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public override void OnInitialize()
     {
       playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
-      
+
       speedModel.ReturnNormalSpeed();
       view.SetActionMapState(true);
 
       StartCoroutine(SpeedUpGame());
     }
 
-
     private IEnumerator SpeedUpGame()
     {
       while (playerModel.currentGameSpeed < GameControlSettings.MaxGameSpeed && playerModel.isAlive)
       {
         yield return new WaitForSecondsRealtime(GameControlSettings.GameSpeedUpRate);
-        playerModel.currentGameSpeed += GameControlSettings.GameSpeedUpAmount; 
+        playerModel.currentGameSpeed += GameControlSettings.GameSpeedUpAmount;
         dispatcher.Dispatch(PlayerEvent.GameSpeedUp);
         Debug.LogError(playerModel.currentGameSpeed);
       }
@@ -76,15 +75,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnDied()
     {
       speedModel.ReturnNormalSpeed();
-      
+
       view.SetActionMapState(false);
     }
-    
+
     private void OnPause()
     {
       view.DisableInputs();
     }
-    
+
     private void OnContinue()
     {
       if (playerModel.isAlive)
@@ -92,7 +91,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         view.EnableInputs();
       }
     }
-    
+
     private void OnJumpAction()
     {
       if (!playerModel.isAlive)
@@ -117,6 +116,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       }
 
       playerModel.ChangeRemainingTime(-GameControlSettings.dashCost);
+      dispatcher.Dispatch(PlayerEvent.Dash);
       StartCoroutine(DashTimer());
     }
 

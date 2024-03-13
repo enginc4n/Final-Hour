@@ -144,7 +144,7 @@ MonoBehaviour:
   gameTheme: {fileID: 8300000, guid: 3530b393b34533644855466661ba02d7, type: 3}
   menuTheme: {fileID: 8300000, guid: 4ec0aa7c499064c4f93692e05efa1378, type: 3}
   jumpClip: {fileID: 8300000, guid: 6853e4c1565bab64cb2d0ce8b3b63383, type: 3}
-  deathSoundClip: {fileID: 8300000, guid: f5cef6c1389de2d4fa9c0e43839994da, type: 3}
+  deathSoundClip: {fileID: 8300000, guid: 170f4ea9f80619d49a95174e3bca76e0, type: 3}
   slowDownSpeedClip: {fileID: 8300000, guid: 1d21127f1136c2f4ebdfdea6ed14c241, type: 3}
   speedUpTimeClip: {fileID: 8300000, guid: f5cef6c1389de2d4fa9c0e43839994da, type: 3}
   collectClip: {fileID: 8300000, guid: d4627bd3a3fe1ef45baedd61236def8b, type: 3}

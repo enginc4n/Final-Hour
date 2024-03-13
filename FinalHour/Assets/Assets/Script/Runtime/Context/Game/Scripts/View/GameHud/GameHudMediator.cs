@@ -4,7 +4,6 @@ using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using strange.extensions.mediation.impl;
-using Unity.XR.OpenVR;
 using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
@@ -13,6 +12,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
   {
     Settings
   }
+
   public class GameHudMediator : EventMediator
   {
     [Inject]
@@ -20,13 +20,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     [Inject]
     public IPlayerModel playerModel { get; set; }
-    
+
     [Inject]
     public IEnemyModel enemyModel { get; set; }
-    
+
     [Inject]
     public ISpeedModel speedModel { get; set; }
-    
+
     private Coroutine _shadowLoop;
 
     private Coroutine _timeLoop;
@@ -36,7 +36,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public override void OnRegister()
     {
       view.dispatcher.AddListener(GameHudEvent.Settings, OnSettings);
-      
+
       dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
       dispatcher.AddListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
@@ -44,6 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
+      dispatcher.AddListener(PlayerEvent.Dash, OnDash);
     }
 
     public override void OnInitialize()
@@ -54,10 +55,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.UpdateTimer(playerModel.remainingTime);
       view.UpdateScore(playerModel.score);
       CountTime();
-      
+
       dispatcher.Dispatch(SoundEvent.StartGame);
     }
-    
+
     private void CountTime()
     {
       _timeLoop = StartCoroutine(DecreaseRemainingTime());
@@ -70,27 +71,42 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         yield return new WaitForSeconds(1f);
 
         playerModel.ChangeRemainingTime(-1f);
-        
+
         playerModel.ChangeScore(1);
         view.UpdateScore(playerModel.score);
       }
-      
+
       playerModel.Die();
     }
-    
+
     private IEnumerator IncreaseRemainingTime()
     {
       while (playerModel.remainingTime > 0 && playerModel.isAlive)
       {
         yield return new WaitForSecondsRealtime(GameControlSettings.SlowGameSpeed);
-        
+
         playerModel.ChangeRemainingTime(+1f);
 
         playerModel.ChangeScore(1);
         view.UpdateScore(playerModel.score);
       }
     }
-    
+
+    // private IEnumerator DashTimer()
+    // {
+    //   float coolDown = GameControlSettings.dashRate;
+    //   while (coolDown > 0)
+    //   {
+    //     yield return new WaitForSeconds(1f);
+    //     view.DashCounter(coolDown / GameControlSettings.dashRate);
+    //     coolDown -= 1f;
+    //   }
+    // }
+    //
+    private void OnDash()
+    {
+    }
+
     private void OnUpdateRemainingTime()
     {
       view.UpdateTimer(playerModel.remainingTime);
@@ -101,35 +117,38 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       if (hasSlowedDown)
       {
         StopCoroutine(_timeLoop);
-        _timeLoop= StartCoroutine(DecreaseRemainingTime());
+        _timeLoop = StartCoroutine(DecreaseRemainingTime());
         hasSlowedDown = false;
       }
-      
+
       view.SetIcon(speedModel.speedState);
     }
-    
+
     private void OnSlowDown()
     {
       hasSlowedDown = true;
-      
+
       view.SetIcon(speedModel.speedState);
-      
+
       StopCoroutine(_timeLoop);
-      _timeLoop= StartCoroutine(IncreaseRemainingTime());
+      _timeLoop = StartCoroutine(IncreaseRemainingTime());
     }
 
     private void StartShadowLoop()
     {
       _shadowLoop ??= StartCoroutine(ShadowLoop());
     }
-    
+
     private void StopShadowLoop()
     {
-      if (_shadowLoop == null) return;
+      if (_shadowLoop == null)
+      {
+        return;
+      }
+
       StopCoroutine(_shadowLoop);
       _shadowLoop = null;
     }
-
 
     private IEnumerator ShadowLoop()
     {
@@ -152,7 +171,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       }
       else
       {
-        float a = 1 - ((currentDistance / spawnDistance));
+        float a = 1 - currentDistance / spawnDistance;
         view.SetShadowOpacity(a);
       }
     }
@@ -161,7 +180,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       view.SetState(false);
     }
-    
+
     private void OnSettings()
     {
       dispatcher.Dispatch(GameEvent.SettingsPanel, transform);
@@ -170,7 +189,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(GameHudEvent.Settings, OnSettings);
-      
+
       dispatcher.RemoveListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
       dispatcher.RemoveListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
@@ -178,6 +197,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
+      dispatcher.AddListener(PlayerEvent.Dash, OnDash);
     }
   }
 }

@@ -1,6 +1,5 @@
 ﻿using strange.extensions.mediation.impl;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 {
@@ -8,6 +7,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
   {
     [Header("Sounds")]
     public AudioClip gameTheme;
+
     public AudioClip menuTheme;
     public AudioClip jumpClip;
     public AudioClip deathSoundClip;
@@ -21,9 +21,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     [Header("Refrences")]
     public AudioSource audioSource;
 
-    public void PlayAudioClip(AudioClip audioClip)
+    public void PlayAudioClip(AudioClip audioClip, float volume = 1f)
     {
-      audioSource.PlayOneShot(audioClip);
+      audioSource.PlayOneShot(audioClip, volume);
     }
 
     public void LoopAudioClip(AudioClip audioClip)

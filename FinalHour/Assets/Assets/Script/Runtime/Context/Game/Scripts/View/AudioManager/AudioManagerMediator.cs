@@ -21,12 +21,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.AddListener(SoundEvent.SpeedUpTime, OnSpeedUpTime);
       dispatcher.AddListener(SoundEvent.EnemyCloser, OnEnemyCloser);
     }
-    
+
     private void OnStartGame()
     {
       view.LoopAudioClip(view.gameTheme);
     }
-    
+
     private void OnMenu()
     {
       view.LoopAudioClip(view.menuTheme);
@@ -59,7 +59,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 
     private void OnDeath()
     {
-      view.PlayAudioClip(view.deathSoundClip);
+      view.PlayAudioClip(view.deathSoundClip, 0.5f);
     }
 
     private void OnFire()
@@ -71,7 +71,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     {
       view.PlayAudioClip(view.jumpClip);
     }
-    
+
     public override void OnRemove()
     {
       dispatcher.RemoveListener(SoundEvent.StartGame, OnStartGame);

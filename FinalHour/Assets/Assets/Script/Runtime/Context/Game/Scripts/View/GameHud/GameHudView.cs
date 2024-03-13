@@ -11,18 +11,24 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public TextMeshProUGUI timerText;
 
     public TextMeshProUGUI scoreText;
-    
+
     [SerializeField]
     private GameObject hourglassIcon;
-    
+
     [SerializeField]
     private Graphic shadowImage;
+
+    [SerializeField]
+    private Image fireCooldownImage;
+
+    [SerializeField]
+    private Image dashCooldownImage;
 
     public void UpdateTimer(float remainingTime)
     {
       int minutes = Mathf.FloorToInt(remainingTime / 60f);
       int seconds = Mathf.FloorToInt(remainingTime % 60f);
-      
+
       timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
@@ -30,7 +36,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       scoreText.text = score.ToString();
     }
-    
+
     public void SetIcon(SpeedState speedState)
     {
       hourglassIcon.SetActive(speedState != SpeedState.Normal);
@@ -41,7 +47,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       Color color = shadowImage.color;
       shadowImage.color = new Color(color.r, color.b, color.g, opacity);
     }
-    
+
     public void SetState(bool isActive)
     {
       gameObject.SetActive(isActive);

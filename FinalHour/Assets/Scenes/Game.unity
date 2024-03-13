@@ -768,7 +768,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &1670475628
 Animator:
   serializedVersion: 4
@@ -796,14 +796,14 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670475620}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: a52c23fc6f945a74399fd2881642e61d, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.14652061, y: -0.28065848}
-  m_Size: {x: 2.2941456, y: 2.3219376}
+  m_Offset: {x: 0.07879281, y: -0.2453748}
+  m_Size: {x: 2.15869, y: 2.2513702}
   m_Direction: 0
 --- !u!82 &1670475633
 AudioSource:
@@ -1649,6 +1649,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 7319764256170985939, guid: 81d7733db6638824babd6c8692346153, type: 3}
+      propertyPath: dashCooldownImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319764256170985939, guid: 81d7733db6638824babd6c8692346153, type: 3}
+      propertyPath: fireCooldownImage
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7319764256170985941, guid: 81d7733db6638824babd6c8692346153, type: 3}
       propertyPath: m_Name
       value: GameHudLayer

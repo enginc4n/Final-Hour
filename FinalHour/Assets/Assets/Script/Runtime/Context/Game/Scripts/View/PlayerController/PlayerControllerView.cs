@@ -7,7 +7,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 {
   public class PlayerControllerView : EventView
   {
-
     public Rigidbody2D playerRigidbody2D;
     public CircleCollider2D playerBodyCollider;
     public CapsuleCollider2D playerCrouchCollider;
@@ -77,6 +76,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void CrouchFinished(InputAction.CallbackContext context)
     {
+      if (!playerCrouchCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+      {
+        return;
+      }
+
       animator.SetBool("isCrouch", false);
       dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
@@ -127,7 +131,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
     }
-    
+
     public void DisableInputs()
     {
       crouch.canceled -= CrouchFinished;
@@ -145,11 +149,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       {
         EnableInputs();
         animator.SetBool("isDead", false);
-      } 
+      }
       else
-      { 
+      {
         DisableInputs();
-        animator.SetBool("isDead", true);      }
+        animator.SetBool("isDead", true);
+      }
     }
 
     public void ChangeColor(Color color)
@@ -160,7 +165,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public void SetColliders()
     {
       playerBodyCollider.enabled = !playerBodyCollider.enabled;
-      playerCrouchCollider.enabled = !playerCrouchCollider.enabled;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
