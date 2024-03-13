@@ -28,19 +28,32 @@ Death is chasing you; evade ostacles by jumping or crouching. Speed up time when
 
 ## 👥 Creators 
 * Beril Taner (UI/UX Designer / 2D Artist)
- 
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/beril-taner-014909/)
+
+</a>
+<a href="https://www.linkedin.com/in/beril-taner-014909/" target="_blank">
+<img src=https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;"height="25" />
+</a>
+
 * Engin Can Altınöz (Game Developer)
-  
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/enginc4n/)
-[![itchio](https://img.shields.io/badge/itchio-enginc4n-critical?logo)](https://enginc4n.itch.io/)
+</a>
+<a href="https://linkedin.com/in/enginc4n" target="_blank">
+<img src=https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;"height="25" />
+<a href="https://enginc4n.itch.io/" target="_blank">
+<img src=https://img.shields.io/badge/itchio-enginc4n-critical?logo=Itch.io height="25">
+</a>
 
 * Nuri Özgür Sarıgöz (Game Developer / Game Designer)
-  
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nuri-%C3%B6zg%C3%BCr-sar%C4%B1g%C3%B6z/)
+</a>
+<a href="https://www.linkedin.com/in/nuri-%C3%B6zg%C3%BCr-sar%C4%B1g%C3%B6z/" target="_blank">
+<img src=https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;"height="25" />
+</a>
+
 * Çağan Kiper (Game Developer / Sound Designer)
-  
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/cagan-kiper/)
+</a>
+<a href="https://www.linkedin.com/in/cagan-kiper/" target="_blank">
+<img src=https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;"height="25" />
+</a>
+
 
 #### Game Link:
 <a href="https://enginc4n.itch.io/final-hour" target="_blank">
