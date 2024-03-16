@@ -1,5 +1,4 @@
 ﻿
-
 using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
@@ -12,24 +11,24 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float GameSpeedUpRate= 5f;
     public const float GameSpeedUpAmount = 0.05f;
  
-    public const float startingTime = 60f;
-    public const float spawnRate = 2f;
-    public const float addTimeAmount = 7f;
+    public const float StartingTime = 60f;
+    public const float SpawnRate = 2f;
+    public const float AddTimeAmount = 7f;
     
     //Jump
-    public const float jumpSpeed = 7f;
-    public const float jumpHeight = 1.5f;
+    public const float JumpSpeed = 7f;
+    public const float JumpHeight = 1.5f;
 
     //Dash
-    public const float dashCost = 2f;
-    public const float dashDuration = 1f;
-    public const float dashRate = 5f;
+    public const float DashCost = 2f;
+    public const float DashDuration = 1f;
+    public const float DashCooldown = 5f;
     public const float dashSpeed = 0.5f;
     
     //Fire
-    public const float fireCost = 4f;   
-    public const float fireRate = 5f;
-    public const float bulletSpeed = 15f;
+    public const float FireCost = 4f;   
+    public const float FireCooldown = 0.5f;
+    public const float BulletSpeed = 15f;
 
 
     //TimeControlSettings
@@ -38,7 +37,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float FastGameSpeed = 1.5f;
 
     //Enemy
-    public const float enemySpeed = 2f;
+    public const float EnemySpeed = 2f;
     public static readonly Vector3 EnemySpawnPosition = new Vector3(-18, 1, 0);
   }
 }

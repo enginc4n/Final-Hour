@@ -23,7 +23,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     {
       currentGameSpeed = GameControlSettings.StartingGameSpeed;
       score = 0;
-      remainingTime = GameControlSettings.startingTime;
+      remainingTime = GameControlSettings.StartingTime;
 
       isAlive = true;
     }
@@ -31,7 +31,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public void ChangeRemainingTime(float value)
     {
       remainingTime += value;
-      
+
+      if (remainingTime <= 0)
+      {
+        remainingTime = 0f;
+        Die();
+      }
+
       dispatcher.Dispatch(PlayerEvent.UpdateRemainingTime);
     }
 

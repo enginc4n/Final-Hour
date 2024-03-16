@@ -63,7 +63,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         yield return new WaitForSecondsRealtime(GameControlSettings.GameSpeedUpRate);
         playerModel.currentGameSpeed += GameControlSettings.GameSpeedUpAmount;
         dispatcher.Dispatch(PlayerEvent.GameSpeedUp);
-        Debug.LogError(playerModel.currentGameSpeed);
       }
     }
 
@@ -99,7 +98,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      view.playerRigidbody2D.DOMoveY(GameControlSettings.jumpHeight, GameControlSettings.jumpSpeed).SetSpeedBased();
+      view.playerRigidbody2D.DOMoveY(GameControlSettings.JumpHeight, GameControlSettings.JumpSpeed).SetSpeedBased();
       dispatcher.Dispatch(SoundEvent.Jump);
     }
 
@@ -115,8 +114,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      playerModel.ChangeRemainingTime(-GameControlSettings.dashCost);
-      dispatcher.Dispatch(PlayerEvent.Dash);
+      view.isDashReady = false;
+      playerModel.ChangeRemainingTime(-GameControlSettings.DashCost);
       StartCoroutine(DashTimer());
     }
 
@@ -125,17 +124,22 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       playerModel.isDashing = true;
       view.ChangeColor(new Color(0.3f, 0.8f, 1f, 0.75f));
       playerModel.currentGameSpeed += 0.5f;
-      yield return new WaitForSeconds(GameControlSettings.dashDuration);
+      yield return new WaitForSeconds(GameControlSettings.DashDuration);
       playerModel.currentGameSpeed -= 0.5f;
       playerModel.isDashing = false;
       view.ChangeColor(Color.white);
+      dispatcher.Dispatch(PlayerEvent.Dash);
+      StartCoroutine(view.DashCooldown());
     }
 
     private void OnFireBulletAction()
     {
-      playerModel.ChangeRemainingTime(-GameControlSettings.fireCost);
+      view.isFireReady = false;
+      
+      playerModel.ChangeRemainingTime(-GameControlSettings.FireCost);
       dispatcher.Dispatch(PlayerEvent.FireBullet, view.gameObject.transform);
       dispatcher.Dispatch(SoundEvent.Fire);
+      StartCoroutine(view.FireCooldown());
     }
 
     private void OnSlowDownTimeAction()

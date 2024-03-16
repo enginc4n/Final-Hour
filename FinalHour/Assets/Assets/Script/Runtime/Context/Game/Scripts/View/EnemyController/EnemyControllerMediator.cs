@@ -59,7 +59,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void OnSlowDown()
     {
-      view.MoveEnemy(GameControlSettings.enemySpeed);
+      view.MoveEnemy(GameControlSettings.EnemySpeed);
       StartPositionLoop();
 
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
@@ -72,7 +72,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
         return;
       }
 
-      view.MoveEnemy(-GameControlSettings.enemySpeed);
+      view.MoveEnemy(-GameControlSettings.EnemySpeed);
       StartPositionLoop();
 
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);

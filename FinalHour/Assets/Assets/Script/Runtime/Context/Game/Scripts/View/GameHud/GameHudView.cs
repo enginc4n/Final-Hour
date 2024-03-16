@@ -1,3 +1,4 @@
+using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using strange.extensions.mediation.impl;
 using TMPro;
@@ -12,6 +13,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public TextMeshProUGUI scoreText;
 
+    public TextMeshProUGUI dashCooldownText;
+
+    public TextMeshProUGUI fireCooldownText;
+
     [SerializeField]
     private GameObject hourglassIcon;
 
@@ -23,8 +28,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     [SerializeField]
     private Image dashCooldownImage;
+    
+    private const float CooldownTickRate = 0.01f;
 
-    public void UpdateTimer(float remainingTime)
+    private float _currentDashTime;
+
+    private float _currentFireTime;
+
+    public void UpdateDashTimer(float remainingTime)
     {
       int minutes = Mathf.FloorToInt(remainingTime / 60f);
       int seconds = Mathf.FloorToInt(remainingTime % 60f);
@@ -51,6 +62,58 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public void SetState(bool isActive)
     {
       gameObject.SetActive(isActive);
+    }
+    
+    public void StartDashTimer()
+    {
+      _currentDashTime = GameControlSettings.DashCooldown;
+      InvokeRepeating(nameof(UpdateDashTimer), 0f, CooldownTickRate); 
+    }
+    
+    private void UpdateDashTimer()
+    {
+      _currentDashTime -= CooldownTickRate; 
+
+      if (_currentDashTime <= 0)
+      {
+        _currentDashTime = 0;
+        CancelInvoke(nameof(UpdateDashTimer));
+      }
+
+      UpdateTimer(dashCooldownImage, dashCooldownText, _currentDashTime, GameControlSettings.DashCooldown);
+    }
+    
+    public void StartFireTimer()
+    {
+      _currentFireTime = GameControlSettings.FireCooldown;
+      InvokeRepeating(nameof(UpdateFireTimer), 0f, CooldownTickRate); 
+    }
+    
+    private void UpdateFireTimer()
+    {
+      _currentFireTime -= CooldownTickRate; 
+
+      if (_currentFireTime <= 0)
+      {
+        _currentFireTime = 0;
+        CancelInvoke(nameof(UpdateFireTimer));
+      }
+ 
+      UpdateTimer(fireCooldownImage, fireCooldownText, _currentFireTime, GameControlSettings.FireCooldown);
+    }
+
+    private void UpdateTimer(Image image, TMP_Text label, float currentCooldown, float totalCooldown)
+    {
+      if (currentCooldown > 0)
+      {
+        image.fillAmount = currentCooldown / totalCooldown;
+        label.text = Mathf.Ceil(currentCooldown).ToString();
+      }
+      else
+      {
+        image.fillAmount = 0;
+        label.text = string.Empty;
+      }
     }
 
     public void OnSettings()

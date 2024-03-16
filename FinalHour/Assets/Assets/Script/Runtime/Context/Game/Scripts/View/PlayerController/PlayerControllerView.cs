@@ -1,3 +1,4 @@
+using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using strange.extensions.mediation.impl;
 using UnityEngine;
@@ -21,6 +22,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private InputAction speedUpTime;
     private float dashCoolDown;
     private float fireCoolDown;
+
+    [HideInInspector]
+    public bool isDashReady = true;
+    
+    [HideInInspector]
+    public bool isFireReady = true;
 
     protected override void Awake()
     {
@@ -92,13 +99,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      if (Time.time < fireCoolDown)
+      if (!isFireReady)
       {
         return;
       }
 
-      fireCoolDown = Time.time + 1f / GameControlSettings.fireRate;
       dispatcher.Dispatch(PlayerControllerEvents.FireBulletAction);
+    }
+    
+    public IEnumerator FireCooldown()
+    {
+      yield return new WaitForSeconds(GameControlSettings.FireCooldown);
+      
+      isFireReady = true;
     }
 
     private void OnDash(InputValue inputValue)
@@ -108,13 +121,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      if (Time.time < dashCoolDown)
+      if (!isDashReady)
       {
         return;
       }
-
-      dashCoolDown = Time.time + 1f / GameControlSettings.dashRate;
+      
       dispatcher.Dispatch(PlayerControllerEvents.Dash);
+    }
+    
+    public IEnumerator DashCooldown()
+    {
+      yield return new WaitForSeconds(GameControlSettings.DashCooldown);
+      
+      isDashReady = true;
     }
 
     private void OnSpeedUpTime()

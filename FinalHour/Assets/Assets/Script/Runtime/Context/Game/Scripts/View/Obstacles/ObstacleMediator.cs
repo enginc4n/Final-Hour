@@ -25,7 +25,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.AddListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
       dispatcher.AddListener(PlayerEvent.GameSpeedUp, OnGameSpeedUp);
-      Debug.LogError("add listen");
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
 
@@ -62,7 +61,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void CollectibleProcess()
     {
-      playerModel.remainingTime += GameControlSettings.addTimeAmount;
+      playerModel.remainingTime += GameControlSettings.AddTimeAmount;
       view.InstantiateObject(view.collectParticle);
       dispatcher.Dispatch(SoundEvent.Collect);
       Destroy(view.gameObject);
@@ -92,7 +91,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
       dispatcher.RemoveListener(PlayerEvent.GameSpeedUp, OnGameSpeedUp);
-      Debug.LogError("remove listen");
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }
