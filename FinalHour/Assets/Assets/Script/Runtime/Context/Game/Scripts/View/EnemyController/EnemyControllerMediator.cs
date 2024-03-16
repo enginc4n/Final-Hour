@@ -1,6 +1,7 @@
 using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -22,6 +23,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     [Inject]
     public IEnemyModel enemyModel { get; set; }
+    
+    [Inject]
+    public ISpeedModel speedModel { get; set; }
 
     private Coroutine _positionLoop;
 
@@ -123,7 +127,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     {
       OnSlowDown();
       yield return new WaitForSeconds(0.5f);
-      OnReturnNormalSpeed();
+      switch (speedModel.speedState)
+      {
+        case SpeedState.Fast:
+          OnSpeedUp();
+          break;
+        case SpeedState.Normal:
+          OnReturnNormalSpeed();
+          break;
+        case SpeedState.Slow:
+          OnSlowDown();
+          break;
+      }
     }
 
     public override void OnRemove()
