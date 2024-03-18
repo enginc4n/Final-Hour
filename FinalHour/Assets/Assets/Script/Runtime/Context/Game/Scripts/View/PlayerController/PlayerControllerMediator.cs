@@ -123,9 +123,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       playerModel.isDashing = true;
       view.ChangeColor(new Color(0.3f, 0.8f, 1f, 0.75f));
-      playerModel.currentGameSpeed += 0.5f;
+      playerModel.currentGameSpeed += GameControlSettings.DashSpeed;
       yield return new WaitForSeconds(GameControlSettings.DashDuration);
-      playerModel.currentGameSpeed -= 0.5f;
+      playerModel.currentGameSpeed -= GameControlSettings.DashSpeed;
       playerModel.isDashing = false;
       view.ChangeColor(Color.white);
       dispatcher.Dispatch(PlayerEvent.Dash);

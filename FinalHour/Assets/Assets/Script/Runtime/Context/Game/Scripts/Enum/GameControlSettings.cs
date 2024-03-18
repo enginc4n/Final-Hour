@@ -5,28 +5,30 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
 {
   public class GameControlSettings
   { 
+    public const float StartingTime = 60f;
+    
     //GameSpeed
     public const float StartingGameSpeed = 0.5f;
     public const float MaxGameSpeed = 5f;
     public const float GameSpeedUpRate= 5f;
     public const float GameSpeedUpAmount = 0.05f;
- 
-    public const float StartingTime = 60f;
+    
+    //Spawns
     public const float SpawnRate = 2f;
-    public const float AddTimeAmount = 7f;
+    public const float CollectibleTimeAmount = 15f;
     
     //Jump
     public const float JumpSpeed = 7f;
     public const float JumpHeight = 1.5f;
 
     //Dash
-    public const float DashCost = 2f;
+    public const float DashCost = 10f;
     public const float DashDuration = 1f;
     public const float DashCooldown = 5f;
-    public const float dashSpeed = 0.5f;
+    public const float DashSpeed = 0.5f;
     
     //Fire
-    public const float FireCost = 4f;   
+    public const float FireCost = 5f;   
     public const float FireCooldown = 0.5f;
     public const float BulletSpeed = 15f;
 

@@ -67,7 +67,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void OnSpeedUp()
     {
-      if (view.enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Default")))
+      if (view.enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Barrier")))
       {
         return;
       }
@@ -144,6 +144,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
+      view.dispatcher.RemoveListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
       
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);

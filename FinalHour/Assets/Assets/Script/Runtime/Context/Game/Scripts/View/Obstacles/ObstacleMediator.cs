@@ -61,7 +61,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void CollectibleProcess()
     {
-      playerModel.remainingTime += GameControlSettings.AddTimeAmount;
+      playerModel.remainingTime += GameControlSettings.CollectibleTimeAmount;
       view.InstantiateObject(view.collectParticle);
       dispatcher.Dispatch(SoundEvent.Collect);
       Destroy(view.gameObject);
