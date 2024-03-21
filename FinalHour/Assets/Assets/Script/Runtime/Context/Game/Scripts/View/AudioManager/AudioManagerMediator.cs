@@ -22,6 +22,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.AddListener(PlayerEvent.Dash, OnDash);
       dispatcher.AddListener(GameEvent.Start, OnStartGame);
       dispatcher.AddListener(GameEvent.Menu, OnMenu);
+      dispatcher.AddListener(GameEvent.Pause, OnPause);
+      dispatcher.AddListener(GameEvent.Continue, OnContinue);
     }
 
     private void OnPlayerDied()
@@ -68,6 +70,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     {
     }
 
+    private void OnPause()
+    {
+    }
+
+    private void OnContinue()
+    {
+    }
+
     public override void OnRemove()
     {
       dispatcher.RemoveListener(PlayerEvent.Died, OnPlayerDied);
@@ -81,6 +91,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.RemoveListener(PlayerEvent.Dash, OnDash);
       dispatcher.RemoveListener(GameEvent.Start, OnStartGame);
       dispatcher.RemoveListener(GameEvent.Menu, OnMenu);
+      dispatcher.RemoveListener(GameEvent.Pause, OnPause);
+      dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
     }
   }
 }
