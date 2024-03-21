@@ -19,7 +19,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.AddListener(PlayerEvent.FireBullet, OnFireBullet);
       dispatcher.AddListener(PlayerEvent.Jump, OnJump);
       dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, OnEnemyStartedMoving);
-      dispatcher.AddListener(GameEvent.Start, OnStart);
+      dispatcher.AddListener(PlayerEvent.Dash, OnDash);
+      dispatcher.AddListener(GameEvent.Start, OnStartGame);
       dispatcher.AddListener(GameEvent.Menu, OnMenu);
     }
 
@@ -55,7 +56,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     {
     }
 
-    private void OnStart()
+    private void OnDash()
+    {
+    }
+
+    private void OnStartGame()
     {
     }
 
@@ -72,9 +77,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.RemoveListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
       dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFireBullet);
       dispatcher.RemoveListener(PlayerEvent.Jump, OnJump);
-      dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, OnEnemyStartedMoving);
-      dispatcher.AddListener(GameEvent.Start, OnStart);
-      dispatcher.AddListener(GameEvent.Menu, OnMenu);
+      dispatcher.RemoveListener(PlayerEvent.EnemyStartedMoving, OnEnemyStartedMoving);
+      dispatcher.RemoveListener(PlayerEvent.Dash, OnDash);
+      dispatcher.RemoveListener(GameEvent.Start, OnStartGame);
+      dispatcher.RemoveListener(GameEvent.Menu, OnMenu);
     }
   }
 }

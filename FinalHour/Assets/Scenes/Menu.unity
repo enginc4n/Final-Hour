@@ -660,6 +660,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2619862067006754940, guid: 20ac707ee6309be4599f6b8a1856fe76, type: 3}
+      propertyPath: sfxSounds.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2619862067006754940, guid: 20ac707ee6309be4599f6b8a1856fe76, type: 3}
+      propertyPath: sfxSounds.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: de7fd7c059609cc48b5600d28193bdde, type: 3}
+    - target: {fileID: 2619862067006754940, guid: 20ac707ee6309be4599f6b8a1856fe76, type: 3}
+      propertyPath: sfxSounds.Array.data[8].name
+      value: Dash
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20ac707ee6309be4599f6b8a1856fe76, type: 3}
 --- !u!4 &1356869017 stripped
