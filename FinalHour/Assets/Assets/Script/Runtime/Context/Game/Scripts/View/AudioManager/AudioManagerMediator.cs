@@ -1,4 +1,5 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
@@ -10,80 +11,70 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(SoundEvent.StartGame, OnStartGame);
-      dispatcher.AddListener(SoundEvent.Menu, OnMenu);
-      dispatcher.AddListener(SoundEvent.Jump, OnJump);
-      dispatcher.AddListener(SoundEvent.Fire, OnFire);
-      dispatcher.AddListener(SoundEvent.DeathSound, OnDeath);
-      dispatcher.AddListener(SoundEvent.Collect, OnCollect);
-      dispatcher.AddListener(SoundEvent.Destroy, OnDestroyObject);
-      dispatcher.AddListener(SoundEvent.SlowDownSpeed, OnSlowDownTime);
-      dispatcher.AddListener(SoundEvent.SpeedUpTime, OnSpeedUpTime);
-      dispatcher.AddListener(SoundEvent.EnemyCloser, OnEnemyCloser);
+      dispatcher.AddListener(PlayerEvent.Died, OnPlayerDied);
+      dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
+      dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
+      dispatcher.AddListener(PlayerEvent.Collect, OnCollect);
+      dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
+      dispatcher.AddListener(PlayerEvent.FireBullet, OnFireBullet);
+      dispatcher.AddListener(PlayerEvent.Jump, OnJump);
+      dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, OnEnemyStartedMoving);
+      dispatcher.AddListener(GameEvent.Start, OnStart);
+      dispatcher.AddListener(GameEvent.Menu, OnMenu);
     }
 
-    private void OnStartGame()
+    private void OnPlayerDied()
     {
-      view.LoopAudioClip(view.gameTheme);
     }
 
-    private void OnMenu()
+    private void OnSlowDown()
     {
-      view.LoopAudioClip(view.menuTheme);
     }
 
-    private void OnEnemyCloser()
+    private void OnSpeedUp()
     {
-      view.PlayAudioClip(view.enemyCloserClip);
-    }
-
-    private void OnSpeedUpTime()
-    {
-      view.PlayAudioClip(view.speedUpTimeClip);
-    }
-
-    private void OnSlowDownTime()
-    {
-      view.PlayAudioClip(view.slowDownSpeedClip);
-    }
-
-    private void OnDestroyObject()
-    {
-      view.PlayAudioClip(view.destroyClip);
     }
 
     private void OnCollect()
     {
-      view.PlayAudioClip(view.collectClip);
     }
 
-    private void OnDeath()
+    private void OnCrashObstacle()
     {
-      view.PlayAudioClip(view.deathSoundClip, 0.5f);
     }
 
-    private void OnFire()
+    private void OnFireBullet()
     {
-      view.PlayAudioClip(view.fireClip);
     }
 
     private void OnJump()
     {
-      view.PlayAudioClip(view.jumpClip);
+    }
+
+    private void OnEnemyStartedMoving()
+    {
+    }
+
+    private void OnStart()
+    {
+    }
+
+    private void OnMenu()
+    {
     }
 
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(SoundEvent.StartGame, OnStartGame);
-      dispatcher.RemoveListener(SoundEvent.Menu, OnMenu);
-      dispatcher.RemoveListener(SoundEvent.Jump, OnJump);
-      dispatcher.RemoveListener(SoundEvent.Fire, OnFire);
-      dispatcher.RemoveListener(SoundEvent.DeathSound, OnDeath);
-      dispatcher.RemoveListener(SoundEvent.Collect, OnCollect);
-      dispatcher.RemoveListener(SoundEvent.Destroy, OnDestroyObject);
-      dispatcher.RemoveListener(SoundEvent.SlowDownSpeed, OnSlowDownTime);
-      dispatcher.RemoveListener(SoundEvent.SpeedUpTime, OnSpeedUpTime);
-      dispatcher.AddListener(SoundEvent.EnemyCloser, OnEnemyCloser);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnPlayerDied);
+      dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);
+      dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);
+      dispatcher.RemoveListener(PlayerEvent.Collect, OnCollect);
+      dispatcher.RemoveListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
+      dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFireBullet);
+      dispatcher.RemoveListener(PlayerEvent.Jump, OnJump);
+      dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, OnEnemyStartedMoving);
+      dispatcher.AddListener(GameEvent.Start, OnStart);
+      dispatcher.AddListener(GameEvent.Menu, OnMenu);
     }
   }
 }

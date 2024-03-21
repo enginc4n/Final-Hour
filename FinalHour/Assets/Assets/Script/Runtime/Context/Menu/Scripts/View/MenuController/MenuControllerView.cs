@@ -1,5 +1,4 @@
 ﻿using strange.extensions.mediation.impl;
-using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
 {
@@ -9,10 +8,15 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
     {
       dispatcher.Dispatch(MenuControllerEvent.Press);
     }
-    
+
     public void OnSettings()
     {
       dispatcher.Dispatch(MenuControllerEvent.Settings);
+    }
+
+    public void OnSoundSettings()
+    {
+      dispatcher.Dispatch(MenuControllerEvent.SoundSettings);
     }
   }
 }

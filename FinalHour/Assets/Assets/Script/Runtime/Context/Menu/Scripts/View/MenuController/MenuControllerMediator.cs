@@ -7,9 +7,10 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
   public enum MenuControllerEvent
   {
     Press,
-    Settings
+    Settings,
+    SoundSettings
   }
-  
+
   public class MenuControllerMediator : EventMediator
   {
     [Inject]
@@ -19,11 +20,17 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
     {
       view.dispatcher.AddListener(MenuControllerEvent.Press, OnPress);
       view.dispatcher.AddListener(MenuControllerEvent.Settings, OnSettings);
+      view.dispatcher.AddListener(MenuControllerEvent.SoundSettings, OnSoundSettings);
+    }
+
+    private void OnSoundSettings()
+    {
+      dispatcher.Dispatch(GameEvent.SoundSettingsPanel, transform);
     }
 
     public override void OnInitialize()
     {
-      dispatcher.Dispatch(SoundEvent.Menu);
+      dispatcher.Dispatch(GameEvent.Menu);
     }
 
     private void OnPress()
@@ -33,13 +40,14 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
 
     public void OnSettings()
     {
-      dispatcher.Dispatch(GameEvent.SettingsPanel,transform);
+      dispatcher.Dispatch(GameEvent.SettingsPanel, transform);
     }
 
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(MenuControllerEvent.Press, OnPress);
       view.dispatcher.RemoveListener(MenuControllerEvent.Settings, OnSettings);
+      view.dispatcher.RemoveListener(MenuControllerEvent.SoundSettings, OnSoundSettings);
     }
   }
 }

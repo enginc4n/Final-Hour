@@ -120,7 +120,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void OnCrashObstacle()
     {
       StartCoroutine(CrashRoutine());
-      dispatcher.Dispatch(SoundEvent.EnemyCloser);
     }
 
     private IEnumerator CrashRoutine()

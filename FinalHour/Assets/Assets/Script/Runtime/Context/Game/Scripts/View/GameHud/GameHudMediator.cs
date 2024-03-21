@@ -56,8 +56,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.UpdateDashTimer(playerModel.remainingTime);
       view.UpdateScore(playerModel.score);
       CountTime();
-
-      dispatcher.Dispatch(SoundEvent.StartGame);
     }
 
     private void CountTime()
@@ -92,7 +90,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         view.UpdateScore(playerModel.score);
       }
     }
-    
+
     private void OnDash()
     {
       view.StartDashTimer();

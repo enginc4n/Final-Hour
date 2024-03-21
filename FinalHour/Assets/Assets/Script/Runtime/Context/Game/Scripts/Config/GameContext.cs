@@ -34,7 +34,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
     protected override void mapBindings()
     {
       SettingsModuleConfigurator.All(this);
-      
+
       injectionBinder.Bind<IPlayerModel>().To<PlayerModel>().ToSingleton();
       injectionBinder.Bind<ISpeedModel>().To<SpeedModel>().ToSingleton();
       injectionBinder.Bind<IEnemyModel>().To<EnemyModel>().ToSingleton();

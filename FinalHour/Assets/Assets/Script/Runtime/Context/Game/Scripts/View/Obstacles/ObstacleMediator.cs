@@ -63,7 +63,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     {
       playerModel.remainingTime += GameControlSettings.CollectibleTimeAmount;
       view.InstantiateObject(view.collectParticle);
-      dispatcher.Dispatch(SoundEvent.Collect);
+      dispatcher.Dispatch(PlayerEvent.Collect);
       Destroy(view.gameObject);
     }
 
@@ -71,7 +71,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     {
       view.InstantiateObject(view.crushParticle);
       dispatcher.Dispatch(PlayerEvent.CrashObstacle);
-      dispatcher.Dispatch(SoundEvent.Destroy);
       Destroy(view.gameObject);
     }
 

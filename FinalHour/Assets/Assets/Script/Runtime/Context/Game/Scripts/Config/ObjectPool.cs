@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +9,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
     public static ObjectPool instance;
 
     private List<GameObject> pooledBullets = new();
-    private GameObject pooledPanel;
+    private GameObject pooledSettingsPanel;
+    private GameObject pooledSoundSettingsPanel;
 
     private int amountToPoolBullet = 10;
 
@@ -20,6 +19,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
 
     [SerializeField]
     private GameObject settingsPanel;
+
+    [SerializeField]
+    private GameObject soundSettingsPanel;
 
     private void Awake()
     {
@@ -41,8 +43,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
         }
       }
 
-      pooledPanel = Instantiate(settingsPanel);
-      pooledPanel.SetActive(false);
+      pooledSettingsPanel = Instantiate(settingsPanel);
+      pooledSettingsPanel.SetActive(false);
+
+      pooledSoundSettingsPanel = Instantiate(soundSettingsPanel);
+      pooledSoundSettingsPanel.SetActive(false);
     }
 
     public GameObject GetPooledBullet()
@@ -57,10 +62,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
 
       return null;
     }
-    
+
     public GameObject GetPooledSettings()
     {
-      return pooledPanel;
+      return pooledSettingsPanel;
+    }
+
+    public GameObject GetPooledSoundSettings()
+    {
+      return pooledSoundSettingsPanel;
     }
   }
 }

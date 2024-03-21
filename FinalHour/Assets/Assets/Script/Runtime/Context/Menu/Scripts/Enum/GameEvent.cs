@@ -6,6 +6,8 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Enum
     SettingsPanel,
     Exit,
     Pause,
-    Continue
+    Continue,
+    SoundSettingsPanel,
+    Menu
   }
 }

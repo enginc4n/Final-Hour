@@ -99,7 +99,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       }
 
       view.playerRigidbody2D.DOMoveY(GameControlSettings.JumpHeight, GameControlSettings.JumpSpeed).SetSpeedBased();
-      dispatcher.Dispatch(SoundEvent.Jump);
+      dispatcher.Dispatch(PlayerEvent.Jump);
     }
 
     private void OnReturnNormalSpeed()
@@ -135,23 +135,20 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnFireBulletAction()
     {
       view.isFireReady = false;
-      
+
       playerModel.ChangeRemainingTime(-GameControlSettings.FireCost);
       dispatcher.Dispatch(PlayerEvent.FireBullet, view.gameObject.transform);
-      dispatcher.Dispatch(SoundEvent.Fire);
       StartCoroutine(view.FireCooldown());
     }
 
     private void OnSlowDownTimeAction()
     {
       speedModel.SlowDownTime();
-      dispatcher.Dispatch(SoundEvent.SlowDownSpeed);
     }
 
     private void OnSpeedUpTimeAction()
     {
       speedModel.SpeedUpTime();
-      dispatcher.Dispatch(SoundEvent.SpeedUpTime);
     }
 
     public override void OnRemove()

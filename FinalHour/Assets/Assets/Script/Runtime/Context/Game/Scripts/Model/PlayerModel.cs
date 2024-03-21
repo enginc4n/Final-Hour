@@ -1,8 +1,6 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
-using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
-using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
@@ -10,7 +8,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
   {
     [Inject(ContextKeys.CONTEXT_DISPATCHER)]
     public IEventDispatcher dispatcher { get; set; }
-    
+
     public bool isAlive { get; set; }
     public float currentGameSpeed { get; set; }
     public int score { get; set; }
@@ -27,7 +25,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
       isAlive = true;
     }
-    
+
     public void ChangeRemainingTime(float value)
     {
       remainingTime += value;
@@ -55,7 +53,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     {
       isAlive = false;
       dispatcher.Dispatch(PlayerEvent.Died);
-      dispatcher.Dispatch(SoundEvent.DeathSound);
     }
   }
 }
