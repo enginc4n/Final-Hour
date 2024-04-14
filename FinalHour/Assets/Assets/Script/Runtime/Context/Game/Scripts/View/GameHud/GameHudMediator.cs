@@ -31,7 +31,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private Coroutine _timeLoop;
 
-    private bool hasSlowedDown;
+    private bool _hasSlowedDown;
 
     public override void OnRegister()
     {
@@ -45,6 +45,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
       dispatcher.AddListener(PlayerEvent.Dash, OnDash);
+      dispatcher.AddListener(PlayerEvent.FireBullet, OnFire);
     }
 
     public override void OnInitialize()
@@ -52,11 +53,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.SetState(true);
       view.SetShadowOpacity(0);
       view.SetIcon(speedModel.speedState);
-      view.UpdateTimer(playerModel.remainingTime);
+      view.UpdateDashTimer(playerModel.remainingTime);
       view.UpdateScore(playerModel.score);
       CountTime();
-
-      dispatcher.Dispatch(SoundEvent.StartGame);
     }
 
     private void CountTime()
@@ -92,33 +91,28 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       }
     }
 
-    // private IEnumerator DashTimer()
-    // {
-    //   float coolDown = GameControlSettings.dashRate;
-    //   while (coolDown > 0)
-    //   {
-    //     yield return new WaitForSeconds(1f);
-    //     view.DashCounter(coolDown / GameControlSettings.dashRate);
-    //     coolDown -= 1f;
-    //   }
-    // }
-    //
     private void OnDash()
     {
+      view.StartDashTimer();
+    }
+
+    private void OnFire()
+    {
+      view.StartFireTimer();
     }
 
     private void OnUpdateRemainingTime()
     {
-      view.UpdateTimer(playerModel.remainingTime);
+      view.UpdateDashTimer(playerModel.remainingTime);
     }
 
     private void OnChangeSpeed()
     {
-      if (hasSlowedDown)
+      if (_hasSlowedDown)
       {
         StopCoroutine(_timeLoop);
         _timeLoop = StartCoroutine(DecreaseRemainingTime());
-        hasSlowedDown = false;
+        _hasSlowedDown = false;
       }
 
       view.SetIcon(speedModel.speedState);
@@ -126,7 +120,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void OnSlowDown()
     {
-      hasSlowedDown = true;
+      _hasSlowedDown = true;
 
       view.SetIcon(speedModel.speedState);
 
@@ -197,7 +191,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
-      dispatcher.AddListener(PlayerEvent.Dash, OnDash);
+      dispatcher.RemoveListener(PlayerEvent.Dash, OnDash);
+      dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFire);
     }
   }
 }

@@ -4,26 +4,26 @@ using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using UnityEngine;
 
-namespace Assets.Script.Runtime.Context.Menu.Scripts.Model
+namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
   public class SpeedModel : ISpeedModel
   {
     [Inject(ContextKeys.CONTEXT_DISPATCHER)]
     public IEventDispatcher dispatcher { get; set; }
-    
+
     public SpeedState speedState { get; set; }
-    
+
     [PostConstruct]
     public void OnPostConstruct()
     {
       speedState = SpeedState.Normal;
     }
-    
+
     public void SlowDownTime()
     {
       Time.timeScale = GameControlSettings.SlowGameSpeed;
       speedState = SpeedState.Slow;
-      
+
       dispatcher.Dispatch(PlayerEvent.SlowDown);
     }
 
@@ -31,7 +31,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Model
     {
       Time.timeScale = GameControlSettings.FastGameSpeed;
       speedState = SpeedState.Fast;
-      
+
       dispatcher.Dispatch(PlayerEvent.SpeedUp);
     }
 
@@ -39,7 +39,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Model
     {
       Time.timeScale = GameControlSettings.DefaultGameSpeed;
       speedState = SpeedState.Normal;
-      
+
       dispatcher.Dispatch(PlayerEvent.ReturnNormalSpeed);
     }
 

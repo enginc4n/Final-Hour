@@ -12,6 +12,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     CrashObstacle,
     UpdateRemainingTime,
     GameSpeedUp,
-    Dash
+    Dash,
+    Collect,
+    Jump
   }
 }

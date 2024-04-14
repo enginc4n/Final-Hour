@@ -1,6 +1,7 @@
 using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -22,6 +23,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     [Inject]
     public IEnemyModel enemyModel { get; set; }
+    
+    [Inject]
+    public ISpeedModel speedModel { get; set; }
 
     private Coroutine _positionLoop;
 
@@ -55,7 +59,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void OnSlowDown()
     {
-      view.MoveEnemy(GameControlSettings.enemySpeed);
+      view.MoveEnemy(GameControlSettings.EnemySpeed);
       StartPositionLoop();
 
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
@@ -63,12 +67,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void OnSpeedUp()
     {
-      if (view.enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Default")))
+      if (view.enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Barrier")))
       {
         return;
       }
 
-      view.MoveEnemy(-GameControlSettings.enemySpeed);
+      view.MoveEnemy(-GameControlSettings.EnemySpeed);
       StartPositionLoop();
 
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
@@ -116,19 +120,30 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void OnCrashObstacle()
     {
       StartCoroutine(CrashRoutine());
-      dispatcher.Dispatch(SoundEvent.EnemyCloser);
     }
 
     private IEnumerator CrashRoutine()
     {
       OnSlowDown();
       yield return new WaitForSeconds(0.5f);
-      OnReturnNormalSpeed();
+      switch (speedModel.speedState)
+      {
+        case SpeedState.Fast:
+          OnSpeedUp();
+          break;
+        case SpeedState.Normal:
+          OnReturnNormalSpeed();
+          break;
+        case SpeedState.Slow:
+          OnSlowDown();
+          break;
+      }
     }
 
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
+      view.dispatcher.RemoveListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
       
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);

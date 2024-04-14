@@ -10,7 +10,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.BulletController
 
     void OnEnable()
     {
-      bulletRigidBody.velocity = new Vector2(GameControlSettings.bulletSpeed, 0);
+      bulletRigidBody.velocity = new Vector2(GameControlSettings.BulletSpeed, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
