@@ -12,7 +12,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     public void ResetPosition()
     {
-      transform.position = GameControlSettings.EnemySpawnPosition;
+      transform.GetComponent<RectTransform>().anchoredPosition = GameControlSettings.EnemySpawnPosition;
     }
     
     public void MoveEnemy(float enemySpeed)

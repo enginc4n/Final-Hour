@@ -97,9 +97,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       {
         return;
       }
+      
+      float posY = transform.position.y;
 
-      view.playerRigidbody2D.DOMoveY(GameControlSettings.JumpHeight, GameControlSettings.JumpSpeed).SetSpeedBased();
-      dispatcher.Dispatch(PlayerEvent.Jump);
+      Tween jump = view.transform.DOMoveY(GameControlSettings.JumpHeight, GameControlSettings.JumpSpeed*playerModel.currentGameSpeed)
+        .SetEase(Ease.OutSine)
+        .SetSpeedBased()
+        .OnComplete(() => view.transform.DOMoveY(posY, GameControlSettings.JumpSpeed*playerModel.currentGameSpeed)
+          .SetSpeedBased()
+          .SetEase(Ease.InQuad)
+          .OnComplete(() => dispatcher.Dispatch(PlayerEvent.Jump)));
+
+      jump.Play();
     }
 
     private void OnReturnNormalSpeed()

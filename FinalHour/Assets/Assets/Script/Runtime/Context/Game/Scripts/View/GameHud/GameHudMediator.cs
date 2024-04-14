@@ -156,8 +156,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void UpdateShadow()
     {
-      float spawnDistance = Mathf.Abs(playerModel.position - GameControlSettings.EnemySpawnPosition.x);
-      float currentDistance = Mathf.Abs(playerModel.position - enemyModel.position);
+      float spawnDistance = Mathf.Abs(playerModel.position - enemyModel.spawnPosition);
+      float currentDistance = Mathf.Abs(playerModel.position - enemyModel.currentPosition);
 
       if (currentDistance >= spawnDistance)
       {

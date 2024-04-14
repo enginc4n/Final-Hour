@@ -30,7 +30,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     public override void OnInitialize()
     {
-      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed*20f, 0));
+      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed*GameControlSettings.ObstacleSpeed, 0));
     }
 
     private void OnObstacleIsBroken()

@@ -5,6 +5,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
   public interface IEnemyModel
   {
-    float position { get; set; }
+    float spawnPosition { get; set; }
+    float currentPosition { get; set; }
   }
 }

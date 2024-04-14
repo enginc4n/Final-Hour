@@ -44,11 +44,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     public override void OnInitialize()
     {
       view.ResetPosition();
+      enemyModel.spawnPosition = view.transform.position.x;
     }
 
     private void UpdateModel()
     {
-      enemyModel.position = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;
+      enemyModel.currentPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;
     }
 
     private void OnCaughtPlayer()

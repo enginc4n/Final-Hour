@@ -6,6 +6,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
   public class GameControlSettings
   { 
     public const float StartingTime = 60f;
+    public static readonly Vector3 PlayerSpawnPosition = new Vector3(275, 330, 0f);
     
     //GameSpeed
     public const float StartingGameSpeed = 0.5f;
@@ -16,9 +17,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     //Spawns
     public const float SpawnRate = 2f;
     public const float CollectibleTimeAmount = 15f;
+    public const float ObstacleSpeed = 20f;
     
     //Jump
-    public const float JumpSpeed = 7f;
+    public const float JumpSpeed = 14f;
     public const float JumpHeight = 1.5f;
 
     //Dash
@@ -32,7 +34,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float FireCooldown = 0.5f;
     public const float BulletSpeed = 15f;
 
-
     //TimeControlSettings
     public const float DefaultGameSpeed = 1f;
     public const float SlowGameSpeed = 0.5f;
@@ -40,6 +41,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
 
     //Enemy
     public const float EnemySpeed = 2f;
-    public static readonly Vector3 EnemySpawnPosition = new Vector3(-18, 1, 0);
+    public static readonly Vector3 EnemySpawnPosition = new Vector3(-800, 100, 0);
   }
 }

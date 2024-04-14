@@ -15,9 +15,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
     [Inject]
     public IPlayerModel playerModel { get; set; }
-
-
-
+    
     private List<GameObject> spawnPool = new();
     private float totalWeight;
     private Coroutine spawnCoroutine;
