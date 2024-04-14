@@ -37,6 +37,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       injectionBinder.Bind<IPlayerModel>().To<PlayerModel>().ToSingleton();
       injectionBinder.Bind<ISpeedModel>().To<SpeedModel>().ToSingleton();
       injectionBinder.Bind<IEnemyModel>().To<EnemyModel>().ToSingleton();
+      injectionBinder.Bind<ILeaderBoardModel>().To<LeaderBoardModel>().ToSingleton();
 
       mediationBinder.Bind<GameHudView>().To<GameHudMediator>();
       mediationBinder.Bind<PlayerControllerView>().To<PlayerControllerMediator>();
