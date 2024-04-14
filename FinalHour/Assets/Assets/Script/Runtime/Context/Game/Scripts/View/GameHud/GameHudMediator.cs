@@ -2,7 +2,6 @@ using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
-using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -84,7 +83,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       {
         yield return new WaitForSecondsRealtime(GameControlSettings.SlowGameSpeed);
 
-        playerModel.ChangeRemainingTime(+1f);
+        playerModel.ChangeRemainingTime(GameControlSettings.SlowGameSpeed * GameControlSettings.SlowTimeGain);
 
         playerModel.ChangeScore(1);
         view.UpdateScore(playerModel.score);

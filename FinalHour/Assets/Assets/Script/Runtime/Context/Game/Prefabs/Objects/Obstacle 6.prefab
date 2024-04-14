@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1395512489349982505}
   - component: {fileID: 8281075606265763610}
   - component: {fileID: 4060261317493771094}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Obstacle 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 162, y: 625}
+  m_SizeDelta: {x: 162, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &8235234232488996359
 BoxCollider2D:
@@ -54,7 +54,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.7718811, y: 6.7334595}
+  m_Offset: {x: 0.7718811, y: 8.527054}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -65,7 +65,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 135, y: 610}
+  m_Size: {x: 135, y: 642.20386}
   m_EdgeRadius: 0
 --- !u!50 &2386970288576672835
 Rigidbody2D:

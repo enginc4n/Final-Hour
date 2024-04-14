@@ -44,7 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     public override void OnInitialize()
     {
       view.ResetPosition();
-      enemyModel.spawnPosition = view.transform.position.x;
+      enemyModel.spawnPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;;
     }
 
     private void UpdateModel()
@@ -125,7 +125,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private IEnumerator CrashRoutine()
     {
-      OnSlowDown();
+      view.MoveEnemyCrash();
       yield return new WaitForSeconds(0.5f);
       switch (speedModel.speedState)
       {
