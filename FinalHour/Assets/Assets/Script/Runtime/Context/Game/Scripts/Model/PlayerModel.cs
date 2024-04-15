@@ -26,6 +26,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
       isAlive = true;
     }
 
+    public void ChangeScore(int value)
+    {
+      if (!isAlive)
+      {
+        return;
+      }
+
+      score += value;
+    }
+    
     public void ChangeRemainingTime(float value)
     {
       remainingTime += value;
@@ -36,19 +46,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
         Die();
       }
 
-      dispatcher.Dispatch(PlayerEvent.UpdateRemainingTime);
+      dispatcher.Dispatch(PlayerEvent.RemainingTimeUpdated);
     }
-
-    public void ChangeScore(int value)
+    
+    public void ChangeGameSpeed(float value)
     {
-      if (!isAlive)
-      {
-        return;
-      }
+      currentGameSpeed += value;
 
-      score += value;
+      dispatcher.Dispatch(PlayerEvent.GameSpeedUpdated);
     }
-
+    
     public void Die()
     {
       isAlive = false;

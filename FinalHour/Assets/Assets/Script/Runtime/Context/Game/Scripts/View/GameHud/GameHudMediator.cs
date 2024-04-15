@@ -39,11 +39,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
       dispatcher.AddListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
-      dispatcher.AddListener(PlayerEvent.UpdateRemainingTime, OnUpdateRemainingTime);
+      dispatcher.AddListener(PlayerEvent.RemainingTimeUpdated, OnUpdateRemainingTime);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
-      dispatcher.AddListener(PlayerEvent.Dash, OnDash);
+      dispatcher.AddListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.AddListener(PlayerEvent.FireBullet, OnFire);
     }
 
@@ -90,7 +90,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       }
     }
 
-    private void OnDash()
+    private void OnDashFinished()
     {
       view.StartDashTimer();
     }
@@ -186,11 +186,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
       dispatcher.RemoveListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
-      dispatcher.RemoveListener(PlayerEvent.UpdateRemainingTime, OnUpdateRemainingTime);
+      dispatcher.RemoveListener(PlayerEvent.RemainingTimeUpdated, OnUpdateRemainingTime);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
-      dispatcher.RemoveListener(PlayerEvent.Dash, OnDash);
+      dispatcher.RemoveListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFire);
     }
   }

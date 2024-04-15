@@ -10,9 +10,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     EnemyStartedMoving,
     EnemyStoppedMoving,
     CrashObstacle,
-    UpdateRemainingTime,
-    GameSpeedUp,
+    RemainingTimeUpdated,
+    GameSpeedUpdated,
     Dash,
+    DashFinished,
     Collect,
     Jump
   }

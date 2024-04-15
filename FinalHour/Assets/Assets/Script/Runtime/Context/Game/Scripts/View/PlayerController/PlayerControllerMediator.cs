@@ -61,8 +61,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       while (playerModel.currentGameSpeed < GameControlSettings.MaxGameSpeed && playerModel.isAlive)
       {
         yield return new WaitForSecondsRealtime(GameControlSettings.GameSpeedUpRate);
-        playerModel.currentGameSpeed += GameControlSettings.GameSpeedUpAmount;
-        dispatcher.Dispatch(PlayerEvent.GameSpeedUp);
+        playerModel.ChangeGameSpeed(GameControlSettings.GameSpeedUpAmount);
       }
     }
 
@@ -131,13 +130,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private IEnumerator DashTimer()
     {
       playerModel.isDashing = true;
+      dispatcher.Dispatch(PlayerEvent.Dash);
       view.ChangeColor(new Color(0.3f, 0.8f, 1f, 0.75f));
-      playerModel.currentGameSpeed += GameControlSettings.DashSpeed;
+      playerModel.ChangeGameSpeed(GameControlSettings.DashSpeed);
       yield return new WaitForSeconds(GameControlSettings.DashDuration);
-      playerModel.currentGameSpeed -= GameControlSettings.DashSpeed;
+      playerModel.ChangeGameSpeed(-GameControlSettings.DashSpeed);
       playerModel.isDashing = false;
       view.ChangeColor(Color.white);
-      dispatcher.Dispatch(PlayerEvent.Dash);
+      dispatcher.Dispatch(PlayerEvent.DashFinished);
       StartCoroutine(view.DashCooldown());
     }
 

@@ -126,6 +126,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private IEnumerator CrashRoutine()
     {
       view.MoveEnemyCrash();
+      StartPositionLoop();
       yield return new WaitForSeconds(0.5f);
       switch (speedModel.speedState)
       {

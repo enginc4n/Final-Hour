@@ -13,5 +13,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     void Die();
     void ChangeScore(int value);
     void ChangeRemainingTime(float value);
+    void ChangeGameSpeed(float value);
   }
 }

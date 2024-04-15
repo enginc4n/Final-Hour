@@ -24,7 +24,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.AddListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.AddListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
-      dispatcher.AddListener(PlayerEvent.GameSpeedUp, OnGameSpeedUp);
+      dispatcher.AddListener(PlayerEvent.GameSpeedUpdated, OnGameSpeedUpdated);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
 
@@ -74,7 +74,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       Destroy(view.gameObject);
     }
 
-    private void OnGameSpeedUp()
+    private void OnGameSpeedUpdated()
     {
       view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed*20f, 0));
     }
@@ -89,7 +89,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.RemoveListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
-      dispatcher.RemoveListener(PlayerEvent.GameSpeedUp, OnGameSpeedUp);
+      dispatcher.RemoveListener(PlayerEvent.GameSpeedUpdated, OnGameSpeedUpdated);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }
