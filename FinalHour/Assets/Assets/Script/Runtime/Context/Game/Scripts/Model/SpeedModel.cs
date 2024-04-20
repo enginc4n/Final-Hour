@@ -11,6 +11,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     [Inject(ContextKeys.CONTEXT_DISPATCHER)]
     public IEventDispatcher dispatcher { get; set; }
 
+    public float gameDistance { get; set; }
+
     public SpeedState speedState { get; set; }
 
     [PostConstruct]

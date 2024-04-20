@@ -14,9 +14,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     [Inject]
     public IPlayerModel playerModel { get; set; }
     
+    [Inject]
+    public ISpeedModel speedModel { get; set; }
+    
     public override void OnInitialize()
     {
-      StartCoroutine(LoopBackground());   
+      StartCoroutine(LoopBackground());
+      speedModel.gameDistance = view.image.transform.GetComponent<RectTransform>().sizeDelta.x;
     }
 
     private IEnumerator LoopBackground()
