@@ -14,7 +14,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     public Transform enemyBarrier;
     
     public Animator enemyAnimator;
-
+    
     public void ResetPosition()
     {
       float playerPosition = playerBodyCollider.bounds.center.x - playerBodyCollider.bounds.extents.x;

@@ -31,9 +31,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     protected override void Awake()
     {
-      transform.GetComponent<RectTransform>().anchoredPosition = GameControlSettings.PlayerSpawnPosition;
       playerInputActions = new PlayerInputActions();
       inputActionMap = playerInput.actions.FindActionMap("Player");
+    }
+
+    public void ResetPosition()
+    {
+      transform.GetComponent<RectTransform>().anchoredPosition = GameControlSettings.PlayerSpawnPosition;
     }
 
     public void EnableInputs()

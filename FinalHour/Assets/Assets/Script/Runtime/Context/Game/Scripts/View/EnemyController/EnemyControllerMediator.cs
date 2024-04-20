@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.IO;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
@@ -40,11 +42,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
       dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
     }
-
+    
     public override void OnInitialize()
     {
+      StartCoroutine(Off());  
+    }
+
+    private IEnumerator Off()
+    {
+      yield return new WaitForEndOfFrame();
       view.ResetPosition();
-      enemyModel.spawnPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;;
+      yield return new WaitForEndOfFrame();
+      enemyModel.spawnPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;
+      enemyModel.currentPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;
     }
 
     private void UpdateModel()
@@ -125,6 +135,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private IEnumerator CrashRoutine()
     {
+      dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
       view.MoveEnemyCrash();
       StartPositionLoop();
       yield return new WaitForSeconds(0.5f);

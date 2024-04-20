@@ -48,12 +48,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public override void OnInitialize()
     {
-      playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
+      StartCoroutine(Off());  
 
       speedModel.ReturnNormalSpeed();
       view.SetActionMapState(true);
 
       StartCoroutine(SpeedUpGame());
+    }
+    
+    private IEnumerator Off()
+    {
+      view.ResetPosition();
+      yield return new WaitForEndOfFrame();
+      playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
     }
 
     private IEnumerator SpeedUpGame()
