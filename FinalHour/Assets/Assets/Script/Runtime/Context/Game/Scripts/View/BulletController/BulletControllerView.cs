@@ -8,7 +8,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.BulletController
   {
     public Rigidbody2D bulletRigidBody;
 
-    void OnEnable()
+    protected override void OnEnable()
     {
       bulletRigidBody.velocity = new Vector2(GameControlSettings.BulletSpeed, 0);
     }

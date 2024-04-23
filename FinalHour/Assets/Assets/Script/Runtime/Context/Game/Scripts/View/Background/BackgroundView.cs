@@ -1,3 +1,5 @@
+using System;
+using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,16 +8,27 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
 {
   public class BackgroundView : EventView
   {
-    public RawImage image;
+    [HideInInspector]
+    public float speed;
+    
+    [HideInInspector]
+    public bool isAlive;
 
-    public void ParallaxEffect(float currentSpeed)
+    public void Update()
     {
-      if (image.uvRect.x >= 1)
-      {
-        image.uvRect = new Rect(new Vector2(0, image.uvRect.y), image.uvRect.size);
-      }
+      if (!isAlive) return;
 
-      image.uvRect = new Rect(new Vector2(image.uvRect.position.x + currentSpeed * Time.deltaTime, image.uvRect.position.y), image.uvRect.size);
+      RectTransform rectTransform = transform.GetComponent<RectTransform>();
+      Vector2 pos = transform.position;
+      pos.x -= speed * Time.deltaTime;
+
+      if (rectTransform.anchoredPosition.x <= -rectTransform.sizeDelta.x)
+      {
+        rectTransform.anchoredPosition = Vector2.zero;
+        return;
+      }
+      
+      transform.position = pos;
     }
   }
 }

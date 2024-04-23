@@ -19,17 +19,27 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     
     public override void OnInitialize()
     {
-      StartCoroutine(LoopBackground());
-      speedModel.gameDistance = view.image.transform.GetComponent<RectTransform>().sizeDelta.x;
+      UpdateSpeed();
+      UpdateAliveStatus();
+
+      dispatcher.AddListener(PlayerEvent.GameSpeedUpdated, UpdateSpeed);
+      dispatcher.AddListener(PlayerEvent.Died, UpdateAliveStatus);
     }
 
-    private IEnumerator LoopBackground()
+    private void UpdateSpeed()
     {
-      while (playerModel.isAlive)
-      {
-        view.ParallaxEffect(playerModel.currentGameSpeed);
-        yield return null;
-      }
+      view.speed = playerModel.currentGameSpeed * GameControlSettings.ObstacleSpeed;
+    }
+    
+    private void UpdateAliveStatus()
+    {
+      view.isAlive = playerModel.isAlive;
+    }
+
+    public override void OnRemove()
+    {
+      dispatcher.RemoveListener(PlayerEvent.GameSpeedUpdated, UpdateSpeed);
+      dispatcher.RemoveListener(PlayerEvent.Died, UpdateAliveStatus);
     }
   }
 }
