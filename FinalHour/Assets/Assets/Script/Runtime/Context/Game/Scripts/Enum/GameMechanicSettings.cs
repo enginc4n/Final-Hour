@@ -39,7 +39,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float DefaultGameSpeed = 1f;
     public const float SlowGameSpeed = 0.5f;
     public const float FastGameSpeed = 1.5f;
-    public const float SlowTimeGain = 2.5f;
+    public const float SlowTimeGain = 2f; // x amount second gain at every second
 
     //Enemy
     public const float EnemySpeed = 150f; //+x per second

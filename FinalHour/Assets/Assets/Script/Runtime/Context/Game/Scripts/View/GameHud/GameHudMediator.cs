@@ -60,6 +60,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     private void CountTime()
     {
       _timeLoop = StartCoroutine(DecreaseRemainingTime());
+      StartCoroutine(ScoreRoutine());
     }
 
     private IEnumerator DecreaseRemainingTime()
@@ -69,9 +70,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         yield return new WaitForSeconds(1f);
 
         playerModel.ChangeRemainingTime(-1f);
-
-        playerModel.ChangeScore(1);
-        view.UpdateScore(playerModel.score);
       }
 
       playerModel.Die();
@@ -81,12 +79,25 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       while (playerModel.remainingTime > 0 && playerModel.isAlive)
       {
-        yield return new WaitForSecondsRealtime(GameMechanicSettings.SlowGameSpeed);
+        yield return new WaitForSecondsRealtime(1 / GameMechanicSettings.SlowTimeGain);
 
-        playerModel.ChangeRemainingTime(GameMechanicSettings.SlowGameSpeed * GameMechanicSettings.SlowTimeGain);
+        playerModel.ChangeRemainingTime(+1f);
+      }
+    }
+    
+    private IEnumerator ScoreRoutine()
+    {
+      while (playerModel.remainingTime > 0 && playerModel.isAlive)
+      {
+        yield return new WaitForSeconds(1f);
 
         playerModel.ChangeScore(1);
         view.UpdateScore(playerModel.score);
+      }
+
+      if (playerModel.remainingTime <= 0 || !playerModel.isAlive)
+      {
+        StopCoroutine(ScoreRoutine());
       }
     }
 
