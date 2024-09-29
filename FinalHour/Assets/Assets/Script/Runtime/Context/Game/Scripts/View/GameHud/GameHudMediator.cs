@@ -81,9 +81,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       while (playerModel.remainingTime > 0 && playerModel.isAlive)
       {
-        yield return new WaitForSecondsRealtime(GameControlSettings.SlowGameSpeed);
+        yield return new WaitForSecondsRealtime(GameMechanicSettings.SlowGameSpeed);
 
-        playerModel.ChangeRemainingTime(GameControlSettings.SlowGameSpeed * GameControlSettings.SlowTimeGain);
+        playerModel.ChangeRemainingTime(GameMechanicSettings.SlowGameSpeed * GameMechanicSettings.SlowTimeGain);
 
         playerModel.ChangeScore(1);
         view.UpdateScore(playerModel.score);
@@ -110,8 +110,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       if (_hasSlowedDown)
       {
         StopCoroutine(_timeLoop);
-        _timeLoop = StartCoroutine(DecreaseRemainingTime());
         _hasSlowedDown = false;
+
+        if (playerModel.isAlive)
+        {
+          _timeLoop = StartCoroutine(DecreaseRemainingTime());
+        }
       }
 
       view.SetIcon(speedModel.speedState);

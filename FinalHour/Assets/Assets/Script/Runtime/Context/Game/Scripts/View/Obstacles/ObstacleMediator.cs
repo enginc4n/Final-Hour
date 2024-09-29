@@ -30,7 +30,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     public override void OnInitialize()
     {
-      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed * GameControlSettings.ObstacleSpeed, 0));
+      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed * GameMechanicSettings.ObstacleSpeed, 0));
     }
 
     private void OnObstacleIsBroken()
@@ -61,7 +61,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void CollectibleProcess()
     {
-      playerModel.remainingTime += GameControlSettings.CollectibleTimeAmount;
+      playerModel.remainingTime += GameMechanicSettings.CollectibleTimeAmount;
       view.InstantiateObject(view.collectParticle);
       dispatcher.Dispatch(PlayerEvent.Collect);
       Destroy(view.gameObject);
@@ -76,7 +76,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     private void OnGameSpeedUpdated()
     {
-      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed * GameControlSettings.ObstacleSpeed, 0));
+      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed * GameMechanicSettings.ObstacleSpeed, 0));
     }
     
     private void OnDied()

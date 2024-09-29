@@ -66,7 +66,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     
     public void StartDashTimer()
     {
-      _currentDashTime = GameControlSettings.DashCooldown;
+      _currentDashTime = GameMechanicSettings.DashCooldown;
       InvokeRepeating(nameof(UpdateDashTimer), 0f, CooldownTickRate); 
     }
     
@@ -80,12 +80,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         CancelInvoke(nameof(UpdateDashTimer));
       }
 
-      UpdateTimer(dashCooldownImage, dashCooldownText, _currentDashTime, GameControlSettings.DashCooldown);
+      UpdateTimer(dashCooldownImage, dashCooldownText, _currentDashTime, GameMechanicSettings.DashCooldown);
     }
     
     public void StartFireTimer()
     {
-      _currentFireTime = GameControlSettings.FireCooldown;
+      _currentFireTime = GameMechanicSettings.FireCooldown;
       InvokeRepeating(nameof(UpdateFireTimer), 0f, CooldownTickRate); 
     }
     
@@ -99,7 +99,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         CancelInvoke(nameof(UpdateFireTimer));
       }
  
-      UpdateTimer(fireCooldownImage, fireCooldownText, _currentFireTime, GameControlSettings.FireCooldown);
+      UpdateTimer(fireCooldownImage, fireCooldownText, _currentFireTime, GameMechanicSettings.FireCooldown);
     }
 
     private void UpdateTimer(Image image, TMP_Text label, float currentCooldown, float totalCooldown)

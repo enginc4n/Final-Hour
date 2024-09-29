@@ -37,7 +37,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public void ResetPosition()
     {
-      transform.GetComponent<RectTransform>().anchoredPosition = GameControlSettings.PlayerSpawnPosition;
+      transform.GetComponent<RectTransform>().anchoredPosition = GameMechanicSettings.PlayerSpawnPosition;
     }
 
     public void EnableInputs()
@@ -114,7 +114,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public IEnumerator FireCooldown()
     {
-      yield return new WaitForSeconds(GameControlSettings.FireCooldown);
+      yield return new WaitForSeconds(GameMechanicSettings.FireCooldown);
       
       isFireReady = true;
     }
@@ -136,7 +136,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public IEnumerator DashCooldown()
     {
-      yield return new WaitForSeconds(GameControlSettings.DashCooldown);
+      yield return new WaitForSeconds(GameMechanicSettings.DashCooldown);
       
       isDashReady = true;
     }
@@ -189,6 +189,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public void SetColliders()
     {
       playerBodyCollider.enabled = !playerBodyCollider.enabled;
+      playerCrouchCollider.enabled = !playerCrouchCollider.enabled;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

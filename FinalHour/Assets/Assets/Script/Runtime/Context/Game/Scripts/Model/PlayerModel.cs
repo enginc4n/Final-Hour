@@ -19,9 +19,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     [PostConstruct]
     public void OnPostConstruct()
     {
-      currentGameSpeed = GameControlSettings.StartingGameSpeed;
+      currentGameSpeed = GameMechanicSettings.StartingGameSpeed;
       score = 0;
-      remainingTime = GameControlSettings.StartingTime;
+      remainingTime = GameMechanicSettings.StartingTime;
 
       isAlive = true;
     }

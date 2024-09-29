@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
@@ -14,36 +16,67 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     public Transform enemyBarrier;
     
     public Animator enemyAnimator;
+
+    public float speed = 0f;
+    
+    public float modifiedSpeed => speed + (GameMechanicSettings.EnemySpeed * crashCount);
+
+    public int crashCount;
+    
+    public float crashRemainingDistance = 0f; 
+
+    private float playerPositionFromLeft => GameMechanicSettings.PlayerSpawnPosition.x - (playerBodyCollider.bounds.extents.x * playerBodyCollider.transform.localScale.x);
+    
+    private const float DistanceFromStart = GameMechanicSettings.EnemySpeed * GameMechanicSettings.EnemyTimeToCatchFromStart; //100 because 1 velocity means +100 position in 1 second
+
+    private const float DistanceFromBarrier = GameMechanicSettings.EnemySpeed * GameMechanicSettings.EnemyCatchTimeFromMax;
+
+    private void FixedUpdate()
+    {
+      if (enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Barrier")) && speed <= 0 && crashCount == 0)
+      {
+        return;
+      }
+      MoveMarker();
+    }
+
+    private void MoveMarker()
+    {
+      float deltaTime = Time.unscaledDeltaTime;
+      
+      float modifiedMovement = modifiedSpeed * deltaTime;
+      float newPosition = transform.GetComponent<RectTransform>().anchoredPosition.x + modifiedMovement;
+      
+      transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(newPosition, transform.GetComponent<RectTransform>().anchoredPosition.y);
+
+      if (crashCount == 0)
+      {
+        return;
+      }
+      
+      float unmodifiedMovement = speed * deltaTime;
+      float crushEffect = Math.Abs(unmodifiedMovement - modifiedMovement); //movement caused by crashing obstacle
+      crashRemainingDistance -= crushEffect;
+
+      if (crashRemainingDistance <= (crashCount - 1) * GameMechanicSettings.EnemySpeed * GameMechanicSettings.CrashPunishment)
+      {
+        crashCount--;
+      }
+    }
     
     public void ResetPosition()
     {
-      float playerPosition = playerBodyCollider.bounds.center.x - playerBodyCollider.bounds.extents.x;
-      transform.position = new Vector2(playerPosition - (GameControlSettings.EnemyCatchFromStart*GameControlSettings.ObstaclePunish) - enemyBoxCollider.bounds.extents.x, transform.position.y);
-      
-      float enemyPosition = transform.position.x - enemyBoxCollider.bounds.extents.x;
-      enemyBarrier.position = new Vector2(enemyPosition - ((GameControlSettings.EnemyCatchFromMax-GameControlSettings.EnemyCatchFromStart)*GameControlSettings.ObstaclePunish) - barrierBoxCollider.bounds.extents.x, transform.position.y);
+      transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(playerPositionFromLeft- DistanceFromStart - (enemyBoxCollider.bounds.extents.x * enemyBoxCollider.transform.localScale.x) + 10, 0);
+      enemyBarrier.GetComponent<RectTransform>().anchoredPosition = new Vector2(playerPositionFromLeft - DistanceFromBarrier - 
+                                                                                (enemyBoxCollider.bounds.extents.x*2*enemyBoxCollider.transform.localScale.x) - 
+                                                                                (barrierBoxCollider.bounds.extents.x/barrierBoxCollider.transform.lossyScale.x) + 10, 0);
     }
     
-    public void MoveEnemy(float enemySpeed)
-    {
-      enemyRigidBody.velocity = new Vector2(enemySpeed / Time.timeScale, 0f);
-    }
-
-    public void MoveEnemyCrash()
-    {
-      transform.DOMoveX(GameControlSettings.ObstaclePunish, GameControlSettings.ObstaclePunish / GameControlSettings.EnemySpeed).SetRelative();
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-      if (other.gameObject.layer == LayerMask.NameToLayer("Barrier"))
-      {
-        dispatcher.Dispatch(EnemyControllerEvent.HitLimit);
-      } else if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-      {
-        dispatcher.Dispatch(EnemyControllerEvent.CaughtPlayer);
-        enemyAnimator.SetTrigger("Catch");
-      }
+      if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+      dispatcher.Dispatch(EnemyControllerEvent.CaughtPlayer);
+      enemyAnimator.SetTrigger("Catch");
     }
   }
 }

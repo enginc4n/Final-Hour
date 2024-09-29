@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
 {
-  public class GameControlSettings
+  public static class GameMechanicSettings
   { 
     public const float StartingTime = 60f;
     public static readonly Vector3 PlayerSpawnPosition = new Vector3(275, 330, 0f);
@@ -18,10 +18,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float SpawnRate = 2f;
     public const float CollectibleTimeAmount = 5f;
     public const float ObstacleSpeed = 20f;
-    public const float ObstaclePunish = 1f;
+    public const float CrashPunishment = 1f;
     
     //Jump
-    public const float JumpSpeed = 14f;
+    public const float JumpSpeed = 13f;
     public const float JumpHeight = 1.5f;
 
     //Dash
@@ -42,8 +42,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float SlowTimeGain = 2.5f;
 
     //Enemy
-    public const float EnemySpeed = 2f;
-    public const int EnemyCatchFromStart = 3;
-    public const int EnemyCatchFromMax = 5;
+    public const float EnemySpeed = 150f; //+x per second
+    public const float EnemyTimeToCatchFromStart = 3f;
+    public const float EnemyCatchTimeFromMax = 5f;
   }
 }

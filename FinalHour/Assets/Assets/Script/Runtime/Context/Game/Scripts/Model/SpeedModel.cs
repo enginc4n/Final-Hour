@@ -23,7 +23,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public void SlowDownTime()
     {
-      Time.timeScale = GameControlSettings.SlowGameSpeed;
+      Time.timeScale = GameMechanicSettings.SlowGameSpeed;
       speedState = SpeedState.Slow;
 
       dispatcher.Dispatch(PlayerEvent.SlowDown);
@@ -31,7 +31,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public void SpeedUpTime()
     {
-      Time.timeScale = GameControlSettings.FastGameSpeed;
+      Time.timeScale = GameMechanicSettings.FastGameSpeed;
       speedState = SpeedState.Fast;
 
       dispatcher.Dispatch(PlayerEvent.SpeedUp);
@@ -39,7 +39,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public void ReturnNormalSpeed()
     {
-      Time.timeScale = GameControlSettings.DefaultGameSpeed;
+      Time.timeScale = GameMechanicSettings.DefaultGameSpeed;
       speedState = SpeedState.Normal;
 
       dispatcher.Dispatch(PlayerEvent.ReturnNormalSpeed);
@@ -54,7 +54,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public void Continue()
     {
-      Time.timeScale = GameControlSettings.DefaultGameSpeed;
+      Time.timeScale = GameMechanicSettings.DefaultGameSpeed;
       speedState = SpeedState.Normal;
 
       dispatcher.Dispatch(GameEvent.Continue);

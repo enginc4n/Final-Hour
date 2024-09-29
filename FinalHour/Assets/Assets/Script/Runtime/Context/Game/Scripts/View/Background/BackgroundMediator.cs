@@ -28,7 +28,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
 
     private void UpdateSpeed()
     {
-      view.speed = playerModel.currentGameSpeed * GameControlSettings.ObstacleSpeed;
+      view.speed = playerModel.currentGameSpeed * GameMechanicSettings.ObstacleSpeed;
     }
     
     private void UpdateAliveStatus()

@@ -60,15 +60,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       view.ResetPosition();
       yield return new WaitForEndOfFrame();
-      playerModel.position = view.playerBodyCollider.bounds.center.x - view.playerBodyCollider.bounds.extents.x;
+      playerModel.position = GameMechanicSettings.PlayerSpawnPosition.x - (view.playerBodyCollider.bounds.extents.x * view.playerBodyCollider.transform.localScale.x);;
     }
 
     private IEnumerator SpeedUpGame()
     {
-      while (playerModel.currentGameSpeed < GameControlSettings.MaxGameSpeed && playerModel.isAlive)
+      while (playerModel.currentGameSpeed < GameMechanicSettings.MaxGameSpeed && playerModel.isAlive)
       {
-        yield return new WaitForSecondsRealtime(GameControlSettings.GameSpeedUpRate);
-        playerModel.ChangeGameSpeed(GameControlSettings.GameSpeedUpAmount);
+        yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpRate);
+        playerModel.ChangeGameSpeed(GameMechanicSettings.GameSpeedUpAmount);
       }
     }
 
@@ -106,10 +106,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       
       float posY = transform.position.y;
 
-      Tween jump = view.transform.DOMoveY(GameControlSettings.JumpHeight, GameControlSettings.JumpSpeed*playerModel.currentGameSpeed)
+      Tween jump = view.transform.DOMoveY(GameMechanicSettings.JumpHeight, GameMechanicSettings.JumpSpeed)
         .SetEase(Ease.OutSine)
         .SetSpeedBased()
-        .OnComplete(() => view.transform.DOMoveY(posY, GameControlSettings.JumpSpeed*playerModel.currentGameSpeed)
+        .OnComplete(() => view.transform.DOMoveY(posY, GameMechanicSettings.JumpSpeed)
           .SetSpeedBased()
           .SetEase(Ease.InQuad)
           .OnComplete(() => dispatcher.Dispatch(PlayerEvent.Jump)));
@@ -130,7 +130,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       }
 
       view.isDashReady = false;
-      playerModel.ChangeRemainingTime(-GameControlSettings.DashCost);
+      playerModel.ChangeRemainingTime(-GameMechanicSettings.DashCost);
       StartCoroutine(DashTimer());
     }
 
@@ -139,9 +139,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       playerModel.isDashing = true;
       dispatcher.Dispatch(PlayerEvent.Dash);
       view.ChangeColor(new Color(0.3f, 0.8f, 1f, 0.75f));
-      playerModel.ChangeGameSpeed(GameControlSettings.DashSpeed);
-      yield return new WaitForSeconds(GameControlSettings.DashDuration);
-      playerModel.ChangeGameSpeed(-GameControlSettings.DashSpeed);
+      playerModel.ChangeGameSpeed(GameMechanicSettings.DashSpeed);
+      yield return new WaitForSeconds(GameMechanicSettings.DashDuration);
+      playerModel.ChangeGameSpeed(-GameMechanicSettings.DashSpeed);
       playerModel.isDashing = false;
       view.ChangeColor(Color.white);
       dispatcher.Dispatch(PlayerEvent.DashFinished);
@@ -152,7 +152,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       view.isFireReady = false;
 
-      playerModel.ChangeRemainingTime(-GameControlSettings.FireCost);
+      playerModel.ChangeRemainingTime(-GameMechanicSettings.FireCost);
       dispatcher.Dispatch(PlayerEvent.FireBullet, view.gameObject.transform);
       StartCoroutine(view.FireCooldown());
     }

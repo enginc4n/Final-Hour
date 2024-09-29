@@ -11,8 +11,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 {
   public enum EnemyControllerEvent
   {
-    CaughtPlayer,
-    HitLimit
+    CaughtPlayer
   }
 
   public class EnemyControllerMediator : EventMediator
@@ -31,11 +30,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private Coroutine _positionLoop;
 
+    private SpeedState _lastState;
+    
+    private float enemyPositionFromRight => transform.GetComponent<RectTransform>().anchoredPosition.x + (view.enemyBoxCollider.bounds.extents.x * view.enemyBoxCollider.transform.localScale.x);
+
     public override void OnRegister()
     {
       view.dispatcher.AddListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
-      view.dispatcher.AddListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
-      
+
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
@@ -53,52 +55,71 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       yield return new WaitForEndOfFrame();
       view.ResetPosition();
       yield return new WaitForEndOfFrame();
-      enemyModel.spawnPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;
-      enemyModel.currentPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;
+      enemyModel.spawnPosition = enemyPositionFromRight;
+      enemyModel.currentPosition = enemyPositionFromRight;
     }
 
     private void UpdateModel()
     {
-      enemyModel.currentPosition = view.enemyBoxCollider.bounds.center.x + view.enemyBoxCollider.bounds.extents.x;
+      enemyModel.currentPosition = enemyPositionFromRight;
     }
 
     private void OnCaughtPlayer()
     {
       playerModel.Die();
-      view.MoveEnemy(0f);
     }
 
     private void OnSlowDown()
     {
-      view.MoveEnemy(GameControlSettings.EnemySpeed);
-      StartPositionLoop();
-
-      dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
+      float lastSpeed = view.modifiedSpeed;
+        
+      if (_lastState == SpeedState.Fast)
+      {
+        view.speed += GameMechanicSettings.EnemySpeed*2;
+      }
+      else
+      {
+        view.speed += GameMechanicSettings.EnemySpeed;
+      }
+      
+      _lastState = SpeedState.Slow;
+      CheckMovementStart(lastSpeed);
     }
 
     private void OnSpeedUp()
     {
-      if (view.enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Barrier")))
+      float lastSpeed = view.modifiedSpeed;
+
+      if (_lastState == SpeedState.Slow)
       {
-        return;
+        view.speed -= GameMechanicSettings.EnemySpeed*2;
       }
-
-      view.MoveEnemy(-GameControlSettings.EnemySpeed);
-      StartPositionLoop();
-
-      dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
+      else
+      {
+        view.speed -= GameMechanicSettings.EnemySpeed;
+      }
+      
+      _lastState = SpeedState.Fast;
+      CheckMovementStart(lastSpeed);
     }
 
     private void OnReturnNormalSpeed()
     {
-      view.MoveEnemy(0);
-      StopPositionLoop();
+      if (_lastState == SpeedState.Fast)
+      {
+        view.speed += GameMechanicSettings.EnemySpeed;
+      } else if (_lastState == SpeedState.Slow)
+      {
+        view.speed -= GameMechanicSettings.EnemySpeed;
+      }
 
-      dispatcher.Dispatch(PlayerEvent.EnemyStoppedMoving);
+      if (view.speed != 0) return;
+      _lastState = SpeedState.Normal;
     }
-
+    
     private void StartPositionLoop()
     {
+      dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
       _positionLoop ??= StartCoroutine(PositionLoop());
     }
 
@@ -111,53 +132,51 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
       StopCoroutine(_positionLoop);
       _positionLoop = null;
+      dispatcher.Dispatch(PlayerEvent.EnemyStoppedMoving);
     }
 
     private IEnumerator PositionLoop()
     {
-      while (true)
+      while (view.modifiedSpeed != 0)
       {
         UpdateModel();
 
         yield return null;
       }
+
+      if (view.modifiedSpeed == 0)
+      {
+        StopPositionLoop();
+      }
     }
 
     private void OnDied()
     {
-      view.MoveEnemy(0);
+      view.speed = 0f;
+      view.crashCount = 0;
+      _lastState = SpeedState.Normal;
     }
 
     private void OnCrashObstacle()
     {
-      StartCoroutine(CrashRoutine());
+      float lastSpeed = view.modifiedSpeed;
+      
+      view.crashCount++;
+      view.crashRemainingDistance += GameMechanicSettings.EnemySpeed * GameMechanicSettings.CrashPunishment; 
+      
+      CheckMovementStart(lastSpeed);
     }
 
-    private IEnumerator CrashRoutine()
+    private void CheckMovementStart(float lastSpeed)
     {
-      dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
-      view.MoveEnemyCrash();
+      if (lastSpeed!= 0) return;
       StartPositionLoop();
-      yield return new WaitForSeconds(0.5f);
-      switch (speedModel.speedState)
-      {
-        case SpeedState.Fast:
-          OnSpeedUp();
-          break;
-        case SpeedState.Normal:
-          OnReturnNormalSpeed();
-          break;
-        case SpeedState.Slow:
-          OnSlowDown();
-          break;
-      }
     }
 
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
-      view.dispatcher.RemoveListener(EnemyControllerEvent.HitLimit, OnReturnNormalSpeed);
-      
+
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);
