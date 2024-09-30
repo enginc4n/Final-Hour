@@ -14,5 +14,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     public Transform skyTransform;
     public Transform groundTransform;
     public Transform treeContainerTransform;
+    public ParticleSystem ambientParticle;
   }
 }

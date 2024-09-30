@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9145173702457562800}
   - component: {fileID: 3078620839017493558}
   - component: {fileID: 100080497229813206}
+  - component: {fileID: 5746946887973197583}
   m_Layer: 12
   m_Name: Obstacle-PurpleCrystal
   m_TagString: Untagged
@@ -32,7 +33,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6905091397329204700}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -147,3 +149,76 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!210 &5746946887973197583
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2909283366101930709}
+  m_Enabled: 1
+  m_SortingLayerID: -1493117961
+  m_SortingLayer: 7
+  m_SortingOrder: 0
+--- !u!1001 &7505916756359356710
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6581977056406813391}
+    m_Modifications:
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 51.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4033412786151888123, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+      propertyPath: m_Name
+      value: Sparkle_purple
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+--- !u!4 &6905091397329204700 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4033412786151888122, guid: 9b874f43175d52f49bdbc1d816452772, type: 3}
+  m_PrefabInstance: {fileID: 7505916756359356710}
+  m_PrefabAsset: {fileID: 0}

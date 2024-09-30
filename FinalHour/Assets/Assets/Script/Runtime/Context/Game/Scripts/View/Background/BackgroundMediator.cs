@@ -32,6 +32,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     private List<RectTransform> _treeRectTransforms;
     private List<RectTransform> _deleteList;
 
+    private const float BaseParticleMinVelocity = -5f;
+    private const float BaseParticleMaxVelocity = -25f;
+    
+    public override void OnRegister()
+    {
+      dispatcher.AddListener(PlayerEvent.Died, OnDied);
+    }
+
     public override void OnInitialize()
     {
       _treeRectTransforms = new List<RectTransform>();
@@ -78,12 +86,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
       while (playerModel.isAlive)
       {
         yield return new WaitForSeconds(_intervals[Random.Range(0, _intervals.Length)]);
-
-        if (!playerModel.isAlive)
-        {
-          StopCoroutine(_treeRoutine);
-        }
-
+        
         GameObject tree = Instantiate(view.treeObject, view.treeContainerTransform, true);
         tree.transform.localScale = Vector3.one;
 
@@ -101,15 +104,32 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
         }
 
         _lastImage = newImage;
+        
+   
+        ParticleSystem.VelocityOverLifetimeModule velocityModule = view.ambientParticle.velocityOverLifetime;
+        velocityModule.x = new ParticleSystem.MinMaxCurve(BaseParticleMinVelocity*playerModel.currentGameSpeed, BaseParticleMaxVelocity*playerModel.currentGameSpeed);
       }
     }
 
     private void CheckOutOfBonds(RectTransform rectTransform)
-      {
+    {
         if (rectTransform.anchoredPosition.x <= _rectTransform.rect.width)
         {
           rectTransform.anchoredPosition = new Vector2(rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
         }
-      }
+    }
+
+    private void OnDied()
+    {
+      StopCoroutine(_treeRoutine);
+      
+      ParticleSystem.VelocityOverLifetimeModule velocityModule1 = view.ambientParticle.velocityOverLifetime;
+      velocityModule1.x = new ParticleSystem.MinMaxCurve(0.1f, -0.1f);
+    }
+
+    public override void OnRemove()
+    {
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }
+}

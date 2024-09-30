@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -47,9 +48,6 @@ TagManager:
   - name: Player
     uniqueID: 732220089
     locked: 0
-  - name: Particles
-    uniqueID: 2801849335
-    locked: 0
   - name: Enemy
     uniqueID: 407280229
     locked: 0
@@ -61,4 +59,7 @@ TagManager:
     locked: 0
   - name: Dead
     uniqueID: 4078428567
+    locked: 0
+  - name: Particles
+    uniqueID: 2801849335
     locked: 0

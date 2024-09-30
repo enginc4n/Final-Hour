@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCollectible: 0
-  isBrokable: 0
+  isBrokable: 1
   isDropTime: 0
   obstacleType: 1
   ownSpeedFactor: 1

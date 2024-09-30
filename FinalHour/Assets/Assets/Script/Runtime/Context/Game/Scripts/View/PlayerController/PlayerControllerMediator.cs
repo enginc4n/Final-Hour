@@ -64,11 +64,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private IEnumerator SpeedUpGame()
     {
-      if (playerModel.currentGameSpeed >= GameMechanicSettings.MaxGameSpeed || !playerModel.isAlive)
-      {
-        StopCoroutine(SpeedUpGame());
-      }
-      
       while (playerModel.currentGameSpeed < GameMechanicSettings.MaxGameSpeed && playerModel.isAlive)
       {
         yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpRate);
@@ -86,6 +81,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       speedModel.ReturnNormalSpeed();
 
       view.SetActionMapState(false);
+      StopCoroutine(SpeedUpGame());
     }
 
     private void OnPause()

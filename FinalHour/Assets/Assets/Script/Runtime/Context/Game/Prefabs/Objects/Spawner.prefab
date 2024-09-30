@@ -80,7 +80,7 @@ MonoBehaviour:
     maxHeight: -0.3
   - obj: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}
     weight: 5
-    minHeight: 2.36
+    minHeight: 2.3
     maxHeight: 2.36
   - obj: {fileID: 8497182741174021961, guid: a3afafd70e3b9a547b6cd3b53c2e1c9e, type: 3}
     weight: 15

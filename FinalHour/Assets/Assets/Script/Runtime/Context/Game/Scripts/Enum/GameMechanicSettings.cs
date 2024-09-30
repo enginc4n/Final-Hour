@@ -33,7 +33,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     //Fire
     public const float FireCost = 2.5f;   
     public const float FireCooldown = 0.5f;
-    public const float BulletSpeed = 15f;
+    public const float BulletSpeed = 22.5f;
 
     //TimeControlSettings
     public const float DefaultGameSpeed = 1f;
