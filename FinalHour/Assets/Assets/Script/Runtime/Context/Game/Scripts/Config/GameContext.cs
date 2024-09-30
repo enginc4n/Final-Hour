@@ -9,6 +9,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.View.BulletController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel;
 using Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.GameHud;
+using Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles;
 using Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Spawner;
 using Assets.Script.Runtime.Context.Menu.Scripts.Config;

@@ -70,7 +70,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
         Instantiate(objToSpawn, spawnPosition, Quaternion.identity, transform);
 
-        yield return new WaitForSeconds(GameMechanicSettings.SpawnRate / playerModel.currentGameSpeed);
+        yield return new WaitForSeconds(GameMechanicSettings.SpawnInterval / playerModel.currentGameSpeed);
       }
     }
 

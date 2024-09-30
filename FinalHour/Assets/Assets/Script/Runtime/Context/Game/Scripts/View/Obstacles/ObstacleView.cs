@@ -1,4 +1,5 @@
-﻿using strange.extensions.mediation.impl;
+﻿using Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles;
+using strange.extensions.mediation.impl;
 using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View
@@ -60,11 +61,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       {
         Destroy(gameObject);
       }
-    }
-
-    public void TranslateObstacle(Vector2 speed)
-    {
-      obstacleRigidbody2D.velocity = speed;
     }
 
     public void InstantiateObject<T>(T objectToInstantiate) where T : Object

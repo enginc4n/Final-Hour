@@ -3,7 +3,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
-namespace Assets.Script.Runtime.Context.Game.Scripts.View
+namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
 {
   public enum ObstacleEvents
   {
@@ -24,15 +24,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.AddListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.AddListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
-      dispatcher.AddListener(PlayerEvent.GameSpeedUpdated, OnGameSpeedUpdated);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
-
-    public override void OnInitialize()
-    {
-      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed * GameMechanicSettings.ObstacleSpeed, 0));
-    }
-
+    
     private void OnObstacleIsBroken()
     {
       view.InstantiateObject(view.crushParticle);
@@ -74,11 +68,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       Destroy(view.gameObject);
     }
 
-    private void OnGameSpeedUpdated()
+    private void FixedUpdate()
     {
-      view.TranslateObstacle(new Vector2(-playerModel.currentGameSpeed * GameMechanicSettings.ObstacleSpeed, 0));
+      if (!playerModel.isAlive)
+      {
+        return;
+      }
+
+      transform.Translate(new Vector2(-playerModel.currentGameSpeed, 0), Space.World);
     }
-    
+
     private void OnDied()
     {
       Destroy(gameObject);
@@ -89,7 +88,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       view.dispatcher.RemoveListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
-      dispatcher.RemoveListener(PlayerEvent.GameSpeedUpdated, OnGameSpeedUpdated);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }
   }

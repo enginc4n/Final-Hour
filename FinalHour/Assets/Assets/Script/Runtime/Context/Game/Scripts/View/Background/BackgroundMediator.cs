@@ -14,32 +14,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     [Inject]
     public IPlayerModel playerModel { get; set; }
     
-    [Inject]
-    public ISpeedModel speedModel { get; set; }
-    
-    public override void OnInitialize()
+    public void FixedUpdate()
     {
-      UpdateSpeed();
-      UpdateAliveStatus();
+      if (!playerModel.isAlive) return;
+      
+      transform.Translate(new Vector2(-playerModel.currentGameSpeed, 0), Space.World);
 
-      dispatcher.AddListener(PlayerEvent.GameSpeedUpdated, UpdateSpeed);
-      dispatcher.AddListener(PlayerEvent.Died, UpdateAliveStatus);
-    }
-
-    private void UpdateSpeed()
-    {
-      view.speed = playerModel.currentGameSpeed * GameMechanicSettings.ObstacleSpeed;
-    }
-    
-    private void UpdateAliveStatus()
-    {
-      view.isAlive = playerModel.isAlive;
-    }
-
-    public override void OnRemove()
-    {
-      dispatcher.RemoveListener(PlayerEvent.GameSpeedUpdated, UpdateSpeed);
-      dispatcher.RemoveListener(PlayerEvent.Died, UpdateAliveStatus);
+      RectTransform rectTransform = transform.GetComponent<RectTransform>();
+      
+      if (rectTransform.anchoredPosition.x <= -rectTransform.sizeDelta.x)
+      {
+        rectTransform.anchoredPosition = Vector2.zero;
+      }
     }
   }
 }

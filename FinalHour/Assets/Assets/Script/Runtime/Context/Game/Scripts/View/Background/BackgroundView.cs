@@ -13,22 +13,5 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     
     [HideInInspector]
     public bool isAlive;
-
-    public void Update()
-    {
-      if (!isAlive) return;
-
-      RectTransform rectTransform = transform.GetComponent<RectTransform>();
-      Vector2 pos = transform.position;
-      pos.x -= speed * Time.deltaTime;
-
-      if (rectTransform.anchoredPosition.x <= -rectTransform.sizeDelta.x)
-      {
-        rectTransform.anchoredPosition = Vector2.zero;
-        return;
-      }
-      
-      transform.position = pos;
-    }
   }
 }

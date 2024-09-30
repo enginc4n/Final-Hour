@@ -52,8 +52,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public void ChangeGameSpeed(float value)
     {
       currentGameSpeed += value;
-
-      dispatcher.Dispatch(PlayerEvent.GameSpeedUpdated);
     }
     
     public void Die()

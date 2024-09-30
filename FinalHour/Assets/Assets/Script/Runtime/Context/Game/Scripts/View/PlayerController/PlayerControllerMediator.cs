@@ -70,6 +70,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpRate);
         playerModel.ChangeGameSpeed(GameMechanicSettings.GameSpeedUpAmount);
       }
+
+      if (playerModel.currentGameSpeed >= GameMechanicSettings.MaxGameSpeed || !playerModel.isAlive)
+      {
+        StopCoroutine(SpeedUpGame());
+      }
     }
 
     private void OnCrouchAction()
