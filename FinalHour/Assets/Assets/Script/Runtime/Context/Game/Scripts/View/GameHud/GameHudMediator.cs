@@ -39,7 +39,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
       dispatcher.AddListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
-      dispatcher.AddListener(PlayerEvent.RemainingTimeUpdated, OnUpdateRemainingTime);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
@@ -52,9 +51,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.SetState(true);
       view.SetShadowOpacity(0);
       view.SetIcon(speedModel.speedState);
-      view.UpdateDashTimer(playerModel.remainingTime);
       view.UpdateScore(playerModel.score);
       CountTime();
+    }
+    
+    private void FixedUpdate()
+    {
+      int minutes = Mathf.FloorToInt(playerModel.remainingTime / 60f);
+      int seconds = Mathf.FloorToInt(playerModel.remainingTime % 60f);
+        
+      view.timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void CountTime()
@@ -110,12 +116,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       view.StartFireTimer();
     }
-
-    private void OnUpdateRemainingTime()
-    {
-      view.UpdateDashTimer(playerModel.remainingTime);
-    }
-
+    
     private void OnChangeSpeed()
     {
       if (_hasSlowedDown)
@@ -201,7 +202,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
       dispatcher.RemoveListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
-      dispatcher.RemoveListener(PlayerEvent.RemainingTimeUpdated, OnUpdateRemainingTime);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);

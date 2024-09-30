@@ -45,8 +45,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
         remainingTime = 0f;
         Die();
       }
-
-      dispatcher.Dispatch(PlayerEvent.RemainingTimeUpdated);
     }
     
     public void ChangeGameSpeed(float value)

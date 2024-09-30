@@ -34,15 +34,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     private float _currentDashTime;
 
     private float _currentFireTime;
-
-    public void UpdateDashTimer(float remainingTime)
-    {
-      int minutes = Mathf.FloorToInt(remainingTime / 60f);
-      int seconds = Mathf.FloorToInt(remainingTime % 60f);
-
-      timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
-
+    
     public void UpdateScore(int score)
     {
       scoreText.text = score.ToString();
