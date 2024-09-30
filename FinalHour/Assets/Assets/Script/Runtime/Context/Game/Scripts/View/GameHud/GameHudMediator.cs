@@ -93,17 +93,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     
     private IEnumerator ScoreRoutine()
     {
+      if (playerModel.remainingTime <= 0 || !playerModel.isAlive)
+      {
+        StopCoroutine(ScoreRoutine());
+      }
+      
       while (playerModel.remainingTime > 0 && playerModel.isAlive)
       {
         yield return new WaitForSeconds(1f);
 
         playerModel.ChangeScore(1);
         view.UpdateScore(playerModel.score);
-      }
-
-      if (playerModel.remainingTime <= 0 || !playerModel.isAlive)
-      {
-        StopCoroutine(ScoreRoutine());
       }
     }
 

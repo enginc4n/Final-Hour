@@ -2,7 +2,6 @@ using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
-using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
@@ -65,15 +64,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private IEnumerator SpeedUpGame()
     {
+      if (playerModel.currentGameSpeed >= GameMechanicSettings.MaxGameSpeed || !playerModel.isAlive)
+      {
+        StopCoroutine(SpeedUpGame());
+      }
+      
       while (playerModel.currentGameSpeed < GameMechanicSettings.MaxGameSpeed && playerModel.isAlive)
       {
         yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpRate);
         playerModel.ChangeGameSpeed(GameMechanicSettings.GameSpeedUpAmount);
-      }
-
-      if (playerModel.currentGameSpeed >= GameMechanicSettings.MaxGameSpeed || !playerModel.isAlive)
-      {
-        StopCoroutine(SpeedUpGame());
       }
     }
 
