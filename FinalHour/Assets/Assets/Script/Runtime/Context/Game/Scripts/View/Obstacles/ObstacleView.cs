@@ -1,4 +1,5 @@
-﻿using Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles;
+﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -8,17 +9,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
   {
     [Header("Obstacle Mood")]
     public bool isCollectible;
-
     public bool isBrokable;
-    public bool isDashable;
     public bool isDropTime;
+    public ObstacleType obstacleType;
+
+    public float ownSpeedFactor = 1f;
 
     [Header("Settings")]
     public float rotationSpeed;
 
     [Header("Refrences")]
-    public Rigidbody2D obstacleRigidbody2D;
-
     public GameObject timeAdder;
 
     public ParticleSystem collectParticle;

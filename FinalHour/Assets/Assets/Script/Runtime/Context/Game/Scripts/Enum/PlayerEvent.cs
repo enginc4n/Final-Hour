@@ -13,6 +13,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     Dash,
     DashFinished,
     Collect,
-    Jump
+    Jump,
+    FlyingObstacleIncoming
   }
 }

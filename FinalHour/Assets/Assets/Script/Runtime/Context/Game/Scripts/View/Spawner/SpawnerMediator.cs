@@ -68,9 +68,25 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
         float randomHeight = Random.Range(weightedObject.minHeight, weightedObject.maxHeight);
         Vector3 spawnPosition = new(transform.position.x, randomHeight, transform.position.z);
 
+        ObstacleView obstacleView = objToSpawn.GetComponent<ObstacleView>();
+        ObstacleType obstacleType = obstacleView.obstacleType;
+        if (obstacleType == ObstacleType.Flying)
+        {
+          dispatcher.Dispatch(PlayerEvent.FlyingObstacleIncoming);
+        }
+        
+        yield return new WaitForSeconds(GameMechanicSettings.FlyingObstacleWarningTime);
+
         Instantiate(objToSpawn, spawnPosition, Quaternion.identity, transform);
 
-        yield return new WaitForSeconds(GameMechanicSettings.SpawnInterval / playerModel.currentGameSpeed);
+        if (obstacleView.obstacleType == ObstacleType.Collectible)
+        {
+          yield return new WaitForSeconds((GameMechanicSettings.SpawnInterval / playerModel.currentGameSpeed / 2) - GameMechanicSettings.FlyingObstacleWarningTime);
+        }
+        else
+        {
+          yield return new WaitForSeconds((GameMechanicSettings.SpawnInterval / playerModel.currentGameSpeed) - GameMechanicSettings.FlyingObstacleWarningTime);
+        }
       }
     }
 

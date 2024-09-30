@@ -75,7 +75,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
         return;
       }
 
-      transform.Translate(new Vector2(-playerModel.currentGameSpeed, 0), Space.World);
+      transform.Translate(new Vector2(-playerModel.currentGameSpeed*view.ownSpeedFactor, 0), Space.World);
     }
 
     private void OnDied()

@@ -17,6 +17,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public TextMeshProUGUI fireCooldownText;
 
+    public GameObject flyingObstacleWarning;
+
     [SerializeField]
     private GameObject hourglassIcon;
 

@@ -30,6 +30,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private Coroutine _timeLoop;
 
+    private Coroutine _warningRoutine;
+
     private bool _hasSlowedDown;
 
     public override void OnRegister()
@@ -44,6 +46,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
       dispatcher.AddListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.AddListener(PlayerEvent.FireBullet, OnFire);
+      dispatcher.AddListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
     }
 
     public override void OnInitialize()
@@ -194,6 +197,24 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       dispatcher.Dispatch(GameEvent.SettingsPanel, transform);
     }
+    
+    private void OnFlyingObstacleIncoming()
+    {
+      if (_warningRoutine != null)
+      {
+        StopCoroutine(_warningRoutine);
+      }
+
+      _warningRoutine = StartCoroutine(ObstacleWarningRoutine());
+      StartCoroutine(ObstacleWarningRoutine());
+    }
+
+    private IEnumerator ObstacleWarningRoutine()
+    {
+      view.flyingObstacleWarning.SetActive(true);
+      yield return new WaitForSeconds(GameMechanicSettings.FlyingObstacleWarningTime);
+      view.flyingObstacleWarning.SetActive(false);
+    }
 
     public override void OnRemove()
     {
@@ -207,6 +228,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFire);
+      dispatcher.RemoveListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
     }
   }
 }

@@ -18,7 +18,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float SpawnInterval = 1f; //higher number puts more time between spawns 
     public const float CollectibleTimeAmount = 5f;
     public const float CrashPunishment = 1f;
-    
+    public const float FlyingObstacleWarningTime = 1f; //warning will appear x seconds before obstacle comes
+
     //Jump
     public const float JumpSpeed = 10f;
     public const float JumpHeight = 1.6f;

@@ -322,94 +322,6 @@ PrefabInstance:
       propertyPath: backgroundTransform
       value: 
       objectReference: {fileID: 2147430729}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[7].obj
-      value: 
-      objectReference: {fileID: 3685893812981044468, guid: 7dcf55abdcace684082eefa6f2b6e063, type: 3}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[8].obj
-      value: 
-      objectReference: {fileID: 8497182741174021961, guid: cc3a109ff6aaef94cbc617f5f6392c38, type: 3}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[0].maxHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[0].minHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[1].maxHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[1].minHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[2].maxHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[2].minHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[3].maxHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[3].minHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[4].maxHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[4].minHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[5].maxHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[5].minHeight
-      value: -2.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[6].maxHeight
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[6].minHeight
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[7].maxHeight
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[7].minHeight
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[8].maxHeight
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[8].minHeight
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[9].maxHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4070192896998140851, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
-      propertyPath: weightedObjects.Array.data[9].minHeight
-      value: -2.75
-      objectReference: {fileID: 0}
     - target: {fileID: 4070192896998140861, guid: 79892e94655b78441b2f0fbabfb3cc85, type: 3}
       propertyPath: m_Name
       value: Spawner
@@ -853,8 +765,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0036803663, y: -0.14607097}
-  m_Size: {x: 2.7047446, y: 2.4921834}
+  m_Offset: {x: 0.027775416, y: -0.194183}
+  m_Size: {x: 2.7676609, y: 2.3959703}
   m_Direction: 1
 --- !u!82 &1670475633
 AudioSource:
