@@ -56,14 +56,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCollectible: 0
-  isBrokable: 1
+  isBreakable: 1
   isDropTime: 1
   obstacleType: 1
   ownSpeedFactor: 1
   rotationSpeed: 0
   timeAdder: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}
   collectParticle: {fileID: 3384366999043453946, guid: 7c19ad7a926fc084ea69d9ba4fedeeab, type: 3}
-  crushParticle: {fileID: 8176850701479282266, guid: b219c04f384e7f345bb8ae1fef443965, type: 3}
+  crushParticle: {fileID: 8525990746615576122, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
+  breakParticle: {fileID: 2504214343621411456, guid: dd35cb3be3828f749966d5cfbee99b50, type: 3}
 --- !u!50 &-272045842819407326
 Rigidbody2D:
   serializedVersion: 4

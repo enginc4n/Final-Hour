@@ -9,7 +9,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
   {
     [Header("Obstacle Mood")]
     public bool isCollectible;
-    public bool isBrokable;
+    public bool isBreakable;
     public bool isDropTime;
     public ObstacleType obstacleType;
 
@@ -24,6 +24,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     public ParticleSystem collectParticle;
 
     public ParticleSystem crushParticle;
+
+    public ParticleSystem breakParticle;
 
     private void Update()
     {
@@ -44,7 +46,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     {
       if (other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
       {
-        if (isBrokable)
+        if (isBreakable)
         {
           dispatcher.Dispatch(ObstacleEvents.ObstacleIsBroken);
           return;

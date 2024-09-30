@@ -300,11 +300,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8366612028392416556, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 1.05
+      value: 0.74
       objectReference: {fileID: 0}
     - target: {fileID: 8366612028392416556, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.35
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8366612028392416556, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -325,6 +325,10 @@ PrefabInstance:
     - target: {fileID: 8366612028392416556, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986935675043883179, guid: acdb90624a404aa438447006f1026065, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9186446616439801708, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: looping

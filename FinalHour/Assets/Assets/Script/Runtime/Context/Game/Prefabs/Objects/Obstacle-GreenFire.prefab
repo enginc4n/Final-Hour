@@ -78,14 +78,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCollectible: 0
-  isBrokable: 0
+  isBreakable: 0
   isDropTime: 0
   obstacleType: 0
   ownSpeedFactor: 1.65
   rotationSpeed: 0
   timeAdder: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}
   collectParticle: {fileID: 3384366999043453946, guid: 7c19ad7a926fc084ea69d9ba4fedeeab, type: 3}
-  crushParticle: {fileID: 8176850701479282266, guid: b219c04f384e7f345bb8ae1fef443965, type: 3}
+  crushParticle: {fileID: 2504214343621411456, guid: 225b4ac569738e7408c4c8efa90c3461, type: 3}
+  breakParticle: {fileID: 2504214343621411456, guid: dd35cb3be3828f749966d5cfbee99b50, type: 3}
 --- !u!222 &7408312326701384074
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -305,6 +306,18 @@ PrefabInstance:
     - target: {fileID: 8366612028392416556, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986935675043883179, guid: acdb90624a404aa438447006f1026065, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986935675043883179, guid: acdb90624a404aa438447006f1026065, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986935675043883179, guid: acdb90624a404aa438447006f1026065, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1493117961
       objectReference: {fileID: 0}
     - target: {fileID: 9186446616439801708, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: looping
