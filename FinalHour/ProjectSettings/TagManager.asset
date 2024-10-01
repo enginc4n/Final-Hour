@@ -51,15 +51,18 @@ TagManager:
   - name: Enemy
     uniqueID: 407280229
     locked: 0
-  - name: Border
-    uniqueID: 1851576463
+  - name: Particles
+    uniqueID: 2801849335
     locked: 0
   - name: Hud
     uniqueID: 2894322613
     locked: 0
+  - name: UIParticles
+    uniqueID: 1627313045
+    locked: 0
+  - name: Border
+    uniqueID: 1851576463
+    locked: 0
   - name: Dead
     uniqueID: 4078428567
-    locked: 0
-  - name: Particles
-    uniqueID: 2801849335
     locked: 0

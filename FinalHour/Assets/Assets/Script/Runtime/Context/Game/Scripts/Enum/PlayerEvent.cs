@@ -10,7 +10,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     EnemyStartedMoving,
     EnemyStoppedMoving,
     CrashObstacle,
-    Dash,
+    DashStarted,
     DashFinished,
     Collect,
     Jump,

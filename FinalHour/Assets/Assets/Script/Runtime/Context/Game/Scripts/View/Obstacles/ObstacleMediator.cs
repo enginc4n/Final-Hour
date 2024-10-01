@@ -19,6 +19,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
     [Inject]
     public IPlayerModel playerModel { get; set; }
 
+    private bool _keepMoving = false;
+
     public override void OnRegister()
     {
       view.dispatcher.AddListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
@@ -70,7 +72,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
 
     private void FixedUpdate()
     {
-      if (!playerModel.isAlive)
+      if (!playerModel.isAlive && !_keepMoving)
       {
         return;
       }
@@ -80,7 +82,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
 
     private void OnDied()
     {
-      Destroy(gameObject);
+      if (view.obstacleType == ObstacleType.Flying)
+      {
+        _keepMoving = true;
+      }
     }
     
     public override void OnRemove()

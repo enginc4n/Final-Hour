@@ -14,7 +14,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public SpriteRenderer spriteRenderer;
     public PlayerInput playerInput;
     public Animator animator;
-
+    public GameObject dashParticle;
+    
     private PlayerInputActions playerInputActions;
     public InputActionMap inputActionMap;
     private InputAction crouch;
@@ -22,7 +23,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private InputAction speedUpTime;
     private float dashCoolDown;
     private float fireCoolDown;
-
+    
     [HideInInspector]
     public bool isDashReady = true;
     

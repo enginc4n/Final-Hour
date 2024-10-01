@@ -4,6 +4,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
@@ -66,7 +67,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       while (playerModel.currentGameSpeed < GameMechanicSettings.MaxGameSpeed && playerModel.isAlive)
       {
-        yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpRate);
+        yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpTime);
         playerModel.ChangeGameSpeed(GameMechanicSettings.GameSpeedUpAmount);
       }
     }
@@ -137,13 +138,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private IEnumerator DashTimer()
     {
       playerModel.isDashing = true;
-      dispatcher.Dispatch(PlayerEvent.Dash);
-      view.ChangeColor(new Color(0.3f, 0.8f, 1f, 0.75f));
+      dispatcher.Dispatch(PlayerEvent.DashStarted);
+      view.ChangeColor(new Color(0.4352942f, 1f, 1f, 0.75f));
+      view.dashParticle.SetActive(true);
       playerModel.ChangeGameSpeed(GameMechanicSettings.DashSpeed);
       yield return new WaitForSeconds(GameMechanicSettings.DashDuration);
       playerModel.ChangeGameSpeed(-GameMechanicSettings.DashSpeed);
       playerModel.isDashing = false;
       view.ChangeColor(Color.white);
+      view.dashParticle.SetActive(false);
       dispatcher.Dispatch(PlayerEvent.DashFinished);
       StartCoroutine(view.DashCooldown());
     }
