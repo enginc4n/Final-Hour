@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -10,7 +12,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     public Sound[] sfxSounds;
     public AudioSource musicSource;
     public AudioSource sfxSource;
-
+    public AudioSource timeSpeedSource;
+    public AudioSource deathSoundResource;
+    private List<Sound> _playingSounds = new List<Sound>();
+    
     public void PlayMusic(string name)
     {
       Sound sound = Array.Find(musicSounds, music => music.name == name);
@@ -28,17 +33,72 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 
     public void PlaySFX(string name)
     {
-      Sound sound = Array.Find(sfxSounds, music => music.name == name);
+      Sound sound = Array.Find(sfxSounds, sfx => sfx.name == name);
 
       if (sound == null)
       {
-        Debug.LogError("Sound not found at the name: " + name);
+        Debug.LogError("Sound not found with the name: " + name);
+        return;
+      }
+      
+      sfxSource.clip = sound.clip;
+      sfxSource.PlayOneShot(sound.clip);
+    }
+    
+    public void PlayTimeSpeedSFX(string name)
+    {
+      Sound sound = Array.Find(sfxSounds, sfx => sfx.name == name);
+
+      if (sound == null)
+      {
+        Debug.LogError("Sound not found with the name: " + name);
         return;
       }
 
-      sfxSource.PlayOneShot(sound.clip);
+      if (_playingSounds.Contains(sound))
+      {
+        return;
+      }
+
+      if (timeSpeedSource.isPlaying)
+      {
+        timeSpeedSource.Stop();
+      }
+      
+      timeSpeedSource.clip = sound.clip;
+      timeSpeedSource.PlayOneShot(sound.clip);
+      _playingSounds.Add(sound);
+      StartCoroutine(RemoveWhenFinished(sound));
     }
 
+    public void PlayDeathSound(string name)
+    {
+      Sound sound = Array.Find(sfxSounds, sfx => sfx.name == name);
+
+      if (sound == null)
+      {
+        Debug.LogError("Sound not found with the name: " + name);
+        return;
+      }
+      
+      if (_playingSounds.Contains(sound))
+      {
+        return;
+      }
+      
+      deathSoundResource.clip = sound.clip;
+      deathSoundResource.PlayOneShot(sound.clip);
+      _playingSounds.Add(sound);
+      StartCoroutine(RemoveWhenFinished(sound));
+
+    }
+    
+    private IEnumerator RemoveWhenFinished(Sound sound)
+    {
+      yield return new WaitForSeconds(sound.clip.length);
+      _playingSounds.Remove(sound);
+    }
+    
     public void ToggleMusic()
     {
       musicSource.mute = !musicSource.mute;

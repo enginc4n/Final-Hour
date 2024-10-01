@@ -123,6 +123,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void StartPositionLoop()
     {
       dispatcher.Dispatch(PlayerEvent.EnemyStartedMoving);
+      if (view.modifiedSpeed > 0)
+      {
+        dispatcher.Dispatch(PlayerEvent.EnemyCloser);
+      }
+      
       _positionLoop ??= StartCoroutine(PositionLoop());
     }
 

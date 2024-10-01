@@ -25,6 +25,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     [Inject]
     public ISpeedModel speedModel { get; set; }
+    
+    [Inject]
+    public IAudioModel audioModel { get; set; }
 
     private Coroutine _shadowLoop;
 
@@ -169,17 +172,27 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void UpdateShadow()
     {
+      float threshold = 0.35f;
       float spawnDistance = Mathf.Abs(playerModel.position - enemyModel.spawnPosition);
       float currentDistance = Mathf.Abs(playerModel.position - enemyModel.currentPosition);
 
       if (currentDistance >= spawnDistance)
       {
-        view.SetShadowOpacity(0);
+        view.SetShadowOpacity(0); 
+        audioModel.SetPitchVolume(1f,1f);
       }
       else
       {
         float a = 1 - currentDistance / spawnDistance;
         view.SetShadowOpacity(a);
+        if (a >=threshold)
+        {
+          audioModel.SetPitchVolumeRelative(1-a,1-a);
+        }
+        else
+        {
+          audioModel.SetPitchVolume(1f,1f);
+        }
       }
     }
 

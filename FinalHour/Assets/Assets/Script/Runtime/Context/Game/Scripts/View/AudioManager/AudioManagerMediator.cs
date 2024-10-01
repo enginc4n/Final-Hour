@@ -1,4 +1,5 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
 
@@ -8,7 +9,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
   {
     [Inject]
     public AudioManagerView view { get; set; }
-
+    
+    [Inject]
+    public IAudioModel audioModel { get; set; }
+    
     public override void OnRegister()
     {
       dispatcher.AddListener(PlayerEvent.Died, OnPlayerDied);
@@ -18,53 +22,80 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
       dispatcher.AddListener(PlayerEvent.FireBullet, OnFireBullet);
       dispatcher.AddListener(PlayerEvent.Jump, OnJump);
-      dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, OnEnemyStartedMoving);
+      dispatcher.AddListener(PlayerEvent.EnemyCloser, OnEnemyStartedMoving);
       dispatcher.AddListener(PlayerEvent.DashStarted, OnDash);
-      dispatcher.AddListener(GameEvent.Start, OnStartGame);
+      dispatcher.AddListener(PlayerEvent.FireSound, OnFireBullet);
+      dispatcher.AddListener(PlayerEvent.BirdSound, OnBird);
+      dispatcher.AddListener(GameEvent.GameStarted, OnStartGame);
       dispatcher.AddListener(GameEvent.Menu, OnMenu);
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
     }
-
+    
+    public override void OnInitialize()
+    {
+      audioModel.musicSource = view.musicSource;
+      audioModel.sfxSource = view.sfxSource;
+      audioModel.timeSpeedSource = view.timeSpeedSource;
+    }
+    
     private void OnPlayerDied()
     {
+      view.PlaySFX(SoundKeys.Death);
+      
+      view.musicSource.Stop();
     }
 
     private void OnSlowDown()
     {
+      view.PlayTimeSpeedSFX(SoundKeys.SlowDownSpeed);
     }
 
     private void OnSpeedUp()
     {
+      view.PlayTimeSpeedSFX(SoundKeys.SpeedUpSpeed);
     }
 
     private void OnCollect()
     {
+      view.PlaySFX(SoundKeys.Collect);
     }
 
     private void OnCrashObstacle()
     {
+      view.PlaySFX(SoundKeys.DestroyObject);
     }
 
     private void OnFireBullet()
     {
+      view.PlaySFX(SoundKeys.Fire);
     }
 
     private void OnJump()
     {
+      view.PlaySFX(SoundKeys.Jump);
     }
 
     private void OnEnemyStartedMoving()
     {
+      view.PlayDeathSound(SoundKeys.EnemyCloser);
     }
 
-    private void OnDash()
-    {
-    }
-
+    
     private void OnStartGame()
     {
       view.PlayMusic(SoundKeys.GameTheme);
+    }
+    
+    
+    private void OnDash()
+    {
+      view.PlaySFX(SoundKeys.Dash);
+    }
+    
+    private void OnBird()
+    {
+      view.PlaySFX(SoundKeys.Raven);
     }
 
     private void OnMenu()
@@ -79,7 +110,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     private void OnContinue()
     {
     }
-
+    
     public override void OnRemove()
     {
       dispatcher.RemoveListener(PlayerEvent.Died, OnPlayerDied);
@@ -89,9 +120,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.RemoveListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
       dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFireBullet);
       dispatcher.RemoveListener(PlayerEvent.Jump, OnJump);
-      dispatcher.RemoveListener(PlayerEvent.EnemyStartedMoving, OnEnemyStartedMoving);
+      dispatcher.RemoveListener(PlayerEvent.EnemyCloser, OnEnemyStartedMoving);
       dispatcher.RemoveListener(PlayerEvent.DashStarted, OnDash);
-      dispatcher.RemoveListener(GameEvent.Start, OnStartGame);
+      dispatcher.RemoveListener(PlayerEvent.FireSound, OnFireBullet);
+      dispatcher.RemoveListener(PlayerEvent.BirdSound, OnBird);
+      dispatcher.RemoveListener(GameEvent.GameStarted, OnStartGame);
       dispatcher.RemoveListener(GameEvent.Menu, OnMenu);
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);
       dispatcher.RemoveListener(GameEvent.Continue, OnContinue);

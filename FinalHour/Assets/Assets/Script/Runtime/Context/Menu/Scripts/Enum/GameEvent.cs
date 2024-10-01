@@ -8,6 +8,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Enum
     Pause,
     Continue,
     SoundSettingsPanel,
-    Menu
+    Menu,
+    GameStarted
   }
 }

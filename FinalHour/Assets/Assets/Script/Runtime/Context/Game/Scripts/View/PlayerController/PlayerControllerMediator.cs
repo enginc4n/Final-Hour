@@ -48,6 +48,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public override void OnInitialize()
     {
+      dispatcher.Dispatch(GameEvent.GameStarted);    
       StartCoroutine(Off());  
 
       speedModel.ReturnNormalSpeed();
@@ -105,6 +106,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
       
+      dispatcher.Dispatch(PlayerEvent.Jump);
       float posY = transform.position.y;
 
       Tween jump = view.transform.DOMoveY(GameMechanicSettings.JumpHeight, GameMechanicSettings.JumpSpeed)
@@ -112,8 +114,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         .SetSpeedBased()
         .OnComplete(() => view.transform.DOMoveY(posY, GameMechanicSettings.JumpSpeed)
           .SetSpeedBased()
-          .SetEase(Ease.InQuad)
-          .OnComplete(() => dispatcher.Dispatch(PlayerEvent.Jump)));
+          .SetEase(Ease.InQuad));
 
       jump.Play();
     }

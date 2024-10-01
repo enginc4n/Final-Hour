@@ -14,6 +14,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     DashFinished,
     Collect,
     Jump,
-    FlyingObstacleIncoming
+    FlyingObstacleIncoming,
+    EnemyCloser,
+    FireSound,
+    BirdSound
   }
 }

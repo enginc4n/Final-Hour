@@ -79,6 +79,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
         Instantiate(objToSpawn, spawnPosition, Quaternion.identity, transform);
 
+        if (objToSpawn.tag == ObstacleTag.Fire)
+        {
+          dispatcher.Dispatch(PlayerEvent.FireSound);
+        }
+        
+        if (objToSpawn.tag == ObstacleTag.Bird)
+        {
+          dispatcher.Dispatch(PlayerEvent.BirdSound);
+        }
+        
         if (obstacleView.obstacleType == ObstacleType.Collectible)
         {
           yield return new WaitForSeconds((GameMechanicSettings.SpawnInterval / playerModel.currentGameSpeed / 2) - GameMechanicSettings.FlyingObstacleWarningTime);

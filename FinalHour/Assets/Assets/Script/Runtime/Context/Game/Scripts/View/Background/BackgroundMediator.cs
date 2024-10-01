@@ -38,6 +38,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     public override void OnRegister()
     {
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
+      dispatcher.AddListener(PlayerEvent.DashFinished, UpdateParticle);
     }
 
     public override void OnInitialize()
@@ -113,11 +114,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
         }
 
         _lastImage = newImage;
+
         
-   
-        ParticleSystem.VelocityOverLifetimeModule velocityModule = view.ambientParticle.velocityOverLifetime;
-        velocityModule.x = new ParticleSystem.MinMaxCurve(BaseParticleMinVelocity*playerModel.currentGameSpeed, BaseParticleMaxVelocity*playerModel.currentGameSpeed);
+        UpdateParticle();
       }
+    }
+
+    private void UpdateParticle()
+    {
+      ParticleSystem.VelocityOverLifetimeModule velocityModule = view.ambientParticle.velocityOverLifetime;
+      velocityModule.x = new ParticleSystem.MinMaxCurve(BaseParticleMinVelocity*playerModel.currentGameSpeed, BaseParticleMaxVelocity*playerModel.currentGameSpeed);
     }
     
     private void OnDied()
@@ -130,7 +136,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
 
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
+      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);      
+      dispatcher.RemoveListener(PlayerEvent.DashFinished, UpdateParticle);
     }
   }
 }

@@ -18,6 +18,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public TextMeshProUGUI fireCooldownText;
 
     public GameObject flyingObstacleWarning;
+    
+    public AudioSource musicSource;
+
+    public AudioSource sfxSource;
 
     [SerializeField]
     private GameObject hourglassIcon;
