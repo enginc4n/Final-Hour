@@ -64,10 +64,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 
     private void OnStartGame()
     {
+      view.PlayMusic(SoundKeys.GameTheme);
     }
 
     private void OnMenu()
     {
+      view.PlayMusic(SoundKeys.MenuTheme);
     }
 
     private void OnPause()

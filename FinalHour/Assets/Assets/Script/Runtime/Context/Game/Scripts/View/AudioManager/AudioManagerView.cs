@@ -22,6 +22,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       }
 
       musicSource.clip = sound.clip;
+      musicSource.loop = true;
       musicSource.Play();
     }
 
