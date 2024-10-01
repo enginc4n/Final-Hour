@@ -11,7 +11,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 {
   public enum EnemyControllerEvent
   {
-    CaughtPlayer
+    CaughtPlayer,
+    EnemyMoved
   }
 
   public class EnemyControllerMediator : EventMediator
@@ -25,8 +26,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     [Inject]
     public IEnemyModel enemyModel { get; set; }
     
-    [Inject]
-    public ISpeedModel speedModel { get; set; }
 
     private Coroutine _positionLoop;
 
@@ -37,6 +36,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     public override void OnRegister()
     {
       view.dispatcher.AddListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
+      view.dispatcher.AddListener(EnemyControllerEvent.EnemyMoved, StartPositionLoop);
 
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
@@ -105,6 +105,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void OnReturnNormalSpeed()
     {
+      float lastSpeed = view.modifiedSpeed;
+      
       if (_lastState == SpeedState.Fast)
       {
         view.speed += GameMechanicSettings.EnemySpeed;
@@ -115,6 +117,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
       if (view.speed != 0) return;
       _lastState = SpeedState.Normal;
+      CheckMovementStart(lastSpeed);
     }
     
     private void StartPositionLoop()
@@ -169,13 +172,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void CheckMovementStart(float lastSpeed)
     {
-      if (lastSpeed!= 0) return;
+      if (lastSpeed != 0)
+      {
+        return;
+      }
       StartPositionLoop();
     }
 
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
+      view.dispatcher.RemoveListener(EnemyControllerEvent.EnemyMoved, StartPositionLoop);
 
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);

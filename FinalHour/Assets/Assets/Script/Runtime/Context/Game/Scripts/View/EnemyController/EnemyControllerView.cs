@@ -37,10 +37,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       {
         return;
       }
-      MoveMarker();
+      MoveEnemy();
     }
 
-    private void MoveMarker()
+    private void MoveEnemy()
     {
       float deltaTime = Time.unscaledDeltaTime;
       
@@ -61,6 +61,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       if (crashRemainingDistance <= (crashCount - 1) * GameMechanicSettings.EnemySpeed * GameMechanicSettings.CrashPunishment)
       {
         crashCount--;
+        if (modifiedSpeed != 0 && speed + (GameMechanicSettings.EnemySpeed * (crashCount + 1)) == 0)
+        {
+          dispatcher.Dispatch(EnemyControllerEvent.EnemyMoved);
+        }
       }
     }
     
