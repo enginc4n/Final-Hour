@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6250646117209664803}
   - component: {fileID: 3779324652802119232}
-  - component: {fileID: 6717077697408117219}
+  - component: {fileID: 268049832139926337}
   m_Layer: 0
   m_Name: Sky
   m_TagString: Untagged
@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5760, y: 0}
-  m_SizeDelta: {x: 5760, y: 885}
+  m_AnchoredPosition: {x: 1920, y: 0}
+  m_SizeDelta: {x: 1920, y: 885}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &3779324652802119232
 CanvasRenderer:
@@ -46,7 +46,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410720874917750196}
   m_CullTransparentMesh: 1
---- !u!114 &6717077697408117219
+--- !u!114 &268049832139926337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1410720874917750196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -66,16 +66,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b8b1943f9cade824584124950b73f2d2, type: 3}
-  m_Type: 2
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.31
+  m_Texture: {fileID: 2800000, guid: b8b1943f9cade824584124950b73f2d2, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0.5
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &2231661317170142264
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944354682107053579}
   - component: {fileID: 2025342109017603953}
-  - component: {fileID: 8809750967097155337}
+  - component: {fileID: 8047554511521163510}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -156,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 5760, y: 0}
-  m_SizeDelta: {x: 5760, y: 888}
+  m_AnchoredPosition: {x: 1920, y: 0}
+  m_SizeDelta: {x: 1920, y: 888}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &2025342109017603953
 CanvasRenderer:
@@ -167,7 +164,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6933358875626053880}
   m_CullTransparentMesh: 1
---- !u!114 &8809750967097155337
+--- !u!114 &8047554511521163510
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,7 +173,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6933358875626053880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -187,16 +184,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f03e12e40db3aaa4b913d7571f402852, type: 3}
-  m_Type: 2
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.32
+  m_Texture: {fileID: 2800000, guid: f03e12e40db3aaa4b913d7571f402852, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &7995606245515081335
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,8 +260,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8b5792456f36ac64aae746c7f1ae7e9f, type: 3}
   - {fileID: 21300000, guid: 5244af239b35af140807fb0736e6e35c, type: 3}
   - {fileID: 21300000, guid: 2545da9fe20f21440933622dd5c40289, type: 3}
-  skyTransform: {fileID: 6250646117209664803}
-  groundTransform: {fileID: 5944354682107053579}
+  skyRawImage: {fileID: 268049832139926337}
+  groundRawImage: {fileID: 8047554511521163510}
   treeContainerTransform: {fileID: 2559261024811258579}
   ambientParticle: {fileID: 955727472278511472}
 --- !u!210 &9125445500600817665

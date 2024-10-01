@@ -11,8 +11,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
   {
     public GameObject treeObject;
     public List<Sprite> treeImages;
-    public Transform skyTransform;
-    public Transform groundTransform;
+    public RawImage skyRawImage;
+    public RawImage groundRawImage;
     public Transform treeContainerTransform;
     public ParticleSystem ambientParticle;
   }

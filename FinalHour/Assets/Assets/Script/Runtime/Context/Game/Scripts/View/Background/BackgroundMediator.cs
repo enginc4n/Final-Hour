@@ -44,9 +44,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     {
       _treeRectTransforms = new List<RectTransform>();
       _rectTransform = transform.GetComponent<RectTransform>();
-      _skyRectTransform = view.skyTransform.GetComponent<RectTransform>();
+      _skyRectTransform = view.skyRawImage.GetComponent<RectTransform>();
       _treeContainerRectTransform = view.treeContainerTransform.GetComponent<RectTransform>();
-      _groundRectTransform = view.groundTransform.GetComponent<RectTransform>();
+      _groundRectTransform = view.groundRawImage.GetComponent<RectTransform>();
 
       Vector2 rect = new(_rectTransform.rect.width, _rectTransform.rect.height);
       _minWidth = rect.x / 5;
@@ -61,12 +61,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     public void FixedUpdate()
     {
       if (!playerModel.isAlive) return;
-
-      view.groundTransform.Translate(new Vector2(-playerModel.currentGameSpeed, 0), Space.World);
-      view.skyTransform.Translate(new Vector2(-playerModel.currentGameSpeed / 5, 0), Space.World);
-
-      CheckOutOfBonds(_groundRectTransform);
-      CheckOutOfBonds(_skyRectTransform);
+      
+      ParallaxEffect(view.skyRawImage, _skyRectTransform, 0.2f);
+      ParallaxEffect(view.groundRawImage, _groundRectTransform, 1f);
 
       for (int i = _treeRectTransforms.Count - 1; i >= 0; i--)
       {
@@ -79,6 +76,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
         _treeRectTransforms.RemoveAt(i);
         Destroy(tree.gameObject);
       }
+    }
+
+    private void ParallaxEffect(RawImage image, RectTransform rectTransform, float speedFactor)
+    {
+      Rect rect = image.uvRect;
+      rect.x += playerModel.currentGameSpeed / rectTransform.lossyScale.x / rectTransform.rect.width * speedFactor;
+      if (rect.x > 1)
+      {
+        rect.x -= Mathf.Floor(rect.x);
+      }
+
+      image.uvRect = rect;
     }
 
     private IEnumerator TreeRoutine()
@@ -110,15 +119,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
         velocityModule.x = new ParticleSystem.MinMaxCurve(BaseParticleMinVelocity*playerModel.currentGameSpeed, BaseParticleMaxVelocity*playerModel.currentGameSpeed);
       }
     }
-
-    private void CheckOutOfBonds(RectTransform rectTransform)
-    {
-        if (rectTransform.anchoredPosition.x <= _rectTransform.rect.width)
-        {
-          rectTransform.anchoredPosition = new Vector2(rectTransform.sizeDelta.x, rectTransform.anchoredPosition.y);
-        }
-    }
-
+    
     private void OnDied()
     {
       StopCoroutine(_treeRoutine);
