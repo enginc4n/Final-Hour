@@ -15,5 +15,6 @@
     public const string Dash = "Dash";
     public const string Raven = "Raven";
     public const string Dead = "Dead";
+    public const string Grunt = "Grunt";
   }
 }

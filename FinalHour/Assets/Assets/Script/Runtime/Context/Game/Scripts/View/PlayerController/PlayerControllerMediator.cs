@@ -44,6 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
+      dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
     }
 
     public override void OnInitialize()
@@ -162,6 +163,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.Dispatch(PlayerEvent.FireBullet, view.gameObject.transform);
       StartCoroutine(view.FireCooldown());
     }
+    
+    private void OnCrashObstacle()
+    {
+      view.animator.SetTrigger("Hurt");
+    }
 
     private void OnSlowDownTimeAction()
     {
@@ -186,6 +192,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);
       dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
+      dispatcher.RemoveListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
     }
   }
 }

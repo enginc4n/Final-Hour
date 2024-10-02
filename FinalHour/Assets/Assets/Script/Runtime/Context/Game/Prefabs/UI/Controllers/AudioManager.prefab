@@ -458,6 +458,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8b2cd4feec764a943a20e5ab0282bd30, type: 3}
   - name: Dash
     clip: {fileID: 8300000, guid: 030c92ab588ab064aa69aca138ae21c6, type: 3}
+  - name: Dead
+    clip: {fileID: 8300000, guid: 250607ea5f9df164db680e04441b8721, type: 3}
+  - name: Grunt
+    clip: {fileID: 8300000, guid: 351dc47fd7572294d9f1db32385eac98, type: 3}
   musicSource: {fileID: 1186373728}
   sfxSource: {fileID: 1985017402}
   timeSpeedSource: {fileID: 4667999614422142631}

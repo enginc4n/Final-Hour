@@ -65,6 +65,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     private void OnCrashObstacle()
     {
       view.PlaySFX(SoundKeys.DestroyObject);
+      view.PlaySFX(SoundKeys.Grunt);
     }
 
     private void OnFireBullet()
