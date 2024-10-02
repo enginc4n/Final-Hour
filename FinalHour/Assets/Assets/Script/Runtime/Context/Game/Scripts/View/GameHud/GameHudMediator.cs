@@ -2,6 +2,7 @@ using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
+using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -84,8 +85,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         yield return new WaitForSeconds(1f);
 
         playerModel.ChangeRemainingTime(-1f);
+        
+        if (playerModel.remainingTime is <= 10 and > 1)
+        {
+          view.timerText.color = new Color(1f, 0.2290596f, 0.1650943f);
+          view.timerText.transform.DOScale(1.2f, 0.25f).OnComplete((() =>
+          {
+            view.timerText.transform.DOScale(1f, 0.25f);
+            dispatcher.Dispatch(GameEvent.ClockTick);
+          }));
+        }
       }
-
+      
       playerModel.Die();
     }
 
@@ -96,6 +107,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         yield return new WaitForSecondsRealtime(1 / GameMechanicSettings.SlowTimeGain);
 
         playerModel.ChangeRemainingTime(+1f);
+        
+        if (playerModel.remainingTime > 10)
+        {
+          view.timerText.color = Color.white;
+        }
       }
     }
     
@@ -135,8 +151,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     private void OnCollect()
     {
       view.FlyText(GameMechanicSettings.CollectibleTimeAmount);
-      
-      view.StartFireTimer();
     }
     
     private void OnChangeSpeed()

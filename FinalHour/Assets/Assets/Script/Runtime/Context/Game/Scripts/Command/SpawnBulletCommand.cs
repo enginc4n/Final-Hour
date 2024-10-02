@@ -24,7 +24,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Command
       Transform transform = (Transform)evt.data;
       GameObject bullet = ObjectPool.instance.GetPooledBullet();
       bullet.SetActive(true);
-      bullet.transform.SetParent(transform);
+      bullet.transform.SetParent(transform.parent);
       bullet.transform.position = transform.position;
     }
   }

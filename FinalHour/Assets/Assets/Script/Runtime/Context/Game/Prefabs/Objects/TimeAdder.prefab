@@ -9941,7 +9941,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1493117961
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_RenderMode: 4
   m_MeshDistribution: 0
@@ -14697,7 +14697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -8.2222595}
   m_SizeDelta: {x: 107, y: 236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &8032858546369814085
@@ -14763,7 +14763,7 @@ MonoBehaviour:
   isBreakable: 0
   isDropTime: 0
   obstacleType: 2
-  ownSpeedFactor: 1
+  ownSpeedFactor: 0.5
   rotationSpeed: 90
   timeAdder: {fileID: 8032858546369814456}
   collectParticle: {fileID: 2219189024081856779, guid: 895c6d094b6b213418cddcfb520298e9, type: 3}
@@ -14816,7 +14816,7 @@ SortingGroup:
   m_GameObject: {fileID: 8032858546369814456}
   m_Enabled: 1
   m_SortingLayerID: -1493117961
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
 --- !u!1001 &4602331751728310819
 PrefabInstance:

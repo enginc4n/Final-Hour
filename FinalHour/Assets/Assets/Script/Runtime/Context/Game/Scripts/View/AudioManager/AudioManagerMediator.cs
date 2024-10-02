@@ -28,6 +28,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.AddListener(PlayerEvent.BirdSound, OnBird);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(GameEvent.GameStarted, OnStartGame);
+      dispatcher.AddListener(GameEvent.ClockTick, OnClockTick);
       dispatcher.AddListener(GameEvent.Menu, OnMenu);
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
@@ -99,7 +100,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     {
       view.PlaySFX(SoundKeys.Raven);
     }
-
+    
+    private void OnClockTick()
+    {
+      view.PlaySFX(SoundKeys.ClockTick);
+    }
+    
     private void OnMenu()
     {
       view.PlayMusic(SoundKeys.MenuTheme);
@@ -134,6 +140,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.RemoveListener(PlayerEvent.FireSound, OnFireBullet);
       dispatcher.RemoveListener(PlayerEvent.BirdSound, OnBird);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
+      dispatcher.RemoveListener(GameEvent.ClockTick, OnClockTick);
       dispatcher.RemoveListener(GameEvent.GameStarted, OnStartGame);
       dispatcher.RemoveListener(GameEvent.Menu, OnMenu);
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);

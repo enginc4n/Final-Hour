@@ -149,7 +149,7 @@ SortingGroup:
   m_GameObject: {fileID: 7624148072339451965}
   m_Enabled: 1
   m_SortingLayerID: -1493117961
-  m_SortingLayer: 7
+  m_SortingLayer: 3
   m_SortingOrder: 1
 --- !u!95 &6443135105559869088
 Animator:
@@ -252,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6890765397544793498, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: m_SortingLayer
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6890765397544793498, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: m_SortingOrder
@@ -328,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8986935675043883179, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: m_SortingLayer
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9186446616439801708, guid: acdb90624a404aa438447006f1026065, type: 3}
       propertyPath: looping

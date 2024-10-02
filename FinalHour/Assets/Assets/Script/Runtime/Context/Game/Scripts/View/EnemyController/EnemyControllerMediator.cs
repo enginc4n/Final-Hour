@@ -27,7 +27,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     [Inject]
     public IEnemyModel enemyModel { get; set; }
     
-
     private Coroutine _positionLoop;
 
     private SpeedState _lastState;
@@ -181,9 +180,32 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void OnDied()
     {
+      view.alreadyDead = true;
       view.speed = 0f;
       view.crashCount = 0;
       _lastState = SpeedState.Normal;
+
+      if (view.enemyBoxCollider.IsTouchingLayers(LayerMask.GetMask("Player")))
+      {
+        view.KillAnimation();
+      }
+      else
+      {
+        StartCoroutine(Catch());
+      }
+    }
+
+    private IEnumerator Catch()
+    {
+      while (!view.enemyBoxCollider.IsTouchingLayers(LayerMask.GetMask("Player")))
+      {
+        transform.Translate(Vector2.right * (5 * Time.deltaTime));
+
+        // Wait for the next frame
+        yield return null;
+      }
+
+      view.KillAnimation();
     }
 
     private void OnCrashObstacle()

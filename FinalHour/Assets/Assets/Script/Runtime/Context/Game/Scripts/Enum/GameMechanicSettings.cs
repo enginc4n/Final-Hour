@@ -12,10 +12,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float StartingGameSpeed = 0.25f;
     public const float MaxGameSpeed = 1f;
     public const float GameSpeedUpTime= 2.5f; // higher numbers makes game speed up less often
-    public const float GameSpeedUpAmount = 0.002f;
+    public const float GameSpeedUpAmount = 0.005f;
     
     //Spawns
-    public const float SpawnInterval = 0.75f; //higher number puts more time between spawns 
+    public const float SpawnInterval = 3f; //higher number puts more time between spawns 
     public const float CollectibleTimeAmount = 5f;
     public const float CrashPunishment = 1f;
     public const float FlyingObstacleWarningTime = 1f; //warning will appear x seconds before obstacle comes

@@ -1,5 +1,7 @@
-﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+﻿using System;
+using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -28,7 +30,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
       
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
-    
+
     private void OnObstacleIsBroken()
     {
       view.InstantiateObject(view.breakParticle);
@@ -94,6 +96,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
       view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
+
+      view.sequence.Kill();
     }
   }
 }

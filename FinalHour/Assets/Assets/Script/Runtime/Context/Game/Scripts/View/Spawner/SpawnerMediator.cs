@@ -77,25 +77,36 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
         
         yield return new WaitForSeconds(GameMechanicSettings.FlyingObstacleWarningTime);
 
-        Instantiate(objToSpawn, spawnPosition, Quaternion.identity, transform);
+        GameObject spawnedObject = Instantiate(objToSpawn, spawnPosition, Quaternion.identity, transform);
 
-        if (objToSpawn.tag == ObstacleTag.Fire)
+        if (objToSpawn.CompareTag(ObstacleTag.Fire))
         {
           dispatcher.Dispatch(PlayerEvent.FireSound);
         }
         
-        if (objToSpawn.tag == ObstacleTag.Bird)
+        if (objToSpawn.CompareTag(ObstacleTag.Bird))
         {
           dispatcher.Dispatch(PlayerEvent.BirdSound);
         }
+
+        if (obstacleType == ObstacleType.Collectible)
+        {
+          spawnedObject.GetComponent<ObstacleView>().ArcMove();
+        }
+        
+        float currentRate = GameMechanicSettings.SpawnInterval / (playerModel.currentGameSpeed / GameMechanicSettings.StartingGameSpeed);
+
+        float min = currentRate* 0.50f; 
+        float max = currentRate * 1.50f; 
+        float waitTme = Random.Range(min, max);
         
         if (obstacleView.obstacleType == ObstacleType.Collectible)
         {
-          yield return new WaitForSeconds((GameMechanicSettings.SpawnInterval / playerModel.currentGameSpeed / 2) - GameMechanicSettings.FlyingObstacleWarningTime);
+          yield return new WaitForSeconds((waitTme / 2) - GameMechanicSettings.FlyingObstacleWarningTime);
         }
         else
         {
-          yield return new WaitForSeconds((GameMechanicSettings.SpawnInterval / playerModel.currentGameSpeed) - GameMechanicSettings.FlyingObstacleWarningTime);
+          yield return new WaitForSeconds(waitTme - GameMechanicSettings.FlyingObstacleWarningTime);
         }
       }
     }

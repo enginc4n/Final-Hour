@@ -1,7 +1,11 @@
-﻿using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+﻿using System;
+using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles;
+using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View
 {
@@ -26,6 +30,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     public ParticleSystem crushParticle;
 
     public ParticleSystem breakParticle;
+
+    public Sequence sequence;
 
     private void Update()
     {
@@ -69,5 +75,36 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
     { 
       Instantiate(objectToInstantiate, transform.position, Quaternion.identity, transform.parent);
     } 
+    
+    public void ArcMove()
+    {
+      Vector3 position = transform.position;
+      transform.position = new Vector2(position.x, Random.Range(-3f, position.y + 1));
+
+      sequence = DOTween.Sequence();
+
+      if (Random.Range(0, 1) > 0)
+      {
+        sequence.Append(transform.DOMoveY(-3, GetSpeed(transform.position.y,-3)).SetEase(Ease.Linear));
+        sequence.Append(transform.DOMoveY( position.y + 1,GetSpeed(-3, position.y + 1)).SetEase(Ease.Linear));
+        sequence.Append(transform.DOMoveY(position.y, GetSpeed(position.y + 1, position.y)).SetEase(Ease.Linear));
+      }
+      else
+      {
+        sequence.Append(transform.DOMoveY( position.y + 1,GetSpeed(transform.position.y,position.y + 1)).SetEase(Ease.Linear));
+        sequence.Append(transform.DOMoveY(-3, GetSpeed(position.y + 1,-3)).SetEase(Ease.Linear));
+        sequence.Append(transform.DOMoveY(position.y, GetSpeed(-3,position.y)).SetEase(Ease.Linear));
+      }
+
+      sequence.SetLoops(-1, LoopType.Yoyo);
+      sequence.Play();
+    }
+
+    private float GetSpeed(float start, float target)
+    {
+      float distance = Math.Abs(start - target);
+
+      return distance / 5f;
+    }
   }
 }

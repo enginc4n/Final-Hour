@@ -15,7 +15,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.BulletController
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-      if (other.gameObject.layer == LayerMask.NameToLayer("Barrier") || other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+      if (other.gameObject.layer == LayerMask.NameToLayer("FireBarrier") || other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
       {
         gameObject.SetActive(false);
       }

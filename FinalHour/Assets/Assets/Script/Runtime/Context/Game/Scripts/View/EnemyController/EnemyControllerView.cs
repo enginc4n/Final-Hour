@@ -32,6 +32,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private const float DistanceFromBarrier = GameMechanicSettings.EnemySpeed * GameMechanicSettings.EnemyCatchTimeFromMax;
 
+    public bool alreadyDead;
+
     private void FixedUpdate()
     {
       if (speed == 0 && modifiedSpeed == 0)
@@ -86,7 +88,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void OnTriggerEnter2D(Collider2D other)
     {
       if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+      if (alreadyDead) return;
       dispatcher.Dispatch(EnemyControllerEvent.CaughtPlayer);
+    }
+
+    public void KillAnimation()
+    {
       enemyAnimator.SetTrigger("Catch");
 
       transform.DOBlendableMoveBy(new Vector3(0, 10, 0), 2).SetDelay(1.75f);
