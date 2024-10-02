@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Globalization;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using DG.Tweening;
 using strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
@@ -23,9 +25,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public GameObject flyingObstacleWarning;
 
-    public GameObject increaseParticle;
+    [SerializeField]
+    private GameObject increaseParticle;
 
-    public GameObject decreaseParticle;
+    [SerializeField]
+    private GameObject decreaseParticle;
+
+    [SerializeField]
+    private GameObject flyingText;
 
     [SerializeField]
     private GameObject hourglassIcon;
@@ -80,6 +87,39 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public void SetState(bool isActive)
     {
       gameObject.SetActive(isActive);
+    }
+    
+    public void FlyText(float amount)
+    {
+      GameObject flyingTextGo = Instantiate(flyingText, timerText.transform, true);
+      Transform flyingTransform = flyingTextGo.transform;
+      flyingTransform.localScale = Vector3.one;
+      RectTransform rectTransform = flyingTransform.GetComponent<RectTransform>();
+      TextMeshProUGUI text = flyingTextGo.GetComponent<TextMeshProUGUI>();
+
+      if (amount > 0)
+      {
+        rectTransform.anchoredPosition = new Vector2(150, 20);
+        flyingTransform.DOBlendableLocalMoveBy(new Vector3(0, 50, 0), 2.5f);
+        
+        text.text = "+" + amount.ToString(CultureInfo.InvariantCulture);
+        text.color = Color.cyan;
+      }
+      else
+      {
+        rectTransform.anchoredPosition = new Vector2(150, -20);
+        flyingTransform.DOBlendableLocalMoveBy(new Vector3(0, -50, 0), 2.5f);
+        
+        text.text = amount.ToString(CultureInfo.InvariantCulture);
+        text.color = Color.red;
+      }
+
+      text.DOFade(0, 3).OnComplete(() =>
+        {
+          flyingTransform.DOKill();
+          Destroy(flyingTextGo);
+        }
+        );
     }
     
     public void StartDashTimer()

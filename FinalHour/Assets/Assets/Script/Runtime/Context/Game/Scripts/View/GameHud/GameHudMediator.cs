@@ -50,6 +50,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.DashStarted, OnDashStarted);
       dispatcher.AddListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.AddListener(PlayerEvent.FireBullet, OnFire);
+      dispatcher.AddListener(PlayerEvent.Collect, OnCollect);
       dispatcher.AddListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
     }
 
@@ -118,12 +119,23 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     
     private void OnDashStarted()
     {
+      view.FlyText(-GameMechanicSettings.DashCost);
+      
       view.dashImage.color = new Color(1f, 1f, 1f, 0.5f);
       view.dashText.color = new Color(1f, 1f, 1f, 0.5f);
     }
 
     private void OnFire()
     {
+      view.FlyText(-GameMechanicSettings.FireCost);
+      
+      view.StartFireTimer();
+    }
+    
+    private void OnCollect()
+    {
+      view.FlyText(GameMechanicSettings.CollectibleTimeAmount);
+      
       view.StartFireTimer();
     }
     
@@ -248,6 +260,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.DashStarted, OnDashStarted);
       dispatcher.RemoveListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFire);
+      dispatcher.RemoveListener(PlayerEvent.Collect, OnCollect);
       dispatcher.RemoveListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
     }
   }

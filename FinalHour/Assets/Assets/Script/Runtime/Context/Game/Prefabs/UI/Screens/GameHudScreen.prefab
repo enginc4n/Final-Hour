@@ -31,8 +31,8 @@ RectTransform:
   m_Children:
   - {fileID: 3914055826678272249}
   - {fileID: 64712884488840005}
-  - {fileID: 3126245773460834870}
   - {fileID: 1672980251623224929}
+  - {fileID: 3126245773460834870}
   - {fileID: 682448568363996771}
   - {fileID: 1986182109647636279}
   m_Father: {fileID: 0}
@@ -64,6 +64,7 @@ MonoBehaviour:
   flyingObstacleWarning: {fileID: 473429514392849650}
   increaseParticle: {fileID: 7318744092977768823}
   decreaseParticle: {fileID: 6438561999182948517}
+  flyingText: {fileID: 2829867974825219360, guid: 804d45c5899a59943a52f78c04cce7fb, type: 3}
   hourglassIcon: {fileID: 5951181748139986969}
   shadowImage: {fileID: 2947077247061003885}
   fireCooldownImage: {fileID: 4100443125546517821}
@@ -938,7 +939,7 @@ RectTransform:
   - {fileID: 4469026992950467620}
   - {fileID: 64712884487736456}
   m_Father: {fileID: 64712884333917650}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2021,7 +2022,7 @@ RectTransform:
   - {fileID: 3501344671121890502}
   - {fileID: 3506670910818878812}
   m_Father: {fileID: 64712884333917650}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
