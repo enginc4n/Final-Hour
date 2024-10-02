@@ -203,7 +203,7 @@ MonoBehaviour:
   m_text: Press anywhere to start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 70857f150b76eaa478e982b83803655e, type: 2}
-  m_sharedMaterial: {fileID: -7605649036914559845, guid: 70857f150b76eaa478e982b83803655e, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 1c60db945e96b9c40b879e976bc42179, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

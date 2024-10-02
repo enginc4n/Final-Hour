@@ -34,10 +34,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void FixedUpdate()
     {
+      if (speed == 0 && modifiedSpeed == 0)
+      {
+        return;
+      }
+      
       if (enemyRigidBody.IsTouchingLayers(LayerMask.GetMask("Barrier")) && speed <= 0 && crashCount == 0)
       {
         return;
       }
+      
       MoveEnemy();
     }
 

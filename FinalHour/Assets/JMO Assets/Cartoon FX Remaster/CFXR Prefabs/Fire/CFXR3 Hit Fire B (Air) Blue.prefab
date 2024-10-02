@@ -4850,7 +4850,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1493117961
-  m_SortingLayer: 7
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_RenderMode: 1
   m_MeshDistribution: 0
@@ -4928,7 +4928,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -9735,7 +9735,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1493117961
-  m_SortingLayer: 7
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_RenderMode: 1
   m_MeshDistribution: 0

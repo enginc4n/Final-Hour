@@ -39,6 +39,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       view.dispatcher.AddListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
       view.dispatcher.AddListener(EnemyControllerEvent.EnemyMoved, StartPositionLoop);
 
+      dispatcher.AddListener(PlayerEvent.DashStarted, OnDashStarted);
+      dispatcher.AddListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
@@ -69,7 +71,25 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     {
       playerModel.Die();
     }
+    
+    private void OnDashStarted()
+    {
+      float lastSpeed = view.modifiedSpeed;
 
+      view.speed -= GameMechanicSettings.EnemySpeed + (GameMechanicSettings.EnemySpeed * GameMechanicSettings.DashSpeed);
+      
+      CheckMovementStart(lastSpeed);
+    }
+    
+    private void OnDashFinished()
+    {
+      float lastSpeed = view.modifiedSpeed;
+      
+      view.speed += GameMechanicSettings.EnemySpeed + (GameMechanicSettings.EnemySpeed * GameMechanicSettings.DashSpeed);
+      
+      CheckMovementStart(lastSpeed);
+    }
+    
     private void OnSlowDown()
     {
       float lastSpeed = view.modifiedSpeed;
@@ -187,12 +207,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     public override void OnRemove()
     {
-      transform.DOKill();
+      transform.GetComponent<RectTransform>().DOKill();
       view.spriteRenderer.DOKill();
       
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
       view.dispatcher.RemoveListener(EnemyControllerEvent.EnemyMoved, StartPositionLoop);
 
+      dispatcher.RemoveListener(PlayerEvent.DashStarted, OnDashStarted);
+      dispatcher.RemoveListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);
