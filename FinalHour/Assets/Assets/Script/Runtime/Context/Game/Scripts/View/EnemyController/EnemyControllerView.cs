@@ -14,6 +14,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     public CircleCollider2D playerBodyCollider;
     public BoxCollider2D barrierBoxCollider;
     public Transform enemyBarrier;
+    public SpriteRenderer spriteRenderer;
     
     public Animator enemyAnimator;
 
@@ -81,6 +82,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
       dispatcher.Dispatch(EnemyControllerEvent.CaughtPlayer);
       enemyAnimator.SetTrigger("Catch");
+
+      transform.DOBlendableMoveBy(new Vector3(0, 10, 0), 2).SetDelay(1.75f);
+      spriteRenderer.DOColor(new Color(0.35f, 0.35f, 0.35f), 1f).SetDelay(1.5f);
+      spriteRenderer.DOColor(new Color(0f, 0f, 0f, 0f), 1f).SetDelay(1.75f);    
     }
   }
 }

@@ -840,7 +840,7 @@ MonoBehaviour:
   playerCrouchCollider: {fileID: 1670475632}
   spriteRenderer: {fileID: 1670475622}
   playerInput: {fileID: 1670475621}
-  animator: {fileID: 1670475628}
+  playerAnimator: {fileID: 1670475628}
   dashParticle: {fileID: 1811938783}
   deadParticle: {fileID: 1810039727}
   inputActionMap:
@@ -2237,6 +2237,7 @@ MonoBehaviour:
   playerBodyCollider: {fileID: 1670475634}
   barrierBoxCollider: {fileID: 1027140998}
   enemyBarrier: {fileID: 1027140999}
+  spriteRenderer: {fileID: 2533985777579160139}
   enemyAnimator: {fileID: 5396698723505708736}
   speed: 0
   crashCount: 0

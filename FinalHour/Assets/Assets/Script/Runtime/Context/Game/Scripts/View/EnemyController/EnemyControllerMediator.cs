@@ -4,6 +4,7 @@ using System.IO;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
+using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -186,6 +187,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     public override void OnRemove()
     {
+      transform.DOKill();
+      view.spriteRenderer.DOKill();
+      
       view.dispatcher.RemoveListener(EnemyControllerEvent.CaughtPlayer, OnCaughtPlayer);
       view.dispatcher.RemoveListener(EnemyControllerEvent.EnemyMoved, StartPositionLoop);
 

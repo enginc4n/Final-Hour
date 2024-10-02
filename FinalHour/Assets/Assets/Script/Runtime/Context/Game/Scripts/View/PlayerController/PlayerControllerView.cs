@@ -13,7 +13,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public CapsuleCollider2D playerCrouchCollider;
     public SpriteRenderer spriteRenderer;
     public PlayerInput playerInput;
-    public Animator animator;
+    public Animator playerAnimator;
     public GameObject dashParticle;
     public GameObject deadParticle;
     
@@ -68,7 +68,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      animator.SetBool("isJumping", true);
+      playerAnimator.SetBool("isJumping", true);
       dispatcher.Dispatch(PlayerControllerEvents.Jump);
     }
 
@@ -84,7 +84,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      animator.SetBool("isCrouch", true);
+      playerAnimator.SetBool("isCrouch", true);
       dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
@@ -95,7 +95,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      animator.SetBool("isCrouch", false);
+      playerAnimator.SetBool("isCrouch", false);
       dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
@@ -174,12 +174,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       if (enable)
       {
         EnableInputs();
-        animator.SetBool("isDead", false);
+        playerAnimator.SetBool("isDead", false);
       }
       else
       {
         DisableInputs();
-        animator.SetBool("isDead", true);
+        playerAnimator.SetBool("isDead", true);
       }
     }
 
@@ -198,7 +198,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
       {
-        animator.SetBool("isJumping", false);
+        playerAnimator.SetBool("isJumping", false);
       }
     }
   }

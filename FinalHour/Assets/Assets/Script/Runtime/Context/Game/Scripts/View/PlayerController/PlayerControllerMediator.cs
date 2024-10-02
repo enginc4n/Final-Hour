@@ -166,7 +166,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     private void OnCrashObstacle()
     {
-      view.animator.SetTrigger("Hurt");
+      view.playerAnimator.SetTrigger("Hurt");
     }
 
     private void OnSlowDownTimeAction()
