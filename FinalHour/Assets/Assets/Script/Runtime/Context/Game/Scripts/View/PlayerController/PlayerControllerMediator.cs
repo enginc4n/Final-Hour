@@ -48,6 +48,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public override void OnInitialize()
     {
+      view.deadParticle.SetActive(false);
       dispatcher.Dispatch(GameEvent.GameStarted);    
       StartCoroutine(Off());  
 
@@ -80,6 +81,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnDied()
     {
+      view.deadParticle.SetActive(true);
       speedModel.ReturnNormalSpeed();
 
       view.SetActionMapState(false);

@@ -15,6 +15,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public PlayerInput playerInput;
     public Animator animator;
     public GameObject dashParticle;
+    public GameObject deadParticle;
     
     private PlayerInputActions playerInputActions;
     public InputActionMap inputActionMap;
