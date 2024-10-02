@@ -32,7 +32,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
     private void OnDied()
     {
       view.score = playerModel.score;
-      view.SetState(true);
+      view.SetState(true, playerModel.remainingTime <= 0);
     }
 
     private void OnPlayAgain()

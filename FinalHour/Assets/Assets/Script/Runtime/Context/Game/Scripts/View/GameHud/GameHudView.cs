@@ -13,15 +13,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public TextMeshProUGUI scoreText;
 
+    public Image dashImage;
+
+    public TextMeshProUGUI dashText;
+    
     public TextMeshProUGUI dashCooldownText;
 
     public TextMeshProUGUI fireCooldownText;
 
     public GameObject flyingObstacleWarning;
-    
-    public AudioSource musicSource;
 
-    public AudioSource sfxSource;
+    public GameObject increaseParticle;
+
+    public GameObject decreaseParticle;
 
     [SerializeField]
     private GameObject hourglassIcon;
@@ -49,6 +53,22 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public void SetIcon(SpeedState speedState)
     {
       hourglassIcon.SetActive(speedState != SpeedState.Normal);
+
+      switch (speedState)
+      {
+        case SpeedState.Fast:
+          increaseParticle.SetActive(false);
+          decreaseParticle.SetActive(true);
+          break;
+        case SpeedState.Slow:
+          increaseParticle.SetActive(true);
+          decreaseParticle.SetActive(false);
+          break;
+        case SpeedState.Normal:
+          increaseParticle.SetActive(false);
+          decreaseParticle.SetActive(false);
+          break;
+      }
     }
 
     public void SetShadowOpacity(float opacity)

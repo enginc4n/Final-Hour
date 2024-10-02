@@ -47,6 +47,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
+      dispatcher.AddListener(PlayerEvent.DashStarted, OnDashStarted);
       dispatcher.AddListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.AddListener(PlayerEvent.FireBullet, OnFire);
       dispatcher.AddListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
@@ -110,7 +111,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void OnDashFinished()
     {
+      view.dashImage.color = Color.white;
+      view.dashText.color = Color.white;
       view.StartDashTimer();
+    }
+    
+    private void OnDashStarted()
+    {
+      view.dashImage.color = new Color(1f, 1f, 1f, 0.5f);
+      view.dashText.color = new Color(1f, 1f, 1f, 0.5f);
     }
 
     private void OnFire()
@@ -236,6 +245,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnChangeSpeed);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnChangeSpeed);
+      dispatcher.RemoveListener(PlayerEvent.DashStarted, OnDashStarted);
       dispatcher.RemoveListener(PlayerEvent.DashFinished, OnDashFinished);
       dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFire);
       dispatcher.RemoveListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6331275906715107348}
   - component: {fileID: 6331275906715107351}
   m_Layer: 0
-  m_Name: Area_heal_green
+  m_Name: Area_increase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +226,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.9496783, g: 0.9811321, b: 0.5322179, a: 1}
-      maxColor: {r: 0.7330968, g: 1, b: 0.23113209, a: 0.35686275}
+      maxColor: {r: 0.7330968, g: 1, b: 0.23113209, a: 0}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -11166,9 +11166,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.9859231, g: 1, b: 0.5518868, a: 0}
-        key1: {r: 0.35066357, g: 0.9811321, b: 0.24528302, a: 1}
-        key2: {r: 0.0141509175, g: 1, b: 0.6217754, a: 1}
+        key0: {r: 0.47668213, g: 0.97060364, b: 0.9811321, a: 0}
+        key1: {r: 0.10234961, g: 0.23412247, b: 0.9433962, a: 1}
+        key2: {r: 0.09531862, g: 0.5843932, b: 0.9622642, a: 1}
         key3: {r: 0.72931063, g: 0.990566, b: 0.65881985, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -14703,7 +14703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7399813554394967921
 Transform:
   m_ObjectHideFlags: 0
