@@ -45,5 +45,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float EnemySpeed = 150f; //+x per second
     public const float EnemyTimeToCatchFromStart = 3f;
     public const float EnemyCatchTimeFromMax = 5f;
+    
+    //Sound
+    public const float DefaultMusicVolume = 0.8f;
+    public const float DefaultSfxVolume = 0.8f;
   }
 }

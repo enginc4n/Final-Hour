@@ -10,7 +10,7 @@ using strange.extensions.context.impl;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.Config
 {
-  public class SettingsModuleConfigurator
+  public class OptionsModuleConfigurator
   {
     public static void All(MVCSContext context)
     {
@@ -19,10 +19,9 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Config
 
       context.mediationBinder.Bind<OptionsPanelView>().To<OptionsPanelMediator>();
       context.mediationBinder.Bind<InstructionsPanelView>().To<InstructionsPanelMediator>();
-      context.mediationBinder.Bind<SoundSettingsView>().To<SoundSettingsMediator>();
+      context.mediationBinder.Bind<SettingsView>().To<SettingsMediator>();
 
-      context.commandBinder.Bind(GameEvent.SettingsPanel).To<OpenSettingsCommand>();
-      context.commandBinder.Bind(GameEvent.SoundSettingsPanel).To<OpenGameSettingsCommand>();
+      context.commandBinder.Bind(GameEvent.OptionsPanel).To<OpenOptionsCommand>();
       context.commandBinder.Bind(GameEvent.Exit).To<ExitCommand>();
       context.commandBinder.Bind(GameEvent.Start).To<StartCommand>();
     }

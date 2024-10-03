@@ -67,7 +67,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
         return;
       }
 
-      if (other.gameObject.layer == LayerMask.NameToLayer("Barrier"))
+      if (other.gameObject.layer == LayerMask.NameToLayer("ObstacleBarrier"))
       {
         Destroy(gameObject);
       }

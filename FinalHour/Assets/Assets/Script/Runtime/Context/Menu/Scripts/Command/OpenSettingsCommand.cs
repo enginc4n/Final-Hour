@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.Command
 {
-  public class OpenSettingsCommand : EventCommand
+  public class OpenOptionsCommand : EventCommand
   {
     [Inject]
     public IUIModel uiModel { get; set; }

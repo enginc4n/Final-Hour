@@ -21,7 +21,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Config
 
     protected override void mapBindings()
     {
-      SettingsModuleConfigurator.All(this);
+      OptionsModuleConfigurator.All(this);
 
       injectionBinder.Bind<ISpeedModel>().To<SpeedModel>().ToSingleton();
 

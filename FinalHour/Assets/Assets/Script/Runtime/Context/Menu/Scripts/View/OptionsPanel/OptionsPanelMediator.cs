@@ -9,7 +9,8 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
   {
     Close,
     Exit,
-    Instructions
+    Instructions,
+    Settings
   }
   public class OptionsPanelMediator : EventMediator
   {
@@ -24,11 +25,12 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
       view.dispatcher.AddListener(OptionsPanelEvent.Close, OnClose);
       view.dispatcher.AddListener(OptionsPanelEvent.Exit, OnExit);
       view.dispatcher.AddListener(OptionsPanelEvent.Instructions, OnInstructions);
+      view.dispatcher.AddListener(OptionsPanelEvent.Settings, OnSettings);
     }
     
     private void OnClose()
     { 
-      dispatcher.Dispatch(GameEvent.SettingsPanel);
+      dispatcher.Dispatch(GameEvent.OptionsPanel);
     }
     
     private void OnExit()
@@ -41,11 +43,17 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
       uiModel.OpenPanel(PanelKeys.InstructionsPanel, transform.parent);
     }
     
+    private void OnSettings()
+    { 
+      uiModel.OpenPanel(PanelKeys.SettingsPanel, transform.parent);
+    }
+    
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(OptionsPanelEvent.Close, OnClose);
       view.dispatcher.RemoveListener(OptionsPanelEvent.Exit, OnExit);
       view.dispatcher.RemoveListener(OptionsPanelEvent.Instructions, OnInstructions);
+      view.dispatcher.RemoveListener(OptionsPanelEvent.Settings, OnSettings);
     }
   }
 }

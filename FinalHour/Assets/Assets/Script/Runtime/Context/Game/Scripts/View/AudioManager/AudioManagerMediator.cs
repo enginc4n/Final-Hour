@@ -42,7 +42,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       audioModel.timeSpeedSource = view.timeSpeedSource;
       audioModel.deathSoundSource = view.deathSoundSource;
 
-      audioModel.SetPitchVolume(1f, 1f);
+      audioModel.ResetPitchVolume();
     }
     
     private void OnPlayerDied()

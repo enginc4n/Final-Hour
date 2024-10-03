@@ -14,6 +14,11 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel
     {
       dispatcher.Dispatch(OptionsPanelEvent.Instructions);
     }
+    
+    public void OnSettings()
+    {
+      dispatcher.Dispatch(OptionsPanelEvent.Settings);
+    }
 
 
     public void OnExit()

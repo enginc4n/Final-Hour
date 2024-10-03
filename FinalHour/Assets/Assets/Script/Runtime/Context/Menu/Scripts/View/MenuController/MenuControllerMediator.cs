@@ -25,7 +25,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
 
     private void OnSoundSettings()
     {
-      dispatcher.Dispatch(GameEvent.SoundSettingsPanel, transform);
+      dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
     }
 
     public override void OnInitialize()
@@ -40,7 +40,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
 
     public void OnSettings()
     {
-      dispatcher.Dispatch(GameEvent.SettingsPanel, transform);
+      dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
     }
 
     public override void OnRemove()

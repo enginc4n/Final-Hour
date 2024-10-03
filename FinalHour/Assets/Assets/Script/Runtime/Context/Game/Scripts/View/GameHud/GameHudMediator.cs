@@ -216,7 +216,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       if (currentDistance >= spawnDistance)
       {
         view.SetShadowOpacity(0); 
-        audioModel.SetPitchVolume(1f,1f);
+        audioModel.ResetPitchVolume();
       }
       else
       {
@@ -228,7 +228,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         }
         else
         {
-          audioModel.SetPitchVolume(1f,1f);
+          audioModel.ResetPitchVolume();
         }
       }
     }
@@ -242,7 +242,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void OnSettings()
     {
-      dispatcher.Dispatch(GameEvent.SettingsPanel, transform);
+      dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
     }
     
     private void OnFlyingObstacleIncoming()

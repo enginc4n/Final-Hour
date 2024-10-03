@@ -14,6 +14,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     
     public void SetPitchVolume(float volume, float pitch);
     
+    public void ResetPitchVolume();
+
+    public void SetMusicVolume(float volume);
+
+    public void SetSfxVolume(float volume);
+    
+    public void ToggleMusic();
+
+    public void ToggleSfx();
+
     public void Pause();
     
     public void Resume();
