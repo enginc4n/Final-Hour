@@ -59,10 +59,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
 
     private void CollectibleProcess()
     {
-      playerModel.remainingTime += GameMechanicSettings.CollectibleTimeAmount;
-      view.InstantiateObject(view.collectParticle);
-      dispatcher.Dispatch(PlayerEvent.Collect);
-      Destroy(view.gameObject);
+      if (CompareTag(ObstacleTag.Time))
+      {
+        playerModel.remainingTime += GameMechanicSettings.CollectibleTimeAmount;
+        view.InstantiateObject(view.collectParticle);
+        dispatcher.Dispatch(PlayerEvent.Collect);
+        Destroy(view.gameObject);
+      } else if (CompareTag(ObstacleTag.Dasher))
+      {
+        view.InstantiateObject(view.collectParticle);
+        dispatcher.Dispatch(PlayerEvent.CollectDash);
+        Destroy(view.gameObject);
+      }
     }
 
     private void CrashObstacleProcess()

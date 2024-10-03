@@ -33,6 +33,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     public Sequence sequence;
 
+    public Transform imageTransform;
+
     private void Update()
     {
       RotateObject();
@@ -45,7 +47,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
         return;
       }
 
-      transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+      imageTransform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

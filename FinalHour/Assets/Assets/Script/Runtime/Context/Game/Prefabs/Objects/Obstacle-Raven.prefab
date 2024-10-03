@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2761716414833427216}
   - component: {fileID: 5475504925784889354}
   - component: {fileID: 504054899081136754}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Obstacle-Raven
   m_TagString: bird
   m_Icon: {fileID: 0}
@@ -85,6 +85,7 @@ MonoBehaviour:
   collectParticle: {fileID: 3384366999043453946, guid: 7c19ad7a926fc084ea69d9ba4fedeeab, type: 3}
   crushParticle: {fileID: 8525990746615576122, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
   breakParticle: {fileID: 2504214343621411456, guid: dd35cb3be3828f749966d5cfbee99b50, type: 3}
+  imageTransform: {fileID: 0}
 --- !u!222 &7408312326701384074
 CanvasRenderer:
   m_ObjectHideFlags: 0

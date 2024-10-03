@@ -12,7 +12,5 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public void SetPitchVolumeRelative(float volume, float pitch);
     
     public void SetPitchVolume(float volume, float pitch);
-
-    public void Dead();
   }
 }

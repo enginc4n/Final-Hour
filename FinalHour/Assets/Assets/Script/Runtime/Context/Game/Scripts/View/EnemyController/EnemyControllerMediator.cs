@@ -40,6 +40,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
       dispatcher.AddListener(PlayerEvent.DashStarted, OnDashStarted);
       dispatcher.AddListener(PlayerEvent.DashFinished, OnDashFinished);
+      dispatcher.AddListener(PlayerEvent.CollectDash, OnDashStarted);
+      dispatcher.AddListener(PlayerEvent.CollectedDashComplete, OnDashFinished);
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
@@ -237,6 +239,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
       dispatcher.RemoveListener(PlayerEvent.DashStarted, OnDashStarted);
       dispatcher.RemoveListener(PlayerEvent.DashFinished, OnDashFinished);
+      dispatcher.RemoveListener(PlayerEvent.CollectDash, OnDashStarted);
+      dispatcher.RemoveListener(PlayerEvent.CollectedDashComplete, OnDashFinished);
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(PlayerEvent.SlowDown, OnSlowDown);
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);

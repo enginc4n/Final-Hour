@@ -4,5 +4,7 @@
   {
     public const string Fire = "fire";
     public const string Bird = "bird";
+    public const string Dasher = "dasher";
+    public const string Time = "time";
   }
 }

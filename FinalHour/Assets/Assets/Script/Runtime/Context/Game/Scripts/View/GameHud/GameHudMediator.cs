@@ -53,6 +53,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.FireBullet, OnFire);
       dispatcher.AddListener(PlayerEvent.Collect, OnCollect);
       dispatcher.AddListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
+      dispatcher.AddListener(PlayerEvent.CollectedDashComplete, OnCollectedDashComplete);
     }
 
     public override void OnInitialize()
@@ -260,6 +261,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       yield return new WaitForSeconds(GameMechanicSettings.FlyingObstacleWarningTime);
       view.flyingObstacleWarning.SetActive(false);
     }
+    
+    private void OnCollectedDashComplete()
+    {
+      view.dashImage.color = Color.white;
+      view.dashText.color = Color.white;
+    }
 
     public override void OnRemove()
     {
@@ -276,6 +283,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.FireBullet, OnFire);
       dispatcher.RemoveListener(PlayerEvent.Collect, OnCollect);
       dispatcher.RemoveListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
+      dispatcher.RemoveListener(PlayerEvent.CollectedDashComplete, OnCollectedDashComplete);
     }
   }
 }

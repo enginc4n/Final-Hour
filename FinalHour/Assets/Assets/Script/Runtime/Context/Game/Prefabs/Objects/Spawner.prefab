@@ -79,13 +79,17 @@ MonoBehaviour:
     minHeight: -0.3
     maxHeight: -0.3
   - obj: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}
-    weight: 5000
-    minHeight: 1.2
-    maxHeight: 1.2
+    weight: 5
+    minHeight: 1.55
+    maxHeight: 1.55
   - obj: {fileID: 8497182741174021961, guid: a3afafd70e3b9a547b6cd3b53c2e1c9e, type: 3}
     weight: 15
     minHeight: -0.3
     maxHeight: -0.3
+  - obj: {fileID: 8032858546369814456, guid: b69db755fbe20794eaf549c99fa3dac1, type: 3}
+    weight: 5
+    minHeight: 1.55
+    maxHeight: 1.55
   - obj: {fileID: 8497182741174021961, guid: b5fff750e2906f24982a2b079aa4a11c, type: 3}
     weight: 15
     minHeight: -0.3

@@ -8,16 +8,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public AudioSource musicSource { get; set; }
     public AudioSource sfxSource { get; set; }
     public AudioSource timeSpeedSource { get; set; }
-
-    private bool _dead = false;
-
+    
     public void SetPitchVolumeRelative(float volume, float pitch)
     {
-      if (_dead)
-      {
-        return;
-      }
-      
       musicSource.volume = GetScaledValue(volume, 0.2f, 1f);
       musicSource.pitch = GetScaledValue(pitch, 0.5f, 1f);
       
@@ -30,11 +23,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     
     public void SetPitchVolume(float volume, float pitch)
     {
-      if (_dead)
-      {
-        return;
-      }
-      
       musicSource.volume = volume;
       musicSource.pitch = pitch;
       
@@ -50,20 +38,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
       float range = max - min;
 
       return min + (range * value);
-    }
-    
-    public void Dead()
-    {
-      _dead = true; 
-      
-      musicSource.volume = 1;
-      musicSource.pitch = 1;
-      
-      sfxSource.volume = 1;
-      sfxSource.pitch = 1;
-      
-      timeSpeedSource.volume = 1;
-      timeSpeedSource.pitch = 1;
     }
   }
 }

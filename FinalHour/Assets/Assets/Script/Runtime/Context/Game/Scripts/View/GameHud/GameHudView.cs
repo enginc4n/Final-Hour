@@ -33,6 +33,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     [SerializeField]
     private GameObject flyingText;
+    
+    [SerializeField]
+    private Transform flyingTextContainer;
 
     [SerializeField]
     private GameObject hourglassIcon;
@@ -91,7 +94,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     
     public void FlyText(float amount)
     {
-      GameObject flyingTextGo = Instantiate(flyingText, timerText.transform, true);
+      GameObject flyingTextGo = Instantiate(flyingText, flyingTextContainer, true);
       Transform flyingTransform = flyingTextGo.transform;
       flyingTransform.localScale = Vector3.one;
       RectTransform rectTransform = flyingTransform.GetComponent<RectTransform>();

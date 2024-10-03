@@ -45,6 +45,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
       dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
+      dispatcher.AddListener(PlayerEvent.CollectDash, OnCollectDash);
     }
 
     public override void OnInitialize()
@@ -178,6 +179,36 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       speedModel.SpeedUpTime();
     }
+    
+    private void  OnCollectDash()
+    {
+      StartCoroutine(CollectDashRoutine());
+    }
+
+    private IEnumerator CollectDashRoutine()
+    {
+      if (playerModel.isDashing)
+      {
+        yield return new WaitUntil(() => !playerModel.isDashing);
+      }
+
+      view.isDashReady = false;
+      StartCoroutine(CollectedDashTimer());
+    }
+    
+    private IEnumerator CollectedDashTimer()
+    {
+      playerModel.isDashing = true;
+      view.ChangeColor(new Color(0.4352942f, 1f, 1f, 0.75f));
+      view.dashParticle.SetActive(true);
+      playerModel.ChangeGameSpeed(GameMechanicSettings.DashSpeed);
+      yield return new WaitForSeconds(GameMechanicSettings.DashDuration);
+      playerModel.ChangeGameSpeed(-GameMechanicSettings.DashSpeed);
+      playerModel.isDashing = false;
+      view.ChangeColor(Color.white);
+      view.dashParticle.SetActive(false);
+      dispatcher.Dispatch(PlayerEvent.CollectedDashComplete);
+    }
 
     public override void OnRemove()
     {
@@ -193,6 +224,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);
       dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
       dispatcher.RemoveListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
+      dispatcher.RemoveListener(PlayerEvent.CollectDash, OnCollectDash);
     }
   }
 }

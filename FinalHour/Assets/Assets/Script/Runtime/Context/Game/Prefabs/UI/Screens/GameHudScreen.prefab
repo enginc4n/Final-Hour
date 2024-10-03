@@ -65,6 +65,7 @@ MonoBehaviour:
   increaseParticle: {fileID: 7318744092977768823}
   decreaseParticle: {fileID: 6438561999182948517}
   flyingText: {fileID: 2829867974825219360, guid: 804d45c5899a59943a52f78c04cce7fb, type: 3}
+  flyingTextContainer: {fileID: 3126245773460834870}
   hourglassIcon: {fileID: 5951181748139986969}
   shadowImage: {fileID: 2947077247061003885}
   fireCooldownImage: {fileID: 4100443125546517821}
@@ -502,7 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.16862746, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1725,7 +1726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.16476655, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
