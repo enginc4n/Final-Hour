@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Data;
 using System.IO;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
@@ -47,6 +49,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       dispatcher.AddListener(PlayerEvent.SpeedUp, OnSpeedUp);
       dispatcher.AddListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
       dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
+     
+      dispatcher.AddListener(GameEvent.Pause, OnPause);
+      dispatcher.AddListener(GameEvent.Continue, OnContinue);
     }
     
     public override void OnInitialize()
@@ -228,6 +233,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       }
       StartPositionLoop();
     }
+    
+    private void OnPause()
+    {
+      view.enemyAnimator.enabled = false;
+    }
+    
+    private void OnContinue()
+    {
+      view.wasPaused = true;
+      view.enemyAnimator.enabled = true;
+    }
 
     public override void OnRemove()
     {
@@ -246,6 +262,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
       dispatcher.RemoveListener(PlayerEvent.SpeedUp, OnSpeedUp);
       dispatcher.RemoveListener(PlayerEvent.ReturnNormalSpeed, OnReturnNormalSpeed);
       dispatcher.RemoveListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
+      
+      dispatcher.RemoveListener(GameEvent.Pause, OnPause);
+      dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
     }
   }
 }

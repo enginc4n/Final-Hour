@@ -102,7 +102,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
       if (amount > 0)
       {
-        rectTransform.anchoredPosition = new Vector2(150, 20);
+        rectTransform.anchoredPosition = new Vector2(0, 20);
         flyingTransform.DOBlendableLocalMoveBy(new Vector3(0, 50, 0), 2.5f);
         
         text.text = "+" + amount.ToString(CultureInfo.InvariantCulture);
@@ -110,7 +110,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       }
       else
       {
-        rectTransform.anchoredPosition = new Vector2(150, -20);
+        rectTransform.anchoredPosition = new Vector2(0, -20);
         flyingTransform.DOBlendableLocalMoveBy(new Vector3(0, -50, 0), 2.5f);
         
         text.text = amount.ToString(CultureInfo.InvariantCulture);

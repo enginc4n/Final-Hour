@@ -18,9 +18,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
       
       sfxSource.volume = GetScaledValue(volume, 0, 1f);
       sfxSource.pitch = GetScaledValue(pitch, 0.95f, 1f);
-      
-      timeSpeedSource.volume-= GetScaledValue(volume, 0.5f, 1f);
-      timeSpeedSource.pitch = GetScaledValue(pitch, 0.5f, 1f);
     }
     
     public void SetPitchVolume(float volume, float pitch)
@@ -30,9 +27,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
       
       sfxSource.volume = volume;
       sfxSource.pitch = pitch;
-      
-      timeSpeedSource.volume = volume;
-      timeSpeedSource.pitch = pitch;
     }
 
     private float GetScaledValue(float value, float min, float max)

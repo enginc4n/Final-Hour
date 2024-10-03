@@ -2223,6 +2223,7 @@ MonoBehaviour:
   crashCount: 0
   crashRemainingDistance: 0
   alreadyDead: 0
+  wasPaused: 0
 --- !u!95 &5396698723505708736
 Animator:
   serializedVersion: 4

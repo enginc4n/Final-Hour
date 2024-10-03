@@ -19,6 +19,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     private PlayerInputActions playerInputActions;
     public InputActionMap inputActionMap;
+    private InputAction jump;
+    private InputAction dash;
+    private InputAction fire;
     private InputAction crouch;
     private InputAction slowDownTime;
     private InputAction speedUpTime;
@@ -41,21 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       transform.GetComponent<RectTransform>().anchoredPosition = GameMechanicSettings.PlayerSpawnPosition;
     }
-
-    public void EnableInputs()
-    {
-      crouch = playerInputActions.Player.Crouch;
-      crouch.Enable();
-      crouch.canceled += CrouchFinished;
-      slowDownTime = playerInputActions.Player.SlowTime;
-      slowDownTime.Enable();
-      slowDownTime.canceled += ReturnNormalSpeed;
-      speedUpTime = playerInputActions.Player.SpeedUpTime;
-      speedUpTime.Enable();
-      speedUpTime.canceled += ReturnNormalSpeed;
-      inputActionMap.Enable();
-    }
-
+    
     private void OnJump(InputValue inputValue)
     {
       if (!inputValue.isPressed)
@@ -157,7 +146,31 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
     }
-
+    
+    public void EnableInputs()
+    {
+      crouch = playerInputActions.Player.Crouch;
+      crouch.Enable();
+      crouch.canceled += CrouchFinished;
+      slowDownTime = playerInputActions.Player.SlowTime;
+      slowDownTime.Enable();
+      slowDownTime.canceled += ReturnNormalSpeed;
+      speedUpTime = playerInputActions.Player.SpeedUpTime;
+      speedUpTime.Enable();
+      speedUpTime.canceled += ReturnNormalSpeed;
+      jump = playerInputActions.Player.Jump;
+      jump.Enable();
+      fire = playerInputActions.Player.Fire;
+      fire.Enable();
+      dash = playerInputActions.Player.Dash;
+      dash.Enable();
+      inputActionMap.Enable();
+      
+          
+      CrouchFinished(default);
+      ReturnNormalSpeed(default);
+    }
+    
     public void DisableInputs()
     {
       crouch.canceled -= CrouchFinished;
@@ -166,6 +179,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       slowDownTime.Disable();
       speedUpTime.canceled -= ReturnNormalSpeed;
       speedUpTime.Disable();
+      jump.Disable();
+      fire.Disable();
+      dash.Disable();
       inputActionMap.Disable();
     }
 

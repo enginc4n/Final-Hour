@@ -25,6 +25,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.AddListener(PlayerEvent.Jump, OnJump);
       dispatcher.AddListener(PlayerEvent.EnemyCloser, OnEnemyStartedMoving);
       dispatcher.AddListener(PlayerEvent.DashStarted, OnDash);
+      dispatcher.AddListener(PlayerEvent.CollectDash, OnDash);
       dispatcher.AddListener(PlayerEvent.FireSound, OnFireBullet);
       dispatcher.AddListener(PlayerEvent.BirdSound, OnBird);
       dispatcher.AddListener(GameEvent.GameStarted, OnStartGame);
@@ -143,6 +144,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.RemoveListener(PlayerEvent.Jump, OnJump);
       dispatcher.RemoveListener(PlayerEvent.EnemyCloser, OnEnemyStartedMoving);
       dispatcher.RemoveListener(PlayerEvent.DashStarted, OnDash);
+      dispatcher.RemoveListener(PlayerEvent.CollectDash, OnDash);
       dispatcher.RemoveListener(PlayerEvent.FireSound, OnFireBullet);
       dispatcher.RemoveListener(PlayerEvent.BirdSound, OnBird);
       dispatcher.RemoveListener(GameEvent.ClockTick, OnClockTick);

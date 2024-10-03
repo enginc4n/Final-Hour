@@ -34,6 +34,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     public bool alreadyDead;
 
+    public bool wasPaused;
+
     private void FixedUpdate()
     {
       if (speed == 0 && modifiedSpeed == 0)
@@ -51,8 +53,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void MoveEnemy()
     {
-      float deltaTime = Time.unscaledDeltaTime;
+      float deltaTime;
       
+      if (wasPaused)
+      {
+        deltaTime = Time.deltaTime;
+        wasPaused = false;
+      }
+      else
+      {
+        deltaTime = Time.unscaledDeltaTime;
+      }
+
       float modifiedMovement = modifiedSpeed * deltaTime;
       float newPosition = transform.GetComponent<RectTransform>().anchoredPosition.x + modifiedMovement;
       

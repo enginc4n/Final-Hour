@@ -38,7 +38,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     public override void OnRegister()
     {
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
+      dispatcher.AddListener(PlayerEvent.DashStarted, UpdateParticle);
       dispatcher.AddListener(PlayerEvent.DashFinished, UpdateParticle);
+      dispatcher.AddListener(PlayerEvent.CollectDash, UpdateParticle);
+      dispatcher.AddListener(PlayerEvent.CollectedDashComplete, UpdateParticle);
     }
 
     public override void OnInitialize()
@@ -136,8 +139,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
 
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(PlayerEvent.Died, OnDied);      
+      dispatcher.RemoveListener(PlayerEvent.DashStarted, UpdateParticle);
       dispatcher.RemoveListener(PlayerEvent.DashFinished, UpdateParticle);
+      dispatcher.RemoveListener(PlayerEvent.CollectDash, UpdateParticle);
+      dispatcher.RemoveListener(PlayerEvent.CollectedDashComplete, UpdateParticle);
     }
   }
 }
