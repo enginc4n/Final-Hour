@@ -21,6 +21,8 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
       view.dispatcher.AddListener(MenuControllerEvent.Press, OnPress);
       view.dispatcher.AddListener(MenuControllerEvent.Settings, OnSettings);
       view.dispatcher.AddListener(MenuControllerEvent.SoundSettings, OnSoundSettings);
+      
+      dispatcher.AddListener(GameEvent.Continue, OnContinue);
     }
 
     private void OnSoundSettings()
@@ -40,7 +42,13 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
 
     public void OnSettings()
     {
+      view.shadow.SetActive(true);
       dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
+    }
+    
+    public void OnContinue()
+    { 
+      view.shadow.SetActive(false);
     }
 
     public override void OnRemove()
@@ -48,6 +56,8 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.MenuController
       view.dispatcher.RemoveListener(MenuControllerEvent.Press, OnPress);
       view.dispatcher.RemoveListener(MenuControllerEvent.Settings, OnSettings);
       view.dispatcher.RemoveListener(MenuControllerEvent.SoundSettings, OnSoundSettings);
+      
+      dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
     }
   }
 }

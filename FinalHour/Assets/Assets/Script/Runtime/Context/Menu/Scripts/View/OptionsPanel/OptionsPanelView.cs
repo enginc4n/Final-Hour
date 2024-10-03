@@ -20,6 +20,11 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel
       dispatcher.Dispatch(OptionsPanelEvent.Settings);
     }
     
+    public void OnControls()
+    {
+      dispatcher.Dispatch(OptionsPanelEvent.Controls);
+    }
+    
     public void OnCredits()
     {
       dispatcher.Dispatch(OptionsPanelEvent.Credits);

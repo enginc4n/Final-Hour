@@ -96,8 +96,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
         
         float currentRate = GameMechanicSettings.SpawnInterval / (playerModel.currentGameSpeed / GameMechanicSettings.StartingGameSpeed);
 
-        float min = currentRate* 0.50f; 
-        float max = currentRate * 1.50f; 
+        float min = currentRate* 0.75f; 
+        float max = currentRate * 1.25f; 
         float waitTme = Random.Range(min, max);
         
         if (obstacleView.obstacleType == ObstacleType.Collectible)

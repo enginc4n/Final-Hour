@@ -30,7 +30,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.InstructionsPanel
     
     private void OnControls()
     { 
-      dispatcher.Dispatch(GameEvent.ControlsPanel);
+      uiModel.OpenPanel(PanelKeys.ControlsPanel, transform.parent);
     }
     
     public override void OnRemove()

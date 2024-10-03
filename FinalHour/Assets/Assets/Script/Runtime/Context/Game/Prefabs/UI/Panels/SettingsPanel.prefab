@@ -87,11 +87,11 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SoundSettingsPanel.SoundSettingsView,
+      - m_Target: {fileID: 3058279251002447748}
+        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
           Assembly-CSharp
         m_MethodName: ToggleMusic
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -213,11 +213,11 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SoundSettingsPanel.SoundSettingsView,
+      - m_Target: {fileID: 3058279251002447748}
+        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
           Assembly-CSharp
         m_MethodName: MusicVolume
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -429,11 +429,11 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SoundSettingsPanel.SoundSettingsView,
+      - m_Target: {fileID: 3058279251002447748}
+        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
           Assembly-CSharp
         m_MethodName: SfxVolume
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -612,11 +612,11 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SoundSettingsPanel.SoundSettingsView,
+      - m_Target: {fileID: 3058279251002447748}
+        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
           Assembly-CSharp
         m_MethodName: ToggleSfx
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3167,14 +3167,14 @@ PrefabInstance:
     - target: {fileID: 4858719827374648032, guid: c2bf9c64b274d994ca4e098950a6d772, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3058279251002447748}
     - target: {fileID: 4858719827374648032, guid: c2bf9c64b274d994ca4e098950a6d772, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClose
       objectReference: {fileID: 0}
     - target: {fileID: 4858719827374648032, guid: c2bf9c64b274d994ca4e098950a6d772, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Assets.Script.Runtime.Context.Menu.Scripts.View.SoundSettingsPanel.SoundSettingsView,
+      value: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
         Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6116275121401524025, guid: c2bf9c64b274d994ca4e098950a6d772, type: 3}

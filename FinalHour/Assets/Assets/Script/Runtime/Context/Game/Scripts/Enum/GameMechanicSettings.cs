@@ -10,7 +10,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     
     //GameSpeed
     public const float StartingGameSpeed = 0.25f;
-    public const float MaxGameSpeed = 1.5f;
+    public const float MaxGameSpeed = 1.25f;
     public const float GameSpeedUpTime= 2f; // higher numbers makes game speed up less often
     public const float GameSpeedUpAmount = 0.005f;
     
@@ -23,6 +23,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     //Jump
     public const float JumpSpeed = 10f;
     public const float JumpHeight = 1.6f;
+    
+    //Crouch
+    public const float CrouchDuration = 1f;
 
     //Dash
     public const float DashCost = 10f;

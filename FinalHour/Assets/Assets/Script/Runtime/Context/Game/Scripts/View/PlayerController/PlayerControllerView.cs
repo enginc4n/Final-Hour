@@ -57,6 +57,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
+      CrouchFinished();
       playerAnimator.SetBool("isJumping", true);
       dispatcher.Dispatch(PlayerControllerEvents.Jump);
     }
@@ -77,15 +78,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.Dispatch(PlayerControllerEvents.Crouch);
     }
 
-    private void CrouchFinished(InputAction.CallbackContext context)
+    public void CrouchFinished()
     {
-      if (!playerCrouchCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-      {
-        return;
-      }
-
       playerAnimator.SetBool("isCrouch", false);
-      dispatcher.Dispatch(PlayerControllerEvents.Crouch);
+      SetColliders(false);
     }
 
     private void OnFire(InputValue inputValue)
@@ -151,7 +147,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       crouch = playerInputActions.Player.Crouch;
       crouch.Enable();
-      crouch.canceled += CrouchFinished;
       slowDownTime = playerInputActions.Player.SlowTime;
       slowDownTime.Enable();
       slowDownTime.canceled += ReturnNormalSpeed;
@@ -166,14 +161,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dash.Enable();
       inputActionMap.Enable();
       
-          
-      CrouchFinished(default);
+      
       ReturnNormalSpeed(default);
     }
     
     public void DisableInputs()
     {
-      crouch.canceled -= CrouchFinished;
       crouch.Disable();
       slowDownTime.canceled -= ReturnNormalSpeed;
       slowDownTime.Disable();
@@ -204,10 +197,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       spriteRenderer.color = color;
     }
 
-    public void SetColliders()
+    public void SetColliders(bool isCrouch)
     {
-      playerBodyCollider.enabled = !playerBodyCollider.enabled;
-      playerCrouchCollider.enabled = !playerCrouchCollider.enabled;
+      playerBodyCollider.enabled = !isCrouch;
+      playerCrouchCollider.enabled = isCrouch;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

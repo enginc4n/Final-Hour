@@ -2,6 +2,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Command;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.View.ControlsPanel;
 using Assets.Script.Runtime.Context.Menu.Scripts.View.CreditsPanel;
 using Assets.Script.Runtime.Context.Menu.Scripts.View.InstructionsPanel;
 using Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel;
@@ -21,6 +22,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Config
       context.mediationBinder.Bind<OptionsPanelView>().To<OptionsPanelMediator>();
       context.mediationBinder.Bind<InstructionsPanelView>().To<InstructionsPanelMediator>();
       context.mediationBinder.Bind<CreditsPanelView>().To<CreditsPanelMediator>();
+      context.mediationBinder.Bind<ControlsPanelView>().To<ControlsPanelMediator>();
       context.mediationBinder.Bind<SettingsPanelView>().To<SettingsPanelMediator>();
 
       context.commandBinder.Bind(GameEvent.OptionsPanel).To<OpenOptionsCommand>();

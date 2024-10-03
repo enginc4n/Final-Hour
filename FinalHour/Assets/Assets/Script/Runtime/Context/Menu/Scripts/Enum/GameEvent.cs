@@ -9,7 +9,6 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Enum
     Continue,
     Menu,
     GameStarted,
-    ClockTick,
-    ControlsPanel
+    ClockTick
   }
 }

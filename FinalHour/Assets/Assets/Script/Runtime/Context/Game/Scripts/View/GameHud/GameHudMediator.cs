@@ -55,6 +55,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
       dispatcher.AddListener(PlayerEvent.CollectDash, OnCollectDash);
       dispatcher.AddListener(PlayerEvent.CollectedDashComplete, OnCollectedDashComplete);
+      
+      dispatcher.AddListener(GameEvent.Pause, OnPause);
+      dispatcher.AddListener(GameEvent.Continue, OnContinue);
     }
 
     public override void OnInitialize()
@@ -238,6 +241,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.SetState(false);
       
       StopCoroutine(ScoreRoutine());
+      StopShadowLoop();
+      
+      if (_timeLoop != null)
+      {
+        StopCoroutine(_timeLoop);
+      }
+
+      if (_warningRoutine != null)
+      {
+        StopCoroutine(_warningRoutine);
+      }
     }
 
     private void OnSettings()
@@ -274,6 +288,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.dashImage.color = Color.white;
       view.dashText.color = Color.white;
     }
+    
+    private void OnPause()
+    { 
+      view.raycastGo.SetActive(true);
+    }
+    
+    private void OnContinue()
+    {
+      view.raycastGo.SetActive(false);
+    }
 
     public override void OnRemove()
     {
@@ -292,6 +316,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
       dispatcher.RemoveListener(PlayerEvent.CollectDash, OnCollectDash);
       dispatcher.RemoveListener(PlayerEvent.CollectedDashComplete, OnCollectedDashComplete);
+      
+      dispatcher.RemoveListener(GameEvent.Pause, OnPause);
+      dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
     }
   }
 }

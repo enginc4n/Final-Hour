@@ -25,6 +25,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public GameObject flyingObstacleWarning;
 
+    public GameObject raycastGo; 
+
     [SerializeField]
     private GameObject increaseParticle;
 

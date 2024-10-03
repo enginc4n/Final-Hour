@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: SettingsPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2cf2c2ea36679dc4f9c07829b56f923d
+    m_Address: CreditsPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 905b84a0e77c66145a9f76e3bb7dc9ec, type: 2}
   m_SchemaSet:

@@ -76,11 +76,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       }
     }
 
-    private void OnCrouchAction()
-    {
-      view.SetColliders();
-    }
-
     private void OnDied()
     {
       view.deadParticle.SetActive(true);
@@ -121,6 +116,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
           .SetEase(Ease.InQuad));
 
       jump.Play();
+    }
+    
+    private void OnCrouchAction()
+    {
+      view.SetColliders(true);
+      StartCoroutine(CrouchRoutine());
+    }
+    
+    private IEnumerator CrouchRoutine()
+    {
+      yield return new WaitForSeconds(GameMechanicSettings.CrouchDuration);
+      
+      view.CrouchFinished();
     }
 
     private void OnReturnNormalSpeed()
