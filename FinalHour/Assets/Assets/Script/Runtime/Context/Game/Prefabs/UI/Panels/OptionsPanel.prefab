@@ -264,9 +264,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4699702684307695018}
-        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
+        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.OptionsPanelView,
           Assembly-CSharp
-        m_MethodName: OnExit
+        m_MethodName: OnCredits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel
 {
-  public class SettingsView : EventView
+  public class SettingsPanelView : EventView
   {
     public Slider musicSlider;
     public Slider sfxSlider;

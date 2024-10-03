@@ -10,7 +10,8 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
     Close,
     Exit,
     Instructions,
-    Settings
+    Settings,
+    Credits
   }
   public class OptionsPanelMediator : EventMediator
   {
@@ -26,6 +27,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
       view.dispatcher.AddListener(OptionsPanelEvent.Exit, OnExit);
       view.dispatcher.AddListener(OptionsPanelEvent.Instructions, OnInstructions);
       view.dispatcher.AddListener(OptionsPanelEvent.Settings, OnSettings);
+      view.dispatcher.AddListener(OptionsPanelEvent.Credits, OnCredits);
     }
     
     private void OnClose()
@@ -48,12 +50,18 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
       uiModel.OpenPanel(PanelKeys.SettingsPanel, transform.parent);
     }
     
+    private void OnCredits()
+    { 
+      uiModel.OpenPanel(PanelKeys.CreditsPanel, transform.parent);
+    }
+    
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(OptionsPanelEvent.Close, OnClose);
       view.dispatcher.RemoveListener(OptionsPanelEvent.Exit, OnExit);
       view.dispatcher.RemoveListener(OptionsPanelEvent.Instructions, OnInstructions);
       view.dispatcher.RemoveListener(OptionsPanelEvent.Settings, OnSettings);
+      view.dispatcher.RemoveListener(OptionsPanelEvent.Credits, OnCredits);
     }
   }
 }
