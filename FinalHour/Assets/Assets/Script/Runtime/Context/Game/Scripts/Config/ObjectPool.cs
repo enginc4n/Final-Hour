@@ -9,19 +9,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
     public static ObjectPool instance;
 
     private List<GameObject> pooledBullets = new();
-    private GameObject pooledSettingsPanel;
-    private GameObject pooledSoundSettingsPanel;
 
     private int amountToPoolBullet = 10;
 
     [SerializeField]
     private GameObject bulletPrefab;
-
-    [SerializeField]
-    private GameObject settingsPanel;
-
-    [SerializeField]
-    private GameObject soundSettingsPanel;
 
     private void Awake()
     {
@@ -42,12 +34,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
           pooledBullets.Add(go);
         }
       }
-
-      pooledSettingsPanel = Instantiate(settingsPanel);
-      pooledSettingsPanel.SetActive(false);
-
-      pooledSoundSettingsPanel = Instantiate(soundSettingsPanel);
-      pooledSoundSettingsPanel.SetActive(false);
     }
 
     public GameObject GetPooledBullet()
@@ -61,16 +47,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       }
 
       return null;
-    }
-
-    public GameObject GetPooledSettings()
-    {
-      return pooledSettingsPanel;
-    }
-
-    public GameObject GetPooledSoundSettings()
-    {
-      return pooledSoundSettingsPanel;
     }
   }
 }

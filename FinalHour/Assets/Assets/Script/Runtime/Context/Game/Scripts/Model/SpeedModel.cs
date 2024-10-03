@@ -3,6 +3,7 @@ using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 {
@@ -47,7 +48,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public void Pause()
     {
-      Time.timeScale = 0;
+      if (SceneManager.GetActiveScene().buildIndex == 1)
+      {
+        Time.timeScale = 0;
+      }
 
       dispatcher.Dispatch(GameEvent.Pause);
     }

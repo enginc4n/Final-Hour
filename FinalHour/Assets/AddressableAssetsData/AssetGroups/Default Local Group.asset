@@ -21,6 +21,18 @@ MonoBehaviour:
     m_Address: bullet
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 583d5c030dcfd9d4b8c4f32817007572
+    m_Address: InstructionsPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bec2aefe6e9277343906f13833662c71
+    m_Address: OptionsPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 64ecbb240a8d8534684b2e0bb1d51de9
+    m_Address: SoundSettingsPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 905b84a0e77c66145a9f76e3bb7dc9ec, type: 2}
   m_SchemaSet:

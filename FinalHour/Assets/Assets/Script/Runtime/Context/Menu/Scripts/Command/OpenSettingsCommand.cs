@@ -1,42 +1,34 @@
-﻿using Assets.Script.Runtime.Context.Game.Scripts.Config;
-using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+﻿using System.Linq;
+using Assets.Script.Runtime.Context.Game.Scripts.Config;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
-using Scripts.Runtime.Modules.Core.PromiseTool;
 using strange.extensions.command.impl;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.Command
 {
   public class OpenSettingsCommand : EventCommand
   {
     [Inject]
-    public ISettingsModel settingsModel { get; set; }
+    public IUIModel uiModel { get; set; }
     
     [Inject]
     public ISpeedModel speedModel { get; set; }
     public override void Execute()
     {
-      if (!settingsModel.isOpen)
+      if (uiModel.openPanels.All(obj => obj.Value != PanelKeys.OptionsPanel)) 
       {
+        Transform layer = (Transform)evt.data;
         speedModel.Pause();
-        
-        Transform transform = (Transform)evt.data;
-        GameObject panel = ObjectPool.instance.GetPooledSettings();
-        panel.SetActive(true);
-        panel.transform.SetParent(transform);
-        panel.transform.localScale = Vector3.one;
-        
-        settingsModel.OpenSettings(panel);
+
+        uiModel.OpenPanel(PanelKeys.OptionsPanel, layer);
       }
       else
       {
-        settingsModel.CloseSettings();
-        speedModel.Continue();
+       uiModel.ClosePanel(PanelKeys.OptionsPanel);
+       
+       speedModel.Continue();
       }
     }
   }

@@ -10,6 +10,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Enum
     SoundSettingsPanel,
     Menu,
     GameStarted,
-    ClockTick
+    ClockTick,
+    ControlsPanel
   }
 }
