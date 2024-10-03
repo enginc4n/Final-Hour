@@ -208,6 +208,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.ChangeColor(Color.white);
       view.dashParticle.SetActive(false);
       dispatcher.Dispatch(PlayerEvent.CollectedDashComplete);
+      view.isDashReady = true;
     }
 
     public override void OnRemove()

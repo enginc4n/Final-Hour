@@ -2,6 +2,7 @@
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 {
@@ -38,6 +39,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       audioModel.musicSource = view.musicSource;
       audioModel.sfxSource = view.sfxSource;
       audioModel.timeSpeedSource = view.timeSpeedSource;
+      audioModel.deathSoundSource = view.deathSoundSource;
+
       audioModel.SetPitchVolume(1f, 1f);
     }
     
@@ -115,10 +118,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
 
     private void OnPause()
     {
+      if (SceneManager.GetActiveScene().buildIndex == 1)
+      {
+        audioModel.Pause();
+      }
     }
 
     private void OnContinue()
     {
+      if (SceneManager.GetActiveScene().buildIndex == 1)
+      {
+        audioModel.Resume();
+      }
     }
     
     public override void OnRemove()

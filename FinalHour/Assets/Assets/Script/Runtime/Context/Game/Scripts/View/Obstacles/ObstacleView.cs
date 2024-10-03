@@ -73,9 +73,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       }
     }
 
-    public void InstantiateObject<T>(T objectToInstantiate) where T : Object
-    { 
-      Instantiate(objectToInstantiate, transform.position, Quaternion.identity, transform.parent);
+    public T InstantiateObject<T>(T objectToInstantiate) where T : Object
+    {
+      return Instantiate(objectToInstantiate, transform.position, Quaternion.identity, transform.parent);
     } 
     
     public void ArcMove()

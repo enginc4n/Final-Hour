@@ -465,7 +465,7 @@ MonoBehaviour:
   musicSource: {fileID: 1186373728}
   sfxSource: {fileID: 1985017402}
   timeSpeedSource: {fileID: 4667999614422142631}
-  deathSoundResource: {fileID: 1906406286779235949}
+  deathSoundSource: {fileID: 1906406286779235949}
 --- !u!1 &7841844556676182413
 GameObject:
   m_ObjectHideFlags: 0

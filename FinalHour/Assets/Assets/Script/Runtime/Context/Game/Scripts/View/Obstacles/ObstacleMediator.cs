@@ -36,7 +36,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
       view.InstantiateObject(view.breakParticle);
       if (view.isDropTime)
       {
-        view.InstantiateObject(view.timeAdder);
+        GameObject timeAdder = view.InstantiateObject(view.timeAdder);
+        timeAdder.GetComponent<ObstacleView>().ownSpeedFactor = 1f;
       }
       
       Destroy(view.gameObject);

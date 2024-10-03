@@ -39,7 +39,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Config
       injectionBinder.Bind<ISpeedModel>().To<SpeedModel>().ToSingleton();
       injectionBinder.Bind<IEnemyModel>().To<EnemyModel>().ToSingleton();
       injectionBinder.Bind<ILeaderBoardModel>().To<LeaderBoardModel>().ToSingleton();
-      injectionBinder.Bind<IAudioModel>().To<AudioModel>().ToSingleton();
 
       mediationBinder.Bind<GameHudView>().To<GameHudMediator>();
       mediationBinder.Bind<PlayerControllerView>().To<PlayerControllerMediator>();

@@ -16,7 +16,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     
     //Spawns
     public const float SpawnInterval = 3f; //higher number puts more time between spawns 
-    public const float CollectibleTimeAmount = 5f;
+    public const float CollectibleTimeAmount = 10f;
     public const float CrashPunishment = 1f;
     public const float FlyingObstacleWarningTime = 1f; //warning will appear x seconds before obstacle comes
 
@@ -25,9 +25,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float JumpHeight = 1.6f;
 
     //Dash
-    public const float DashCost = 2f;
-    public const float DashDuration = 1.5f;
-    public const float DashCooldown = 5f;
+    public const float DashCost = 2.5f;
+    public const float DashDuration = 2f;
+    public const float DashCooldown = 10f;
     public const float DashSpeed = 1.5f;
     
     //Fire

@@ -1,3 +1,4 @@
+using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Command;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
@@ -12,6 +13,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Config
     public static void All(MVCSContext context)
     {
       context.injectionBinder.Bind<ISettingsModel>().To<SettingsModel>().ToSingleton();
+      context.injectionBinder.Bind<IAudioModel>().To<AudioModel>().ToSingleton();
 
       context.mediationBinder.Bind<SettingsPanelView>().To<SettingsPanelMediator>();
       context.mediationBinder.Bind<SoundSettingsView>().To<SoundSettingsMediator>();

@@ -221,7 +221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4999391390913457204, guid: 80b6adb27ff0bfd4daa7c84dbd1795ab, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4999391390913457204, guid: 80b6adb27ff0bfd4daa7c84dbd1795ab, type: 3}
       propertyPath: m_SortingLayerID
@@ -329,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7475973205485555120, guid: 80b6adb27ff0bfd4daa7c84dbd1795ab, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7475973205485555120, guid: 80b6adb27ff0bfd4daa7c84dbd1795ab, type: 3}
       propertyPath: m_SortingLayerID
@@ -19885,7 +19885,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1493117961
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_RenderMode: 4
   m_MeshDistribution: 0

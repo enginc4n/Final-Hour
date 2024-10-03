@@ -13,7 +13,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
     public AudioSource musicSource;
     public AudioSource sfxSource;
     public AudioSource timeSpeedSource;
-    public AudioSource deathSoundResource;
+    public AudioSource deathSoundSource;
     private List<Sound> _playingSounds = new List<Sound>();
     
     public void PlayMusic(string name)
@@ -86,8 +86,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
         return;
       }
       
-      deathSoundResource.clip = sound.clip;
-      deathSoundResource.PlayOneShot(sound.clip);
+      deathSoundSource.clip = sound.clip;
+      deathSoundSource.PlayOneShot(sound.clip);
       _playingSounds.Add(sound);
       StartCoroutine(RemoveWhenFinished(sound));
 
