@@ -259,7 +259,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public void OnSettings()
     {
-      dispatcher.Dispatch(GameHudEvent.Settings, transform);
+      dispatcher.Dispatch(GameHudEvent.Settings);
     }
   }
 }

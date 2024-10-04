@@ -16,6 +16,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public SpeedState speedState { get; set; }
 
+    public bool _isPaused;
+
     [PostConstruct]
     public void OnPostConstruct()
     {
@@ -48,16 +50,30 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public void Pause()
     {
+      if (_isPaused)
+      {
+        return;
+      }
+      
       if (SceneManager.GetActiveScene().buildIndex == 1)
       {
         Time.timeScale = 0;
       }
+
+      _isPaused = true;
 
       dispatcher.Dispatch(GameEvent.Pause);
     }
 
     public void Continue()
     {
+      if (!_isPaused)
+      {
+        return;
+      }
+
+      _isPaused = false;
+      
       Time.timeScale = GameMechanicSettings.DefaultGameSpeed;
       speedState = SpeedState.Normal;
 

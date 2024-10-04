@@ -1,4 +1,5 @@
-﻿using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
+﻿using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using strange.extensions.mediation.impl;
 
@@ -16,6 +17,9 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.InstructionsPanel
    
     [Inject]
     public IUIModel uiModel { get; set; }
+    
+    [Inject]
+    public ISpeedModel speedModel { get; set; }
 
     public override void OnRegister()
     { 
@@ -25,6 +29,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.InstructionsPanel
     
     private void OnClose()
     { 
+      speedModel.Continue();
       uiModel.ClosePanel(PanelKeys.InstructionsPanel);
     }
     

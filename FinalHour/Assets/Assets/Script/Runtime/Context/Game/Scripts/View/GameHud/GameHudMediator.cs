@@ -2,6 +2,7 @@ using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
+using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
@@ -29,6 +30,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     
     [Inject]
     public IAudioModel audioModel { get; set; }
+    
+    [Inject]
+    public IUIModel uiModel { get; set; }
 
     private Coroutine _shadowLoop;
 
@@ -68,6 +72,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public override void OnInitialize()
     {
+      if (!PlayerPrefs.HasKey(SettingKeys.FirstTime))
+      {
+        speedModel.Pause();
+        uiModel.OpenPanel(PanelKeys.InstructionsPanel, transform.parent);
+        
+        PlayerPrefs.SetInt(SettingKeys.FirstTime, 0);
+      }
+      
       view.deviceType = DeviceType.Handheld;
       view.SetState(true);
       view.SetShadowOpacity(0);
