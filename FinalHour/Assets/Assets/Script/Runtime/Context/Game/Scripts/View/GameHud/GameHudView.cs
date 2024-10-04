@@ -5,6 +5,7 @@ using DG.Tweening;
 using strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
@@ -19,13 +20,29 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public TextMeshProUGUI dashText;
     
-    public TextMeshProUGUI dashCooldownText;
+    public TextMeshProUGUI dashCooldownTextPc;
+    
+    public TextMeshProUGUI dashCooldownTextMobile;
 
-    public TextMeshProUGUI fireCooldownText;
+    public TextMeshProUGUI fireCooldownTextPc;
+    
+    public TextMeshProUGUI fireCooldownTextMobile;
 
     public GameObject flyingObstacleWarning;
 
-    public GameObject raycastGo; 
+    public GameObject raycastGo;
+
+    public GameObject mobilePad;
+
+    public GameObject pcHud;
+
+    public Button fireButton;
+
+    public Button dashButton;
+
+    public Button jumpButton;
+
+    public Button crouchButton;
 
     [SerializeField]
     private GameObject increaseParticle;
@@ -46,10 +63,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     private Graphic shadowImage;
 
     [SerializeField]
-    private Image fireCooldownImage;
+    private Image fireCooldownImagePc;
+    
+    [SerializeField]
+    private Image fireCooldownImageMobile;
 
     [SerializeField]
-    private Image dashCooldownImage;
+    private Image dashCooldownImagePc;
+
+    [SerializeField]
+    private Image dashCooldownImageMobile;
+
+    public DeviceType deviceType;
     
     private const float CooldownTickRate = 0.01f;
 
@@ -141,13 +166,30 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       {
         _currentDashTime = 0;
         CancelInvoke(nameof(UpdateDashTimer));
+        
+        if (deviceType == DeviceType.Handheld)
+        {
+          dashButton.interactable = true;
+        }
       }
 
-      UpdateTimer(dashCooldownImage, dashCooldownText, _currentDashTime, GameMechanicSettings.DashCooldown);
+      if (deviceType == DeviceType.Handheld)
+      {
+        UpdateTimer(dashCooldownImageMobile, dashCooldownTextMobile, _currentDashTime, GameMechanicSettings.DashCooldown);
+      }
+      else
+      {
+        UpdateTimer(dashCooldownImagePc, dashCooldownTextPc, _currentDashTime, GameMechanicSettings.DashCooldown);
+      };
     }
     
     public void StartFireTimer()
     {
+      if (deviceType == DeviceType.Handheld)
+      {
+        fireButton.interactable = false;
+      }
+      
       _currentFireTime = GameMechanicSettings.FireCooldown;
       InvokeRepeating(nameof(UpdateFireTimer), 0f, CooldownTickRate); 
     }
@@ -160,9 +202,21 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       {
         _currentFireTime = 0;
         CancelInvoke(nameof(UpdateFireTimer));
+
+        if (deviceType == DeviceType.Handheld)
+        {
+          fireButton.interactable = true;
+        }
       }
- 
-      UpdateTimer(fireCooldownImage, fireCooldownText, _currentFireTime, GameMechanicSettings.FireCooldown);
+
+      if (deviceType == DeviceType.Handheld)
+      {
+        UpdateTimer(fireCooldownImageMobile, fireCooldownTextMobile, _currentFireTime, GameMechanicSettings.FireCooldown);
+      }
+      else
+      {
+        UpdateTimer(fireCooldownImagePc, fireCooldownTextPc, _currentFireTime, GameMechanicSettings.FireCooldown);
+      }
     }
 
     private void UpdateTimer(Image image, TMP_Text label, float currentCooldown, float totalCooldown)

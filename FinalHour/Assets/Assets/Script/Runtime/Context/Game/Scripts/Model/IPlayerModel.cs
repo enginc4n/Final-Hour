@@ -9,6 +9,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     float position { get; set; }
     int score { get; set; }
     bool isDashing { get; set; }
+    bool isCrouching { get; set; }
     float remainingTime { get; set; }
     void Die();
     void ChangeScore(int value);

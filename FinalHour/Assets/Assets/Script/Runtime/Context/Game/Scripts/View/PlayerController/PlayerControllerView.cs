@@ -27,6 +27,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private InputAction speedUpTime;
     private float dashCoolDown;
     private float fireCoolDown;
+    private Collider2D _activeCollider;
     
     [HideInInspector]
     public bool isDashReady = true;
@@ -52,7 +53,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      if (!playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+      if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
       {
         return;
       }
@@ -69,7 +70,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
-      if (!playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+      if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
       {
         return;
       }
@@ -82,6 +83,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       playerAnimator.SetBool("isCrouch", false);
       SetColliders(false);
+      dispatcher.Dispatch(PlayerControllerEvents.CrouchFinished);
     }
 
     private void OnFire(InputValue inputValue)
@@ -201,6 +203,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       playerBodyCollider.enabled = !isCrouch;
       playerCrouchCollider.enabled = isCrouch;
+
+      _activeCollider = playerBodyCollider.enabled ? playerBodyCollider : playerCrouchCollider.enabled ? playerCrouchCollider : null;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -210,5 +214,53 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         playerAnimator.SetBool("isJumping", false);
       }
     }
+
+    #region MobileInputs
+
+    public void OnJump( )
+    {
+      if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+      {
+        return;
+      }
+
+      CrouchFinished();
+      playerAnimator.SetBool("isJumping", true);
+      dispatcher.Dispatch(PlayerControllerEvents.Jump);
+    }
+
+    public void OnCrouch()
+    {
+      if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+      {
+        return;
+      }
+
+      playerAnimator.SetBool("isCrouch", true);
+      dispatcher.Dispatch(PlayerControllerEvents.Crouch);
+    }
+
+    public void OnFire()
+    {
+      if (!isFireReady)
+      {
+        return;
+      }
+
+      dispatcher.Dispatch(PlayerControllerEvents.FireBulletAction);
+    }
+
+    public void OnDash()
+    {
+     
+      if (!isDashReady)
+      {
+        return;
+      }
+      
+      dispatcher.Dispatch(PlayerControllerEvents.Dash);
+    }
+
+    #endregion
   }
 }

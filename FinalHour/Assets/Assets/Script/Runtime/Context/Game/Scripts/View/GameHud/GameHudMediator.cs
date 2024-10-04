@@ -55,18 +55,44 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
       dispatcher.AddListener(PlayerEvent.CollectDash, OnCollectDash);
       dispatcher.AddListener(PlayerEvent.CollectedDashComplete, OnCollectedDashComplete);
-      
+      dispatcher.AddListener(PlayerEvent.Jump, OnJump);
+      dispatcher.AddListener(PlayerEvent.JumpFinished, OnJumpFinished);
+      dispatcher.AddListener(PlayerEvent.Crouch, OnCrouch);
+      dispatcher.AddListener(PlayerEvent.CrouchFinished, OnCrouchFinished);
+
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
+      dispatcher.AddListener(GameEvent.Start, SetLayout);
     }
 
     public override void OnInitialize()
     {
+      view.deviceType = DeviceType.Handheld;
       view.SetState(true);
       view.SetShadowOpacity(0);
       view.SetIcon(speedModel.speedState);
       view.UpdateScore(playerModel.score);
       CountTime();
+
+      SetLayout();
+    }
+
+    private void SetLayout()
+    {
+      if (view.deviceType == DeviceType.Handheld)
+      {
+        view.pcHud.SetActive(false);
+
+        Canvas.ForceUpdateCanvases();
+        view.mobilePad.SetActive(false);
+        view.mobilePad.SetActive(true);
+        Canvas.ForceUpdateCanvases();
+      }
+      else
+      {
+        view.pcHud.SetActive(true);
+        view.mobilePad.SetActive(false);
+      }
     }
     
     private void FixedUpdate()
@@ -140,6 +166,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     
     private void OnDashStarted()
     {
+      if (view.deviceType == DeviceType.Handheld)
+      {
+        view.dashButton.interactable = false;
+      }
+      
       view.FlyText(-GameMechanicSettings.DashCost);
       
       view.dashImage.color = new Color(1f, 1f, 1f, 0.5f);
@@ -289,6 +320,38 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.dashText.color = Color.white;
     }
     
+    private void OnJump()
+    {
+      if (view.deviceType == DeviceType.Handheld)
+      {
+        view.jumpButton.interactable = false;
+      }
+    }
+    
+    private void OnJumpFinished()
+    {
+      if (view.deviceType == DeviceType.Handheld)
+      {
+        view.jumpButton.interactable = true;
+      }
+    }
+    
+    private void OnCrouch()
+    {
+      if (view.deviceType == DeviceType.Handheld)
+      {
+        view.crouchButton.interactable = false;
+      }
+    }
+    
+    private void OnCrouchFinished()
+    {
+      if (view.deviceType == DeviceType.Handheld)
+      {
+        view.crouchButton.interactable = true;
+      }
+    }
+    
     private void OnPause()
     { 
       view.raycastGo.SetActive(true);
@@ -316,9 +379,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.FlyingObstacleIncoming, OnFlyingObstacleIncoming);
       dispatcher.RemoveListener(PlayerEvent.CollectDash, OnCollectDash);
       dispatcher.RemoveListener(PlayerEvent.CollectedDashComplete, OnCollectedDashComplete);
+      dispatcher.RemoveListener(PlayerEvent.Jump, OnJump);
+      dispatcher.RemoveListener(PlayerEvent.JumpFinished, OnJumpFinished);
+      dispatcher.RemoveListener(PlayerEvent.Crouch, OnCrouch);
+      dispatcher.RemoveListener(PlayerEvent.CrouchFinished, OnCrouchFinished);
       
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);
       dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
+      dispatcher.RemoveListener(GameEvent.Start, SetLayout);
     }
   }
 }

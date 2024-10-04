@@ -14,6 +14,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public int score { get; set; }
     public float position { get; set; }
     public bool isDashing { get; set; }
+    public bool isCrouching { get; set; }
     public float remainingTime { get; set; }
 
     [PostConstruct]

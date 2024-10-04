@@ -17,7 +17,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     SpeedUpTime,
     ReturnNormalSpeed,
     Jump,
-    Crouch
+    Crouch,
+    CrouchFinished
   }
 
   public class PlayerControllerMediator : EventMediator
@@ -40,6 +41,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.AddListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
       view.dispatcher.AddListener(PlayerControllerEvents.Jump, OnJumpAction);
       view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
+      view.dispatcher.AddListener(PlayerControllerEvents.CrouchFinished, OnCrouchFinished);
 
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
       dispatcher.AddListener(GameEvent.Pause, OnPause);
@@ -50,6 +52,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public override void OnInitialize()
     {
+      view.SetColliders(false);
       view.deadParticle.SetActive(false);
       dispatcher.Dispatch(GameEvent.GameStarted);    
       StartCoroutine(Off());  
@@ -111,15 +114,29 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       Tween jump = view.transform.DOMoveY(GameMechanicSettings.JumpHeight, GameMechanicSettings.JumpSpeed)
         .SetEase(Ease.OutSine)
         .SetSpeedBased()
-        .OnComplete(() => view.transform.DOMoveY(posY, GameMechanicSettings.JumpSpeed)
-          .SetSpeedBased()
-          .SetEase(Ease.InQuad));
+        .OnComplete(() =>
+        {
+          view.transform.DOMoveY(posY, GameMechanicSettings.JumpSpeed)
+            .SetSpeedBased()
+            .SetEase(Ease.InQuad).OnComplete((() =>
+            {
+              dispatcher.Dispatch(PlayerEvent.JumpFinished);
+            }));
+        });
 
       jump.Play();
     }
     
     private void OnCrouchAction()
     {
+      if (playerModel.isCrouching)
+      {
+        return;
+      }
+      
+      dispatcher.Dispatch(PlayerEvent.Crouch);
+
+      playerModel.isCrouching = true;
       view.SetColliders(true);
       StartCoroutine(CrouchRoutine());
     }
@@ -129,8 +146,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       yield return new WaitForSeconds(GameMechanicSettings.CrouchDuration);
       
       view.CrouchFinished();
+      playerModel.isCrouching = false;
     }
-
+    
+    private void OnCrouchFinished()
+    {
+      dispatcher.Dispatch(PlayerEvent.CrouchFinished);
+    }
+    
     private void OnReturnNormalSpeed()
     {
       speedModel.ReturnNormalSpeed();
@@ -228,6 +251,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.RemoveListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Jump, OnJumpAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Crouch, OnCrouchAction);
+      view.dispatcher.RemoveListener(PlayerControllerEvents.CrouchFinished, OnCrouchFinished);
 
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);
