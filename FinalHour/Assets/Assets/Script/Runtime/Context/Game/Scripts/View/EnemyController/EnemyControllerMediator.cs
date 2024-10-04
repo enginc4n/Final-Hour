@@ -89,6 +89,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     
     private void OnDashFinished()
     {
+      if (!playerModel.isAlive)
+      {
+        return;
+      }
+      
       float lastSpeed = view.modifiedSpeed;
       
       view.speed += GameMechanicSettings.EnemySpeed + (GameMechanicSettings.EnemySpeed * GameMechanicSettings.DashSpeed);
@@ -99,7 +104,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void OnSlowDown()
     {
       float lastSpeed = view.modifiedSpeed;
-        
+      
       if (_lastState == SpeedState.Fast)
       {
         view.speed += GameMechanicSettings.EnemySpeed*2;
@@ -133,6 +138,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     private void OnReturnNormalSpeed()
     {
       float lastSpeed = view.modifiedSpeed;
+
+      if (view.speed == -9999f || !playerModel.isAlive)
+      {
+        view.speed = 0f;
+        _lastState = SpeedState.Normal;
+        return;
+      }
       
       if (_lastState == SpeedState.Fast)
       {
@@ -217,6 +229,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
 
     private void OnCrashObstacle()
     {
+      if (!playerModel.isAlive)
+      {
+        return;
+      }
+      
       float lastSpeed = view.modifiedSpeed;
       
       view.crashCount++;

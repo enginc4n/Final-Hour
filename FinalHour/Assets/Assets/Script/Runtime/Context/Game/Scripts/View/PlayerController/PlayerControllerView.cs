@@ -162,9 +162,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dash = playerInputActions.Player.Dash;
       dash.Enable();
       inputActionMap.Enable();
-      
-      
-      ReturnNormalSpeed(default);
     }
     
     public void DisableInputs()

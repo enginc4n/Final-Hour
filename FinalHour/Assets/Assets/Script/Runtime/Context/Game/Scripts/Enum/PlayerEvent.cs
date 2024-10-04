@@ -22,6 +22,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     FireSound,
     BirdSound,
     CollectDash,
-    CollectedDashComplete
+    CollectedDashComplete,
+    NotEnoughSeconds
   }
 }

@@ -45,6 +45,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public Button crouchButton;
 
     [SerializeField]
+    private TextMeshProUGUI outOfSeconds;
+
+    [SerializeField]
     private GameObject increaseParticle;
 
     [SerializeField]
@@ -81,6 +84,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     private float _currentDashTime;
 
     private float _currentFireTime;
+
+    private Sequence outOfSecondsTween;
     
     public void UpdateScore(int score)
     {
@@ -231,6 +236,25 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         image.fillAmount = 0;
         label.text = string.Empty;
       }
+    }
+
+    public void OutOfSeconds()
+    {
+      if (outOfSecondsTween != null)
+      {
+        if (outOfSecondsTween.IsPlaying())
+        {
+          outOfSecondsTween.Complete();
+        }
+      }
+
+      Sequence sequence = DOTween.Sequence();
+      sequence.Append(outOfSeconds.transform.DOBlendableLocalMoveBy(new Vector3(0, 50f, 0), 2));
+      sequence.Join(outOfSeconds.DOFade(0f, 2).From(1f));
+      sequence.OnComplete((() => { outOfSecondsTween.Rewind(); }));
+
+      outOfSecondsTween = sequence;
+      outOfSecondsTween.Play();
     }
 
     public void OnSettings()

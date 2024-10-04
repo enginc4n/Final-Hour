@@ -126,7 +126,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     private void UpdateParticle()
     {
       ParticleSystem.VelocityOverLifetimeModule velocityModule = view.ambientParticle.velocityOverLifetime;
-      velocityModule.x = new ParticleSystem.MinMaxCurve(BaseParticleMinVelocity*playerModel.currentGameSpeed, BaseParticleMaxVelocity*playerModel.currentGameSpeed);
+    
+      velocityModule.x = !playerModel.isAlive ? new ParticleSystem.MinMaxCurve(-1, 1) :
+        new ParticleSystem.MinMaxCurve(BaseParticleMinVelocity*playerModel.currentGameSpeed, BaseParticleMaxVelocity*playerModel.currentGameSpeed);
     }
     
     private void OnDied()
@@ -135,6 +137,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
       
       ParticleSystem.VelocityOverLifetimeModule velocityModule1 = view.ambientParticle.velocityOverLifetime;
       velocityModule1.x = new ParticleSystem.MinMaxCurve(0.1f, -0.1f);
+      UpdateParticle();
     }
 
     public override void OnRemove()

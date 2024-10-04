@@ -56,6 +56,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public void Die()
     {
       isAlive = false;
+      currentGameSpeed = GameMechanicSettings.StartingGameSpeed;
       dispatcher.Dispatch(PlayerEvent.Died);
     }
   }

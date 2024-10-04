@@ -166,6 +166,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         return;
       }
 
+      if (playerModel.remainingTime < GameMechanicSettings.DashCost + 1)
+      {
+        dispatcher.Dispatch(PlayerEvent.NotEnoughSeconds);
+        return;
+      }
+
       view.isDashReady = false;
       playerModel.ChangeRemainingTime(-GameMechanicSettings.DashCost);
       StartCoroutine(DashTimer());
@@ -189,6 +195,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnFireBulletAction()
     {
+      if (playerModel.remainingTime < GameMechanicSettings.FireCost + 1)
+      {
+        dispatcher.Dispatch(PlayerEvent.NotEnoughSeconds);
+        return;
+      }
+      
       view.isFireReady = false;
 
       playerModel.ChangeRemainingTime(-GameMechanicSettings.FireCost);

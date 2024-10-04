@@ -59,6 +59,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(PlayerEvent.JumpFinished, OnJumpFinished);
       dispatcher.AddListener(PlayerEvent.Crouch, OnCrouch);
       dispatcher.AddListener(PlayerEvent.CrouchFinished, OnCrouchFinished);
+      dispatcher.AddListener(PlayerEvent.NotEnoughSeconds, OnOutOfSeconds);
 
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
@@ -101,6 +102,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       int seconds = Mathf.FloorToInt(playerModel.remainingTime % 60f);
         
       view.timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+      
+      view.timerText.color = playerModel.remainingTime is <= 10 and > 1 ? new Color(1f, 0.2290596f, 0.1650943f) : Color.white;
     }
 
     private void CountTime()
@@ -119,7 +122,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         
         if (playerModel.remainingTime is <= 10 and > 1)
         {
-          view.timerText.color = new Color(1f, 0.2290596f, 0.1650943f);
           view.timerText.transform.DOScale(1.2f, 0.25f).OnComplete((() =>
           {
             view.timerText.transform.DOScale(1f, 0.25f);
@@ -127,8 +129,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
           }));
         }
       }
-      
-      playerModel.Die();
     }
 
     private IEnumerator IncreaseRemainingTime()
@@ -138,11 +138,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         yield return new WaitForSecondsRealtime(1 / GameMechanicSettings.SlowTimeGain);
 
         playerModel.ChangeRemainingTime(+1f);
-        
-        if (playerModel.remainingTime > 10)
-        {
-          view.timerText.color = Color.white;
-        }
       }
     }
     
@@ -217,7 +212,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void StartShadowLoop()
     {
-      _shadowLoop ??= StartCoroutine(ShadowLoop());
+       _shadowLoop ??= StartCoroutine(ShadowLoop());
     }
 
     private void StopShadowLoop()
@@ -352,6 +347,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       }
     }
     
+    private void OnOutOfSeconds()
+    {
+      view.OutOfSeconds();
+    }
+    
     private void OnPause()
     { 
       view.raycastGo.SetActive(true);
@@ -383,7 +383,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(PlayerEvent.JumpFinished, OnJumpFinished);
       dispatcher.RemoveListener(PlayerEvent.Crouch, OnCrouch);
       dispatcher.RemoveListener(PlayerEvent.CrouchFinished, OnCrouchFinished);
-      
+      dispatcher.RemoveListener(PlayerEvent.NotEnoughSeconds, OnOutOfSeconds);
+
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);
       dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
       dispatcher.RemoveListener(GameEvent.Start, SetLayout);

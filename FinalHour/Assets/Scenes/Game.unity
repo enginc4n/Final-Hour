@@ -952,7 +952,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 5
+  m_Constraints: 7
 --- !u!95 &1670475628
 Animator:
   serializedVersion: 4
@@ -1903,10 +1903,10 @@ GameObject:
   - component: {fileID: 5396698723505708739}
   - component: {fileID: 2533985777579160139}
   - component: {fileID: 5396698723505708734}
-  - component: {fileID: 5396698723505708735}
   - component: {fileID: 5396698723505708736}
   - component: {fileID: 5396698723505708737}
   - component: {fileID: 5396698723505708738}
+  - component: {fileID: 5396698723505708740}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -2341,30 +2341,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &5396698723505708735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2533985777579160138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 063db4982dfab4c4283e6b7b34b692a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyRigidBody: {fileID: 5396698723505708734}
-  enemyBoxCollider: {fileID: 5396698723505708737}
-  playerBodyCollider: {fileID: 1670475634}
-  barrierBoxCollider: {fileID: 1027140998}
-  enemyBarrier: {fileID: 1027140999}
-  spriteRenderer: {fileID: 2533985777579160139}
-  enemyAnimator: {fileID: 5396698723505708736}
-  speed: 0
-  crashCount: 0
-  crashRemainingDistance: 0
-  alreadyDead: 0
-  wasPaused: 0
 --- !u!95 &5396698723505708736
 Animator:
   serializedVersion: 4
@@ -2442,6 +2418,30 @@ RectTransform:
   m_AnchoredPosition: {x: -800, y: 100}
   m_SizeDelta: {x: 6.5, y: 6.5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5396698723505708740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533985777579160138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 063db4982dfab4c4283e6b7b34b692a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyRigidBody: {fileID: 5396698723505708734}
+  enemyBoxCollider: {fileID: 5396698723505708737}
+  playerBodyCollider: {fileID: 1670475634}
+  barrierBoxCollider: {fileID: 1027140998}
+  enemyBarrier: {fileID: 1027140999}
+  spriteRenderer: {fileID: 2533985777579160139}
+  enemyAnimator: {fileID: 5396698723505708736}
+  speed: -9999
+  crashCount: 0
+  crashRemainingDistance: 0
+  alreadyDead: 0
+  wasPaused: 0
 --- !u!1001 &6004890078281844358
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,7 +18,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     
     public Animator enemyAnimator;
 
-    public float speed = 0f;
+    [HideInInspector]
+    public float speed = -9999f;
     
     public float modifiedSpeed => speed + (GameMechanicSettings.EnemySpeed * crashCount);
 
