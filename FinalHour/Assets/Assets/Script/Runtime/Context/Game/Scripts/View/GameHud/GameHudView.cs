@@ -77,6 +77,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     [SerializeField]
     private Image dashCooldownImageMobile;
 
+    [HideInInspector]
     public DeviceType deviceType;
     
     private const float CooldownTickRate = 0.01f;

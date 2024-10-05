@@ -66,7 +66,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
         SpawnerView.WeightedObject weightedObject = FindWeightedObjectFromSpawnPool(objToSpawn);
 
         float randomHeight = Random.Range(weightedObject.minHeight, weightedObject.maxHeight);
-        Vector3 spawnPosition = new(transform.position.x, randomHeight, transform.position.z);
+        Vector3 spawnPosition = new(0, randomHeight, 0);
 
         ObstacleView obstacleView = objToSpawn.GetComponent<ObstacleView>();
         ObstacleType obstacleType = obstacleView.obstacleType;
@@ -77,7 +77,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
         
         yield return new WaitForSeconds(GameMechanicSettings.FlyingObstacleWarningTime);
 
-        GameObject spawnedObject = Instantiate(objToSpawn, spawnPosition, Quaternion.identity, transform);
+        GameObject spawnedObject = Instantiate(objToSpawn, transform.position, Quaternion.identity, transform);
+
+        spawnedObject.GetComponent<RectTransform>().anchoredPosition = spawnPosition;
 
         if (objToSpawn.CompareTag(ObstacleTag.Fire))
         {

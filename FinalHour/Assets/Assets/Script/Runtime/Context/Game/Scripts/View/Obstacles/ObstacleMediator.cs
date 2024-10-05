@@ -101,12 +101,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
     
     public override void OnRemove()
     {
+      if (view.activeRoutine != null)
+      {
+        StopCoroutine(view.activeRoutine);
+      }
+
+      view.rectTransform.DOKill();
+      
       view.dispatcher.RemoveListener(ObstacleEvents.CrashWithPlayer, OnCrashWithPlayer);
       view.dispatcher.RemoveListener(ObstacleEvents.ObstacleIsBroken, OnObstacleIsBroken);
       
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
-
-      view.sequence.Kill();
     }
   }
 }

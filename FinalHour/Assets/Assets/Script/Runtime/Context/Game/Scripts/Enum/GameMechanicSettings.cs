@@ -21,8 +21,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     public const float FlyingObstacleWarningTime = 1f; //warning will appear x seconds before obstacle comes
 
     //Jump
-    public const float JumpSpeed = 10f;
-    public const float JumpHeight = 1.6f;
+    public const float JumpSpeed = 840f;
+    public const float JumpHeight = 700f;
     
     //Crouch
     public const float CrouchDuration = 1f;

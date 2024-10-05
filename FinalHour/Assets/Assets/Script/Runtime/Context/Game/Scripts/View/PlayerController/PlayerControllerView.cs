@@ -8,6 +8,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 {
   public class PlayerControllerView : EventView
   {
+    public RectTransform rectTransform;
     public Rigidbody2D playerRigidbody2D;
     public CircleCollider2D playerBodyCollider;
     public CapsuleCollider2D playerCrouchCollider;
@@ -29,16 +30,105 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private float fireCoolDown;
     private Collider2D _activeCollider;
     
+    private UnityEngine.Gyroscope _gyro;
+    private Vector3 _rotation;
+    private bool gyroActive;
+    private bool accelActive;
+    
     [HideInInspector]
     public bool isDashReady = true;
     
     [HideInInspector]
     public bool isFireReady = true;
 
+    private SpeedState _speedState;
+
     protected override void Awake()
     {
       playerInputActions = new PlayerInputActions();
       inputActionMap = playerInput.actions.FindActionMap("Player");
+    }
+    
+    private void EnableGyro()
+    {
+      if (gyroActive || accelActive)
+      {
+        return;
+      }
+      
+      if (SystemInfo.supportsGyroscope)
+      {
+        _gyro = Input.gyro;
+        _gyro.enabled = true;
+        gyroActive = _gyro.enabled;
+      } else if (SystemInfo.supportsAccelerometer)
+      {
+        accelActive = true;
+      }
+
+      StartCoroutine(MobileControlRoutine());
+    }
+    
+    private void DisableGyro()
+    {
+      if (!gyroActive && !accelActive)
+      {
+        return;
+      }
+
+      if (SystemInfo.supportsGyroscope)
+      {
+        _gyro = Input.gyro;
+        _gyro.enabled = false;
+        gyroActive = _gyro.enabled;
+      } else if (SystemInfo.supportsAccelerometer)
+      {
+        accelActive = false;
+      }
+      
+      StopCoroutine(MobileControlRoutine());
+    }
+    
+    private IEnumerator MobileControlRoutine()
+    {
+      while (true)
+      {
+        switch (gyroActive)
+        {
+          case false when !accelActive:
+            yield break;
+          case true:
+            _rotation = _gyro.attitude.eulerAngles;
+            break;
+          default:
+          {
+            if (SystemInfo.supportsAccelerometer)
+            {
+              _rotation = Input.acceleration;
+            }
+
+            break;
+          }
+        }
+
+        switch (_rotation.x)
+        {
+          case < -0.1f when _speedState != SpeedState.Slow:
+            OnSlowTime();
+            break;
+          case > 0.1f when _speedState != SpeedState.Fast:
+            OnSpeedUpTime();
+            break;
+          default:
+          {
+            if (_speedState != SpeedState.Normal)
+            {
+              ReturnNormalSpeed(); 
+            }
+            break;
+          }
+        }
+      }
     }
 
     public void ResetPosition()
@@ -132,21 +222,36 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnSpeedUpTime()
     {
+      _speedState = SpeedState.Fast;
       dispatcher.Dispatch(PlayerControllerEvents.SpeedUpTime);
     }
 
     private void OnSlowTime()
     {
+      _speedState = SpeedState.Slow;
       dispatcher.Dispatch(PlayerControllerEvents.SlowDownTime);
     }
 
+    
     private void ReturnNormalSpeed(InputAction.CallbackContext context)
     {
+      _speedState = SpeedState.Normal;
+      dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
+    }
+    
+    private void ReturnNormalSpeed()
+    {
+      _speedState = SpeedState.Normal;
       dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
     }
     
     public void EnableInputs()
     {
+      if (SystemInfo.deviceType == DeviceType.Handheld)
+      {
+        EnableGyro();
+      }
+
       crouch = playerInputActions.Player.Crouch;
       crouch.Enable();
       slowDownTime = playerInputActions.Player.SlowTime;
@@ -166,6 +271,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void DisableInputs()
     {
+      if (SystemInfo.deviceType == DeviceType.Handheld)
+      {
+        DisableGyro();
+      }      
+      
       crouch.Disable();
       slowDownTime.canceled -= ReturnNormalSpeed;
       slowDownTime.Disable();

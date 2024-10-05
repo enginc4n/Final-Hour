@@ -80,7 +80,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         PlayerPrefs.SetInt(SettingKeys.FirstTime, 0);
       }
       
-      view.deviceType = DeviceType.Handheld;
+      view.deviceType = SystemInfo.deviceType;
       view.SetState(true);
       view.SetShadowOpacity(0);
       view.SetIcon(speedModel.speedState);

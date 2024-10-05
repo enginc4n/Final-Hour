@@ -92,10 +92,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.EnemyController
     
     public void ResetPosition()
     {
-      transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(playerPositionFromLeft- DistanceFromStart - (enemyBoxCollider.bounds.extents.x * enemyBoxCollider.transform.localScale.x) + 10, 0);
+      transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(playerPositionFromLeft- DistanceFromStart - (enemyBoxCollider.bounds.extents.x * enemyBoxCollider.transform.localScale.x) + 10, transform.GetComponent<RectTransform>().anchoredPosition.y);
       enemyBarrier.GetComponent<RectTransform>().anchoredPosition = new Vector2(playerPositionFromLeft - DistanceFromBarrier - 
                                                                                 (enemyBoxCollider.bounds.extents.x*2*enemyBoxCollider.transform.localScale.x) - 
-                                                                                (barrierBoxCollider.bounds.extents.x/barrierBoxCollider.transform.lossyScale.x) + 10, 0);
+                                                                                (barrierBoxCollider.bounds.extents.x/barrierBoxCollider.transform.lossyScale.x) + 10, enemyBarrier.GetComponent<RectTransform>().anchoredPosition.y);
     }
     
     private void OnTriggerEnter2D(Collider2D other)

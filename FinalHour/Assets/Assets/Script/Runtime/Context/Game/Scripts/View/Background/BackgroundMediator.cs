@@ -58,6 +58,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
       _maxWidth = rect.x / 3;
       _maxHeight = rect.y / 2;
 
+      ParticleSystem.ShapeModule ambientParticleShape = view.ambientParticle.shape;
+      ambientParticleShape.scale = new Vector3(view.ambientParticleTransform.rect.width / view.ambientParticleTransform.localScale.x,
+        view.ambientParticleTransform.rect.height / view.ambientParticleTransform.localScale.y, 0);
+      
       _treeRoutine = TreeRoutine();
       StartCoroutine(_treeRoutine);
     }

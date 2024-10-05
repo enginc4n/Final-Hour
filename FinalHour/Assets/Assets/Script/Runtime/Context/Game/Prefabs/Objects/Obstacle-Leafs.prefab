@@ -36,9 +36,9 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 540}
   m_SizeDelta: {x: 200, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!50 &4604811960543187869
@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13cf8dbf9de448d0b9940cc6ef35c996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransform: {fileID: 1577632999375731787}
   isCollectible: 0
   isBreakable: 1
   isDropTime: 0
@@ -84,6 +85,7 @@ MonoBehaviour:
   collectParticle: {fileID: 3384366999043453946, guid: 7c19ad7a926fc084ea69d9ba4fedeeab, type: 3}
   crushParticle: {fileID: 2353600328317590899, guid: ceec7516237b4104b94300043ca39784, type: 3}
   breakParticle: {fileID: 2504214343621411456, guid: dd35cb3be3828f749966d5cfbee99b50, type: 3}
+  imageTransform: {fileID: 0}
 --- !u!61 &6798359729964220171
 BoxCollider2D:
   m_ObjectHideFlags: 0

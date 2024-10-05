@@ -37,10 +37,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22.781616, y: -22.7005}
-  m_SizeDelta: {x: 326.5632, y: 325.401}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -22.781616, y: 517.2995}
+  m_SizeDelta: {x: 326.56323, y: 325.401}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!50 &1959568246506499951
 Rigidbody2D:
@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13cf8dbf9de448d0b9940cc6ef35c996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransform: {fileID: 1589498805101248826}
   isCollectible: 0
   isBreakable: 1
   isDropTime: 0

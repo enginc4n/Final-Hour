@@ -109,14 +109,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       }
       
       dispatcher.Dispatch(PlayerEvent.Jump);
-      float posY = transform.position.y;
+      float posY = view.rectTransform.anchoredPosition.y;
 
-      Tween jump = view.transform.DOMoveY(GameMechanicSettings.JumpHeight, GameMechanicSettings.JumpSpeed)
+      Tween jump = view.rectTransform.DOAnchorPosY(GameMechanicSettings.JumpHeight, GameMechanicSettings.JumpSpeed)
         .SetEase(Ease.OutSine)
         .SetSpeedBased()
         .OnComplete(() =>
         {
-          view.transform.DOMoveY(posY, GameMechanicSettings.JumpSpeed)
+          view.rectTransform.DOAnchorPosY(posY, GameMechanicSettings.JumpSpeed)
             .SetSpeedBased()
             .SetEase(Ease.InQuad).OnComplete((() =>
             {

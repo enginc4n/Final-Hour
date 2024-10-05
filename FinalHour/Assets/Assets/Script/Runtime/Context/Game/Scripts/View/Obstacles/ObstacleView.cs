@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -11,6 +15,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 {
   public class ObstacleView : EventView
   {
+    public RectTransform rectTransform;
+    
     [Header("Obstacle Mood")]
     public bool isCollectible;
     public bool isBreakable;
@@ -31,9 +37,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     public ParticleSystem breakParticle;
 
-    public Sequence sequence;
-
     public Transform imageTransform;
+
+    public Coroutine activeRoutine;
 
     private void Update()
     {
@@ -78,35 +84,44 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
       return Instantiate(objectToInstantiate, transform.position, Quaternion.identity, transform.parent);
     } 
     
-    public void ArcMove()
+    public void ArcMove( )
     {
-      Vector3 position = transform.position;
-      transform.position = new Vector2(position.x, Random.Range(-3f, position.y + 1));
+      float maxHeight = GameMechanicSettings.JumpHeight - 100;
+      float minHeight = rectTransform.anchoredPosition.y;
 
-      sequence = DOTween.Sequence();
+      rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, Random.Range(minHeight,maxHeight));
 
-      if (Random.Range(0, 1) > 0)
-      {
-        sequence.Append(transform.DOMoveY(-3, GetSpeed(transform.position.y,-3)).SetEase(Ease.Linear));
-        sequence.Append(transform.DOMoveY( position.y + 1,GetSpeed(-3, position.y + 1)).SetEase(Ease.Linear));
-        sequence.Append(transform.DOMoveY(position.y, GetSpeed(position.y + 1, position.y)).SetEase(Ease.Linear));
-      }
-      else
-      {
-        sequence.Append(transform.DOMoveY( position.y + 1,GetSpeed(transform.position.y,position.y + 1)).SetEase(Ease.Linear));
-        sequence.Append(transform.DOMoveY(-3, GetSpeed(position.y + 1,-3)).SetEase(Ease.Linear));
-        sequence.Append(transform.DOMoveY(position.y, GetSpeed(-3,position.y)).SetEase(Ease.Linear));
-      }
 
-      sequence.SetLoops(-1, LoopType.Yoyo);
-      sequence.Play();
+      activeRoutine = StartCoroutine(Random.Range(0, 1) > 0 ? ArcFromUp(minHeight, maxHeight) : ArcFromDown(minHeight, maxHeight));
     }
 
-    private float GetSpeed(float start, float target)
+    private IEnumerator ArcFromUp(float minHeight, float maxHeight)
     {
-      float distance = Math.Abs(start - target);
-
-      return distance / 5f;
+      while (true)
+      {
+        TweenerCore<Vector2, Vector2, VectorOptions> tween = rectTransform.DOAnchorPosY(maxHeight, 250).SetSpeedBased();
+        
+        yield return tween.WaitForCompletion();
+        
+        tween = rectTransform.DOAnchorPosY(minHeight, 250).SetSpeedBased();
+        
+        yield return tween.WaitForCompletion();
+      }
     }
+    
+    private IEnumerator ArcFromDown(float minHeight, float maxHeight)
+    {
+      while (true)
+      {
+        TweenerCore<Vector2, Vector2, VectorOptions>  tween = rectTransform.DOAnchorPosY(minHeight, 250).SetSpeedBased().SetEase(Ease.Linear);
+        
+        yield return tween.WaitForCompletion();
+        
+        tween = rectTransform.DOAnchorPosY(maxHeight, 250).SetSpeedBased().SetEase(Ease.Linear);
+        
+        yield return tween.WaitForCompletion();
+      }
+    }
+
   }
 }
