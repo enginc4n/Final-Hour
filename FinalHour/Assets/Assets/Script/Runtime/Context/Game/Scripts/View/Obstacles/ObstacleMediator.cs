@@ -49,6 +49,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
 
     private void OnCrashWithPlayer()
     {
+      if (!playerModel.isAlive)
+      {
+        return;
+      }
+      
       if (view.isCollectible)
       {
         CollectibleProcess();
