@@ -71,6 +71,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       {
         view.DisableAllInputs();
       }
+      else
+      {
+        view.EnableAllInputs();
+      }
 
       StartCoroutine(SpeedUpGame());
     }

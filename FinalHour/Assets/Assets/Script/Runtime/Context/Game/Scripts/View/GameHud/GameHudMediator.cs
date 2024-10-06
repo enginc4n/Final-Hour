@@ -28,10 +28,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     [Inject]
     public ISpeedModel speedModel { get; set; }
-    
+
     [Inject]
     public IAudioModel audioModel { get; set; }
-    
+
     [Inject]
     public IUIModel uiModel { get; set; }
 
@@ -80,10 +80,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       {
         speedModel.Pause();
         uiModel.OpenPanel(PanelKeys.InstructionsPanel, transform.parent);
-        
+
         PlayerPrefs.SetInt(SettingKeys.FirstTime, 1);
       }
-      
+
       view.deviceType = SystemInfo.deviceType;
       view.SetState(true);
       view.SetShadowOpacity(0);
@@ -111,18 +111,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         view.mobilePad.SetActive(false);
       }
     }
-    
+
     private void FixedUpdate()
     {
       int minutes = Mathf.FloorToInt(playerModel.remainingTime / 60f);
       int seconds = Mathf.FloorToInt(playerModel.remainingTime % 60f);
-        
+
       view.timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-      
+
       view.timerText.color = playerModel.remainingTime is <= 10 and > 1 ? new Color(1f, 0.2290596f, 0.1650943f) : Color.white;
 
       if (playerModel.tutorialActive && PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 7 && playerModel.remainingTime <= 50)
-      { 
+      {
         dispatcher.Dispatch(GameEvent.SpeedTutorial);
       }
     }
@@ -140,7 +140,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         yield return new WaitForSeconds(1f);
 
         playerModel.ChangeRemainingTime(-1f);
-        
+
         if (playerModel.remainingTime is <= 10 and > 1)
         {
           view.timerText.transform.DOScale(1.2f, 0.25f).OnComplete((() =>
@@ -161,7 +161,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         playerModel.ChangeRemainingTime(+1f);
       }
     }
-    
+
     private IEnumerator ScoreRoutine()
     {
       while (playerModel.remainingTime > 0 && playerModel.isAlive)
@@ -179,10 +179,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.dashText.color = Color.white;
       view.StartDashTimer();
 
+      view.isTutorialActive = playerModel.tutorialActive;
+      
       if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 4)
       {
         speedModel.Pause();
-        
+
         OnTutorialStepStart();
       }
     }
@@ -193,9 +195,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       {
         view.dashButton.interactable = false;
       }
-      
+
       view.FlyText(-GameMechanicSettings.DashCost);
-      
+
       view.dashImage.color = new Color(1f, 1f, 1f, 0.5f);
       view.dashText.color = new Color(1f, 1f, 1f, 0.5f);
     }
@@ -204,14 +206,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       view.FlyText(-GameMechanicSettings.FireCost);
       
+      view.isTutorialActive = playerModel.tutorialActive;
+
       view.StartFireTimer();
     }
-    
+
     private void OnCollect()
     {
       view.FlyText(GameMechanicSettings.CollectibleTimeAmount);
     }
-    
+
     private void OnChangeSpeed()
     {
       if (_hasSlowedDown)
@@ -240,7 +244,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void StartShadowLoop()
     {
-       _shadowLoop ??= StartCoroutine(ShadowLoop());
+      _shadowLoop ??= StartCoroutine(ShadowLoop());
     }
 
     private void StopShadowLoop()
@@ -272,16 +276,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
       if (currentDistance >= spawnDistance)
       {
-        view.SetShadowOpacity(0); 
+        view.SetShadowOpacity(0);
         audioModel.ResetPitchVolume();
       }
       else
       {
         float a = 1 - currentDistance / spawnDistance;
         view.SetShadowOpacity(a);
-        if (a >=threshold)
+        if (a >= threshold)
         {
-          audioModel.SetPitchVolumeRelative(1-a,1-a);
+          audioModel.SetPitchVolumeRelative(1 - a, 1 - a);
         }
         else
         {
@@ -298,10 +302,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     private void OnDied()
     {
       view.SetState(false);
-      
+
       StopCoroutine(ScoreRoutine());
       StopShadowLoop();
-      
+
       if (_timeLoop != null)
       {
         StopCoroutine(_timeLoop);
@@ -317,7 +321,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
     }
-    
+
     private void OnFlyingObstacleIncoming()
     {
       if (_warningRoutine != null)
@@ -335,19 +339,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       yield return new WaitForSeconds(GameMechanicSettings.FlyingObstacleWarningTime);
       view.flyingObstacleWarning.SetActive(false);
     }
-    
+
     private void OnCollectDash()
     {
       view.dashImage.color = new Color(1f, 1f, 1f, 0.5f);
       view.dashText.color = new Color(1f, 1f, 1f, 0.5f);
     }
-    
+
     private void OnCollectedDashComplete()
     {
       view.dashImage.color = Color.white;
       view.dashText.color = Color.white;
     }
-    
+
     private void OnJump()
     {
       if (view.deviceType == DeviceType.Handheld)
@@ -355,15 +359,20 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         view.jumpButton.interactable = false;
       }
     }
-    
+
     private void OnJumpFinished()
     {
+      if (playerModel.tutorialActive)
+      {
+        return;
+      }
+      
       if (view.deviceType == DeviceType.Handheld)
       {
         view.jumpButton.interactable = true;
       }
     }
-    
+
     private void OnCrouch()
     {
       if (view.deviceType == DeviceType.Handheld)
@@ -371,76 +380,122 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         view.crouchButton.interactable = false;
       }
     }
-    
+
     private void OnCrouchFinished()
     {
+      if (playerModel.tutorialActive)
+      {
+        return;
+      }
+      
       if (view.deviceType == DeviceType.Handheld)
       {
         view.crouchButton.interactable = true;
       }
     }
-    
+
     private void OnOutOfSeconds()
     {
       view.OutOfSeconds();
     }
-    
+
     private void OnPause()
-    { 
+    {
       view.raycastGo.SetActive(true);
     }
-    
+
     private void OnContinue()
     {
       view.raycastGo.SetActive(false);
     }
-    
+
     private void OnTutorialStepStart()
     {
       if (view.deviceType == DeviceType.Desktop)
       {
-        if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 0)
+        switch (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps))
         {
-          view.pcTutorialText.text = "Press [W] to Jump over the rock";
-        } else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 1)
-        {
-          view.pcTutorialText.text = "Press [S] to Duck under the fireball";
-        } else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 2)
-        {
-          view.pcTutorialText.text = "Press [Space] to Fire at the crystal, then collect the dropped <color=#15C9BD>Seconds</color>.";
-        }else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 3)
-        {
-          view.pcTutorialText.text = "Press [E] to Dash through all obstacles";
-        } else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 4)
-        {
-          view.pcTutorialText.text = "Fire and Dash spend <color=#15C9BD>Seconds</color>. Hold [A] to Slow Down time and regain some";
-          view.timerTransform.SetAsLastSibling();
-          view.timerTutorialArrow.SetActive(true);
-        } else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 6)
-        {
-          view.timerTransform.SetSiblingIndex(4);
-          view.timerTutorialArrow.SetActive(false);
-          view.pcTutorialText.text = "<color=#574646>Death</color> closes the distance when you Slow Down. Hold [D] to Speed Up time and maintain your distance";
-          view.deathTutorialArrow.SetActive(true);
-          view.shadowTransform.SetAsLastSibling();
+          case 0:
+            view.pcTutorialText.text = "Press [W] to Jump over the rock";
+            break;
+          case 1:
+            view.pcTutorialText.text = "Press [S] to Duck under the fireball";
+            break;
+          case 2:
+            view.pcTutorialText.text = "Press [Space] to Fire at the crystal, then collect the dropped <color=#15C9BD>Seconds</color>.";
+            break;
+          case 3:
+            view.pcTutorialText.text = "Press [E] to Dash through all obstacles";
+            break;
+          case 4:
+            view.pcTutorialText.text = "Fire and Dash spend <color=#15C9BD>Seconds</color>. Hold [A] to Slow Down time and regain some";
+            view.timerTransform.SetAsLastSibling();
+            view.timerTutorialArrow.SetActive(true);
+            break;
+          case 6:
+            view.timerTransform.SetSiblingIndex(4);
+            view.timerTutorialArrow.SetActive(false);
+            view.pcTutorialText.text = "<color=#574646>Death</color> closes the distance when you Slow Down. Hold [D] to Speed Up time and maintain your distance";
+            view.deathTutorialArrow.SetActive(true);
+            view.shadowTransform.SetAsLastSibling();
+            break;
+          case 8:
+            view.shadowTransform.SetAsFirstSibling();
+            view.deathTutorialArrow.SetActive(false);
+            view.finishTutorialRaycast.SetActive(true);
+            view.pcTutorialText.text =
+              "Speed Up makes you lose <color=#15C9BD>Seconds</color> faster. If you run out of <color=#15C9BD>Seconds</color> or <color=#574646>Death</color> catches you, you lose. Good luck! <br> (Press anywhere to continue)";
+            break;
         }
-        else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 8)
+      }
+      else
+      {
+        switch (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps))
         {
-          view.shadowTransform.SetAsFirstSibling();
-          view.deathTutorialArrow.SetActive(false);
-          view.finishTutorialRaycast.SetActive(true);
-          view.pcTutorialText.text = "Speed Up makes you lose <color=#15C9BD>Seconds</color> faster. If you run out of <color=#15C9BD>Seconds</color> or <color=#574646>Death</color> catches you, you lose. Good luck! <br> (Press anywhere to continue)";
+          case 0:
+            view.pcTutorialText.text = "Tap Jump to jump over the rock";
+            break;
+          case 1:
+            view.pcTutorialText.text = "Tap Duck to duck under the fireball";
+            break;
+          case 2:
+            view.pcTutorialText.text = "Tap Fire to fire at the crystal, then collect the dropped <color=#15C9BD>Seconds</color>.";
+            break;
+          case 3:
+            view.pcTutorialText.text = "Tap Dash to Dash through all obstacles";
+            break;
+          case 4:
+            view.pcTutorialText.text = "Fire and Dash spend <color=#15C9BD>Seconds</color>. Tilt your phone Left to Slow Down time and regain some";
+            view.timerTransform.SetAsLastSibling();
+            view.timerTutorialArrow.SetActive(true);
+            view.tiltLeftImage.SetActive(true);
+            break;
+          case 6:
+            view.timerTransform.SetSiblingIndex(4);
+            view.timerTutorialArrow.SetActive(false);
+            view.tiltLeftImage.SetActive(false);
+            view.pcTutorialText.text = "<color=#574646>Death</color> closes the distance when you Slow Down. Tilt your phone Right to Speed Up time and maintain your distance";
+            view.deathTutorialArrow.SetActive(true);
+            view.shadowTransform.SetAsLastSibling();
+            view.tiltRightImage.SetActive(true);
+            break;
+          case 8:
+            view.shadowTransform.SetAsFirstSibling();
+            view.deathTutorialArrow.SetActive(false);
+            view.tiltRightImage.SetActive(false);
+            view.finishTutorialRaycast.SetActive(true);
+            view.pcTutorialText.text =
+              "Speed Up makes you lose <color=#15C9BD>Seconds</color> faster. If you run out of <color=#15C9BD>Seconds</color> or <color=#574646>Death</color> catches you, you lose. Good luck! <br> (Tap anywhere to continue)";
+            break;
         }
       }
     }
-    
-    private void OnTutorialStepComplete()
-    {
-      if (view.deviceType == DeviceType.Desktop)
-      {
-        view.pcTutorialText.text = string.Empty;
-      }
+  
 
+  private void OnTutorialStepComplete()
+    {
+      view.pcTutorialText.text = string.Empty;
+      
       if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) < 4)
       {
         dispatcher.Dispatch(GameEvent.TutorialObstaclePassed);

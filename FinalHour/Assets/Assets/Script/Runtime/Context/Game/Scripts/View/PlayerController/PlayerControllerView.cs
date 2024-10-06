@@ -6,6 +6,7 @@ using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 {
@@ -42,14 +43,23 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     [HideInInspector]
     public bool isFireReady = true;
+    
+    private DeviceType _deviceType;
 
     private SpeedState _speedState;
+
+    [Header("Mobile Buttons")]
+
+    public Button jumpButton;
+    public Button crouchButton;
+    public Button fireButton;
+    public Button dashButton;
+
 
     protected override void Awake()
     {
       playerInputActions = new PlayerInputActions();
-    //  inputActionMap = playerInput.actions.FindActionMap("Player");
-     // inputActionMap.Enable();
+      _deviceType = SystemInfo.deviceType;
     }
     
     private void EnableGyro()
@@ -108,30 +118,38 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
             {
               _rotation = Input.acceleration;
             }
-
             break;
           }
         }
 
-        switch (_rotation.x)
+
+        if (_rotation.x < -0.1f && _speedState != SpeedState.Slow)
         {
-          case < -0.1f when _speedState != SpeedState.Slow:
-            OnSlowTime();
-            break;
-          case > 0.1f when _speedState != SpeedState.Fast:
-            OnSpeedUpTime();
-            break;
-          default:
+          OnSlowTime();
+        }
+        else if (_rotation.x > 0.1f && _speedState != SpeedState.Fast)
+        {
+          OnSpeedUpTime();
+        }
+        else
+        {
+          if (_rotation.x is > -0.1f and < 0.1f && _speedState != SpeedState.Normal)
           {
-            if (_speedState != SpeedState.Normal)
+            if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 5 || PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 7)
             {
-              ReturnNormalSpeed(); 
+              ReturnNormalSpeedTutorial();
             }
-            break;
+            else
+            {
+              ReturnNormalSpeed();
+            }
           }
         }
+
+        yield return null; 
       }
     }
+
 
     public void ResetPosition()
     {
@@ -204,6 +222,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public void OnSpeedUpTime()
     {
+      if (!speedUpTime.enabled)
+      {
+        return;
+      }
+      
       _speedState = SpeedState.Fast;
       dispatcher.Dispatch(PlayerControllerEvents.SpeedUpTime);
     }
@@ -216,6 +239,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public void OnSlowTime()
     {
+      if (!slowDownTime.enabled)
+      {
+        return;
+      }
+      
       _speedState = SpeedState.Slow;
       dispatcher.Dispatch(PlayerControllerEvents.SlowDownTime);
     }
@@ -270,9 +298,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void EnableAllInputs()
     {
-      if (SystemInfo.deviceType == DeviceType.Handheld)
+      if (_deviceType == DeviceType.Handheld)
       {
         EnableGyro();
+
+        jumpButton.interactable = true;
+        crouchButton.interactable = true;
+        fireButton.interactable = true;
+        dashButton.interactable = true;
       }
       
       slowDownTime.Enable();
@@ -298,9 +331,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void DisableAllInputs()
     {
-      if (SystemInfo.deviceType == DeviceType.Handheld)
+      if (_deviceType == DeviceType.Handheld)
       {
         DisableGyro();
+
+        jumpButton.interactable = false; 
+        crouchButton.interactable = false; 
+        fireButton.interactable = false; 
+        dashButton.interactable = false;
       }      
       
       slowDownTime.Disable();
@@ -326,9 +364,20 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void DisableInputsTutorial()
     {
-      if (SystemInfo.deviceType == DeviceType.Handheld)
+      if (_deviceType == DeviceType.Handheld)
       {
-        DisableGyro();
+        if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) > 3 && PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) < 8) 
+        {
+          EnableGyro();
+        } else
+        {
+          DisableGyro();
+        }
+
+        jumpButton.interactable = PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 0; 
+        crouchButton.interactable = PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 1; 
+        fireButton.interactable = PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 2; 
+        dashButton.interactable = PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 3;
       }
 
       if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 6)
@@ -458,6 +507,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public void OnJump()
     {
+      if (!jump.enabled)
+      {
+        return;
+      }
+      
       if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
       {
         return;
@@ -470,6 +524,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public void OnCrouch()
     {
+      if (!crouch.enabled)
+      {
+        return;
+      }
+      
       if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
       {
         return;
@@ -481,6 +540,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public void OnFire()
     {
+      if (!fire.enabled)
+      {
+        return;
+      }
+      
       if (!isFireReady)
       {
         return;
@@ -491,7 +555,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     public void OnDash()
     {
-     
+      if (!dash.enabled)
+      {
+        return;
+      }
+      
       if (!isDashReady)
       {
         return;

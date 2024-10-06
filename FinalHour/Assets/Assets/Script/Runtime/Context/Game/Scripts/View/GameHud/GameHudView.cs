@@ -95,6 +95,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     [Header("Tutorial")]
     public TextMeshProUGUI pcTutorialText;
+
+    public bool isTutorialActive;
+
+    public GameObject tiltLeftImage;
+    
+    public GameObject tiltRightImage;
     
     public void UpdateScore(int score)
     {
@@ -183,6 +189,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         
         if (deviceType == DeviceType.Handheld)
         {
+          if (isTutorialActive)
+          {
+            return;
+          }
+          
           dashButton.interactable = true;
         }
       }
@@ -219,6 +230,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
         if (deviceType == DeviceType.Handheld)
         {
+          if (isTutorialActive)
+          {
+            return;
+          }
+          
           fireButton.interactable = true;
         }
       }
