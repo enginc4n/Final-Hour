@@ -65,47 +65,41 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
       while (true)
       {
         GameObject objToSpawn;
-        ObstacleView obstacleView;
-        
-        if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 0)
+
+        int completedSteps = PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps);
+        switch (completedSteps)
         {
-          objToSpawn = view.tutorialObjects[0];
-          playerModel.tutorialActive = true;
-          obstacleView = objToSpawn.GetComponent<ObstacleView>();
-          obstacleView.tutorialIndex = 0;
+          case 0:
+            objToSpawn = view.tutorialObjects[0];
+            playerModel.tutorialActive = true;
+            break;
+
+          case 1:
+            objToSpawn = view.tutorialObjects[1];
+            playerModel.tutorialActive = true;
+            break;
+
+          case 2:
+            objToSpawn = view.tutorialObjects[2];
+            playerModel.tutorialActive = true;
+            break;
+
+          case 3:
+            objToSpawn = view.tutorialObjects[3];
+            playerModel.tutorialActive = true;
+            break;
+
+          default:
+            int randomIndex = Random.Range(0, spawnPool.Count);
+            objToSpawn = spawnPool[randomIndex];
+            break;
         }
-        else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 1)
-        {
-          objToSpawn = view.tutorialObjects[1];
-          playerModel.tutorialActive = true;
-          obstacleView = objToSpawn.GetComponent<ObstacleView>();
-          obstacleView.tutorialIndex = 1;
-        } 
-        else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 2)
-        {
-          objToSpawn = view.tutorialObjects[2];
-          playerModel.tutorialActive = true;
-          obstacleView = objToSpawn.GetComponent<ObstacleView>();
-          obstacleView.tutorialIndex = 2;
-        }     
-        else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 3)
-        {
-          objToSpawn = view.tutorialObjects[3];
-          playerModel.tutorialActive = true;
-          obstacleView = objToSpawn.GetComponent<ObstacleView>();
-          obstacleView.tutorialIndex = 3;
-        } 
-        else
-        {
-          int randomIndex = Random.Range(0, spawnPool.Count);
-          objToSpawn = spawnPool[randomIndex];
-          obstacleView = objToSpawn.GetComponent<ObstacleView>();
-        }
+
         nextStepReady = false;
         
         SpawnerView.WeightedObject weightedObject = FindWeightedObjectFromSpawnPool(objToSpawn);
         
-        ObstacleType obstacleType = obstacleView.obstacleType;
+        ObstacleType obstacleType = objToSpawn.GetComponent<ObstacleView>().obstacleType;
         if (obstacleType == ObstacleType.Flying)
         {
           dispatcher.Dispatch(PlayerEvent.FlyingObstacleIncoming);
@@ -119,6 +113,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
         RectTransform spawnedRectTransform = spawnedObject.GetComponent<RectTransform>();
         spawnedObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(spawnedRectTransform.anchoredPosition.x, randomHeight);
+        ObstacleView  obstacleView = spawnedObject.GetComponent<ObstacleView>();
+
+        obstacleView.tutorialIndex = completedSteps switch
+        {
+          0 => 0,
+          1 => 1,
+          2 => 2,
+          3 => 3,
+          _ => obstacleView.tutorialIndex
+        };
 
         if (objToSpawn.CompareTag(ObstacleTag.Fire))
         {
