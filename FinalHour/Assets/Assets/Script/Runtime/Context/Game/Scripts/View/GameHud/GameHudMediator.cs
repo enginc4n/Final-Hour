@@ -511,6 +511,23 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.Dispatch(GameEvent.TutorialObstaclePassed);
     }
 
+    private void OnApplicationFocus(bool hasFocus)
+    {
+      if (!hasFocus && view.deviceType == DeviceType.Desktop && !speedModel.isPaused)
+      {
+        dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
+      }
+    }
+    
+    private void OnApplicationPause(bool hasFocus)
+    {
+      if (hasFocus && view.deviceType == DeviceType.Handheld && !speedModel.isPaused)
+      {
+        dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
+      }
+    }
+
+    
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(GameHudEvent.Settings, OnSettings);

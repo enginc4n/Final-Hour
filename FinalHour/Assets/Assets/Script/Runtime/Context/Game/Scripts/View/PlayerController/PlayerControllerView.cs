@@ -44,7 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     [HideInInspector]
     public bool isFireReady = true;
     
-    private DeviceType _deviceType;
+    public DeviceType deviceType;
 
     private SpeedState _speedState;
 
@@ -59,7 +59,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     protected override void Awake()
     {
       playerInputActions = new PlayerInputActions();
-      _deviceType = SystemInfo.deviceType;
+      deviceType = SystemInfo.deviceType;
     }
     
     private void EnableGyro()
@@ -303,7 +303,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void EnableAllInputs()
     {
-      if (_deviceType == DeviceType.Handheld)
+      if (deviceType == DeviceType.Handheld)
       {
         EnableGyro();
 
@@ -336,7 +336,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void DisableAllInputs()
     {
-      if (_deviceType == DeviceType.Handheld)
+      if (deviceType == DeviceType.Handheld)
       {
         DisableGyro();
 
@@ -369,7 +369,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void DisableInputsTutorial()
     {
-      if (_deviceType == DeviceType.Handheld)
+      if (deviceType == DeviceType.Handheld)
       {
         if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) > 3 && PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) < 8) 
         {
