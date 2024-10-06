@@ -11,7 +11,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 {
   public enum GameHudEvent
   {
-    Settings
+    Settings,
+    FinishTutorial
   }
 
   public class GameHudMediator : EventMediator
@@ -45,6 +46,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public override void OnRegister()
     {
       view.dispatcher.AddListener(GameHudEvent.Settings, OnSettings);
+      view.dispatcher.AddListener(GameHudEvent.FinishTutorial, OnFinishTutorial);
 
       dispatcher.AddListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
       dispatcher.AddListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
@@ -68,6 +70,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
       dispatcher.AddListener(GameEvent.Start, SetLayout);
+      dispatcher.AddListener(GameEvent.TutorialStepStart, OnTutorialStepStart);
+      dispatcher.AddListener(GameEvent.TutorialStepComplete, OnTutorialStepComplete);
     }
 
     public override void OnInitialize()
@@ -77,7 +81,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         speedModel.Pause();
         uiModel.OpenPanel(PanelKeys.InstructionsPanel, transform.parent);
         
-        PlayerPrefs.SetInt(SettingKeys.FirstTime, 0);
+        PlayerPrefs.SetInt(SettingKeys.FirstTime, 1);
       }
       
       view.deviceType = SystemInfo.deviceType;
@@ -116,6 +120,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
       
       view.timerText.color = playerModel.remainingTime is <= 10 and > 1 ? new Color(1f, 0.2290596f, 0.1650943f) : Color.white;
+
+      if (playerModel.tutorialActive && PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 7 && playerModel.remainingTime <= 50)
+      { 
+        dispatcher.Dispatch(GameEvent.SpeedTutorial);
+      }
     }
 
     private void CountTime()
@@ -169,8 +178,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.dashImage.color = Color.white;
       view.dashText.color = Color.white;
       view.StartDashTimer();
+
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 4)
+      {
+        speedModel.Pause();
+        
+        OnTutorialStepStart();
+      }
     }
-    
+
     private void OnDashStarted()
     {
       if (view.deviceType == DeviceType.Handheld)
@@ -270,6 +286,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         else
         {
           audioModel.ResetPitchVolume();
+        }
+
+        if (playerModel.tutorialActive && PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 5 && a >= 0.5)
+        {
+          dispatcher.Dispatch(GameEvent.SpeedTutorial);
         }
       }
     }
@@ -373,10 +394,72 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     {
       view.raycastGo.SetActive(false);
     }
+    
+    private void OnTutorialStepStart()
+    {
+      if (view.deviceType == DeviceType.Desktop)
+      {
+        if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 0)
+        {
+          view.pcTutorialText.text = "Press [W] to Jump over the rock";
+        } else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 1)
+        {
+          view.pcTutorialText.text = "Press [S] to Duck under the fireball";
+        } else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 2)
+        {
+          view.pcTutorialText.text = "Press [Space] to Fire at the crystal, then collect the dropped <color=#15C9BD>Seconds</color>.";
+        }else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 3)
+        {
+          view.pcTutorialText.text = "Press [E] to Dash through all obstacles";
+        } else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 4)
+        {
+          view.pcTutorialText.text = "Fire and Dash spend <color=#15C9BD>Seconds</color>. Hold [A] to Slow Down time and regain some";
+          view.timerTransform.SetAsLastSibling();
+          view.timerTutorialArrow.SetActive(true);
+        } else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 6)
+        {
+          view.timerTransform.SetSiblingIndex(4);
+          view.timerTutorialArrow.SetActive(false);
+          view.pcTutorialText.text = "<color=#574646>Death</color> closes the distance when you Slow Down. Hold [D] to Speed Up time and maintain your distance";
+          view.deathTutorialArrow.SetActive(true);
+          view.shadowTransform.SetAsLastSibling();
+        }
+        else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 8)
+        {
+          view.shadowTransform.SetAsFirstSibling();
+          view.deathTutorialArrow.SetActive(false);
+          view.finishTutorialRaycast.SetActive(true);
+          view.pcTutorialText.text = "Speed Up makes you lose <color=#15C9BD>Seconds</color> faster. If you run out of <color=#15C9BD>Seconds</color> or <color=#574646>Death</color> catches you, you lose. Good luck! <br> (Press anywhere to continue)";
+        }
+      }
+    }
+    
+    private void OnTutorialStepComplete()
+    {
+      if (view.deviceType == DeviceType.Desktop)
+      {
+        view.pcTutorialText.text = string.Empty;
+      }
+
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) < 4)
+      {
+        dispatcher.Dispatch(GameEvent.TutorialObstaclePassed);
+      }
+    }
+    
+    private void OnFinishTutorial()
+    {
+      playerModel.tutorialActive = false;
+      view.finishTutorialRaycast.SetActive(false);
+      speedModel.Continue();
+      OnTutorialStepComplete();
+      dispatcher.Dispatch(GameEvent.TutorialObstaclePassed);
+    }
 
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(GameHudEvent.Settings, OnSettings);
+      view.dispatcher.AddListener(GameHudEvent.FinishTutorial, OnFinishTutorial);
 
       dispatcher.RemoveListener(PlayerEvent.EnemyStartedMoving, StartShadowLoop);
       dispatcher.RemoveListener(PlayerEvent.EnemyStoppedMoving, StopShadowLoop);
@@ -400,6 +483,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);
       dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
       dispatcher.RemoveListener(GameEvent.Start, SetLayout);
+      dispatcher.RemoveListener(GameEvent.TutorialStepStart, OnTutorialStepStart);
+      dispatcher.RemoveListener(GameEvent.TutorialStepComplete, OnTutorialStepComplete);
     }
   }
 }

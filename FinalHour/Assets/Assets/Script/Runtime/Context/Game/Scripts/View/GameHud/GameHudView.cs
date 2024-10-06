@@ -1,17 +1,17 @@
-using System.Collections;
 using System.Globalization;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 {
   public class GameHudView : EventView
   {
+    public GameObject finishTutorialRaycast;
+    
     public TextMeshProUGUI timerText;
 
     public TextMeshProUGUI scoreText;
@@ -56,8 +56,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     [SerializeField]
     private GameObject flyingText;
     
-    [SerializeField]
-    private Transform flyingTextContainer;
+    public Transform timerTransform;
+    
+    public GameObject timerTutorialArrow;
+
+    public Transform shadowTransform;
+
+    public GameObject deathTutorialArrow;
 
     [SerializeField]
     private GameObject hourglassIcon;
@@ -87,6 +92,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     private float _currentFireTime;
 
     private Sequence outOfSecondsTween;
+
+    [Header("Tutorial")]
+    public TextMeshProUGUI pcTutorialText;
     
     public void UpdateScore(int score)
     {
@@ -127,7 +135,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     
     public void FlyText(float amount)
     {
-      GameObject flyingTextGo = Instantiate(flyingText, flyingTextContainer, true);
+      GameObject flyingTextGo = Instantiate(flyingText, timerTransform, true);
       Transform flyingTransform = flyingTextGo.transform;
       flyingTransform.localScale = Vector3.one;
       RectTransform rectTransform = flyingTransform.GetComponent<RectTransform>();
@@ -261,6 +269,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
     public void OnSettings()
     {
       dispatcher.Dispatch(GameHudEvent.Settings);
+    }
+
+    public void OnFinishTutorial()
+    {
+      dispatcher.Dispatch(GameHudEvent.FinishTutorial);
     }
   }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
 using UnityEngine;
@@ -20,6 +21,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
 
     [Inject]
     public IPlayerModel playerModel { get; set; }
+    
+    [Inject]
+    public ISpeedModel speedModel { get; set; }
 
     private bool _keepMoving = false;
 
@@ -89,11 +93,23 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
       }
 
       transform.Translate(new Vector2(-playerModel.currentGameSpeed*view.ownSpeedFactor, 0), Space.World);
+
+      if ( PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == view.tutorialIndex && view.tutorialIndex == 2 && view.rectTransform.anchoredPosition.x <= 1500)
+      {
+        speedModel.Pause();
+        dispatcher.Dispatch(GameEvent.TutorialStepStart);
+      }
+      
+      if ( PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == view.tutorialIndex && view.rectTransform.anchoredPosition.x <= 800)
+      {
+        speedModel.Pause();
+        dispatcher.Dispatch(GameEvent.TutorialStepStart);
+      }
     }
 
     private void OnDied()
     {
-      if (view.obstacleType == ObstacleType.Flying)
+      if (view.obstacleType is ObstacleType.Flying or ObstacleType.Collectible)
       {
         _keepMoving = true;
       }

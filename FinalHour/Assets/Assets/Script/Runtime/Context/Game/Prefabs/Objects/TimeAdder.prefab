@@ -14773,7 +14773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -8.22229}
+  m_AnchoredPosition: {x: 0, y: 597.3369}
   m_SizeDelta: {x: 107, y: 236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &8032858546369814085
@@ -14847,6 +14847,7 @@ MonoBehaviour:
   crushParticle: {fileID: 8176850701479282266, guid: b219c04f384e7f345bb8ae1fef443965, type: 3}
   breakParticle: {fileID: 0}
   imageTransform: {fileID: 3109628955718705825}
+  tutorialIndex: -1
 --- !u!222 &3485964645486316828
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     bool isDashing { get; set; }
     bool isCrouching { get; set; }
     float remainingTime { get; set; }
+    bool tutorialActive { get; set; }
     void Die();
     void ChangeScore(int value);
     void ChangeRemainingTime(float value);

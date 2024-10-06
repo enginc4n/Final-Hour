@@ -16,6 +16,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public bool isDashing { get; set; }
     public bool isCrouching { get; set; }
     public float remainingTime { get; set; }
+    
+    public bool tutorialActive { get; set; }
 
     [PostConstruct]
     public void OnPostConstruct()

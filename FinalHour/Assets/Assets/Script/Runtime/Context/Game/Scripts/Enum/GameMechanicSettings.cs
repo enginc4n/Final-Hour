@@ -11,7 +11,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Enum
     //GameSpeed
     public const float StartingGameSpeed = 0.25f;
     public const float MaxGameSpeed = 1.25f;
-    public const float GameSpeedUpTime= 2f; // higher numbers makes game speed up less often
+    public const float GameSpeedUpTime= 1.5f; // higher numbers makes game speed up less often
     public const float GameSpeedUpAmount = 0.005f;
     
     //Spawns

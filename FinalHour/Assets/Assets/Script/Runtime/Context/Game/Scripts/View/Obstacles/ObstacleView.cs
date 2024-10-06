@@ -41,6 +41,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View
 
     public Coroutine activeRoutine;
 
+    public int tutorialIndex = -1;
+
     private void Update()
     {
       RotateObject();

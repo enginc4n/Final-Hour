@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -19,10 +20,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
     private List<GameObject> spawnPool = new();
     private float totalWeight;
     private Coroutine spawnCoroutine;
+    private bool nextStepReady = true;
 
     public override void OnRegister()
     {
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
+      dispatcher.AddListener(GameEvent.TutorialObstaclePassed, OnTutorialObstaclePassed);
     }
 
     private void OnDied()
@@ -61,14 +64,47 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
     {
       while (true)
       {
-        int randomIndex = Random.Range(0, spawnPool.Count);
-        GameObject objToSpawn = spawnPool[randomIndex];
+        GameObject objToSpawn;
+        ObstacleView obstacleView;
+        
+        if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 0)
+        {
+          objToSpawn = view.tutorialObjects[0];
+          playerModel.tutorialActive = true;
+          obstacleView = objToSpawn.GetComponent<ObstacleView>();
+          obstacleView.tutorialIndex = 0;
+        }
+        else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 1)
+        {
+          objToSpawn = view.tutorialObjects[1];
+          playerModel.tutorialActive = true;
+          obstacleView = objToSpawn.GetComponent<ObstacleView>();
+          obstacleView.tutorialIndex = 1;
+        } 
+        else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 2)
+        {
+          objToSpawn = view.tutorialObjects[2];
+          playerModel.tutorialActive = true;
+          obstacleView = objToSpawn.GetComponent<ObstacleView>();
+          obstacleView.tutorialIndex = 2;
+        }     
+        else if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 3)
+        {
+          objToSpawn = view.tutorialObjects[3];
+          playerModel.tutorialActive = true;
+          obstacleView = objToSpawn.GetComponent<ObstacleView>();
+          obstacleView.tutorialIndex = 3;
+        } 
+        else
+        {
+          int randomIndex = Random.Range(0, spawnPool.Count);
+          objToSpawn = spawnPool[randomIndex];
+          obstacleView = objToSpawn.GetComponent<ObstacleView>();
+        }
+        nextStepReady = false;
+        
         SpawnerView.WeightedObject weightedObject = FindWeightedObjectFromSpawnPool(objToSpawn);
-
-        float randomHeight = Random.Range(weightedObject.minHeight, weightedObject.maxHeight);
-        Vector3 spawnPosition = new(0, randomHeight, 0);
-
-        ObstacleView obstacleView = objToSpawn.GetComponent<ObstacleView>();
+        
         ObstacleType obstacleType = obstacleView.obstacleType;
         if (obstacleType == ObstacleType.Flying)
         {
@@ -77,9 +113,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
         
         yield return new WaitForSeconds(GameMechanicSettings.FlyingObstacleWarningTime);
 
-        GameObject spawnedObject = Instantiate(objToSpawn, transform.position, Quaternion.identity, transform);
+        GameObject spawnedObject = Instantiate(objToSpawn, transform.position, Quaternion.identity, transform.parent);
+        
+        float randomHeight = Random.Range(weightedObject.minHeight, weightedObject.maxHeight);
 
-        spawnedObject.GetComponent<RectTransform>().anchoredPosition = spawnPosition;
+        RectTransform spawnedRectTransform = spawnedObject.GetComponent<RectTransform>();
+        spawnedObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(spawnedRectTransform.anchoredPosition.x, randomHeight);
 
         if (objToSpawn.CompareTag(ObstacleTag.Fire))
         {
@@ -93,7 +132,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 
         if (obstacleType == ObstacleType.Collectible)
         {
-          spawnedObject.GetComponent<ObstacleView>().ArcMove();
+          obstacleView.ArcMove();
         }
         
         float currentRate = GameMechanicSettings.SpawnInterval / (playerModel.currentGameSpeed / GameMechanicSettings.StartingGameSpeed);
@@ -105,6 +144,10 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
         if (obstacleView.obstacleType == ObstacleType.Collectible)
         {
           yield return new WaitForSeconds((waitTme / 2) - GameMechanicSettings.FlyingObstacleWarningTime);
+        }
+        else if (playerModel.tutorialActive)
+        {
+          yield return new WaitUntil(() => nextStepReady);
         }
         else
         {
@@ -118,9 +161,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
       return view.weightedObjects.FirstOrDefault(w => w.obj == objToFind);
     }
 
+    private void OnTutorialObstaclePassed()
+    {
+      nextStepReady = true;
+    }
+
     public override void OnRemove()
     {
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
+      dispatcher.RemoveListener(GameEvent.TutorialObstaclePassed, OnTutorialObstaclePassed);
     }
   }
 }

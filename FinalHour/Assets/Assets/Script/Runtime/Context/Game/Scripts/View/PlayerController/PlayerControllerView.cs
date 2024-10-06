@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
+using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,7 +12,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
   public class PlayerControllerView : EventView
   {
     public RectTransform rectTransform;
-    public Rigidbody2D playerRigidbody2D;
     public CircleCollider2D playerBodyCollider;
     public CapsuleCollider2D playerCrouchCollider;
     public SpriteRenderer spriteRenderer;
@@ -46,7 +48,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     protected override void Awake()
     {
       playerInputActions = new PlayerInputActions();
-      inputActionMap = playerInput.actions.FindActionMap("Player");
+    //  inputActionMap = playerInput.actions.FindActionMap("Player");
+     // inputActionMap.Enable();
     }
     
     private void EnableGyro()
@@ -58,7 +61,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       
       if (SystemInfo.supportsGyroscope)
       {
-        _gyro = Input.gyro;
         _gyro.enabled = true;
         gyroActive = _gyro.enabled;
       } else if (SystemInfo.supportsAccelerometer)
@@ -136,13 +138,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       transform.GetComponent<RectTransform>().anchoredPosition = GameMechanicSettings.PlayerSpawnPosition;
     }
     
-    private void OnJump(InputValue inputValue)
+    private void OnJump(InputAction.CallbackContext context)
     {
-      if (!inputValue.isPressed)
-      {
-        return;
-      }
-
       if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
       {
         return;
@@ -153,13 +150,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.Dispatch(PlayerControllerEvents.Jump);
     }
 
-    private void OnCrouch(InputValue inputValue)
+    private void OnCrouch(InputAction.CallbackContext context)
     {
-      if (!inputValue.isPressed)
-      {
-        return;
-      }
-
       if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
       {
         return;
@@ -176,13 +168,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.Dispatch(PlayerControllerEvents.CrouchFinished);
     }
 
-    private void OnFire(InputValue inputValue)
+    private void OnFire(InputAction.CallbackContext context)
     {
-      if (!inputValue.isPressed)
-      {
-        return;
-      }
-
       if (!isFireReady)
       {
         return;
@@ -198,13 +185,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       isFireReady = true;
     }
 
-    private void OnDash(InputValue inputValue)
+    private void OnDash(InputAction.CallbackContext context)
     {
-      if (!inputValue.isPressed)
-      {
-        return;
-      }
-
       if (!isDashReady)
       {
         return;
@@ -220,23 +202,40 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       isDashReady = true;
     }
 
-    private void OnSpeedUpTime()
+    public void OnSpeedUpTime()
+    {
+      _speedState = SpeedState.Fast;
+      dispatcher.Dispatch(PlayerControllerEvents.SpeedUpTime);
+    }
+    
+    public void OnSpeedUpTime(InputAction.CallbackContext context)
     {
       _speedState = SpeedState.Fast;
       dispatcher.Dispatch(PlayerControllerEvents.SpeedUpTime);
     }
 
-    private void OnSlowTime()
+    public void OnSlowTime()
     {
       _speedState = SpeedState.Slow;
       dispatcher.Dispatch(PlayerControllerEvents.SlowDownTime);
     }
-
+    
+    public void OnSlowTime(InputAction.CallbackContext context)
+    {
+      _speedState = SpeedState.Slow;
+      dispatcher.Dispatch(PlayerControllerEvents.SlowDownTime);
+    }
     
     private void ReturnNormalSpeed(InputAction.CallbackContext context)
     {
       _speedState = SpeedState.Normal;
       dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
+    }
+    
+    private void ReturnNormalSpeedTutorial(InputAction.CallbackContext context)
+    {
+      _speedState = SpeedState.Normal;
+      dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeedTutorial);
     }
     
     private void ReturnNormalSpeed()
@@ -245,61 +244,194 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
     }
     
-    public void EnableInputs()
+    private void ReturnNormalSpeedTutorial()
+    {
+      _speedState = SpeedState.Normal;
+      dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeedTutorial);
+    }
+
+
+    #region Inputsystem
+    
+    public void SetInputs()
+    {
+      if (SystemInfo.supportsGyroscope)
+      {
+        _gyro = Input.gyro;
+      }
+
+      crouch = playerInputActions.Player.Crouch;
+      slowDownTime = playerInputActions.Player.SlowTime;
+      speedUpTime = playerInputActions.Player.SpeedUpTime;
+      jump = playerInputActions.Player.Jump;
+      fire = playerInputActions.Player.Fire;
+      dash = playerInputActions.Player.Dash;
+    }
+    
+    public void EnableAllInputs()
     {
       if (SystemInfo.deviceType == DeviceType.Handheld)
       {
         EnableGyro();
       }
-
-      crouch = playerInputActions.Player.Crouch;
-      crouch.Enable();
-      slowDownTime = playerInputActions.Player.SlowTime;
+      
       slowDownTime.Enable();
+      slowDownTime.performed += OnSlowTime;
       slowDownTime.canceled += ReturnNormalSpeed;
-      speedUpTime = playerInputActions.Player.SpeedUpTime;
+      
       speedUpTime.Enable();
+      speedUpTime.performed += OnSpeedUpTime;
       speedUpTime.canceled += ReturnNormalSpeed;
-      jump = playerInputActions.Player.Jump;
+      
       jump.Enable();
-      fire = playerInputActions.Player.Fire;
+      jump.performed += OnJump;
+      
+      crouch.Enable();
+      crouch.performed += OnCrouch;
+
       fire.Enable();
-      dash = playerInputActions.Player.Dash;
+      fire.performed += OnFire;
+      
       dash.Enable();
-      inputActionMap.Enable();
+      dash.performed += OnDash;
     }
     
-    public void DisableInputs()
+    public void DisableAllInputs()
     {
       if (SystemInfo.deviceType == DeviceType.Handheld)
       {
         DisableGyro();
       }      
       
-      crouch.Disable();
-      slowDownTime.canceled -= ReturnNormalSpeed;
       slowDownTime.Disable();
-      speedUpTime.canceled -= ReturnNormalSpeed;
+      slowDownTime.performed -= OnSlowTime;
+      slowDownTime.canceled -= ReturnNormalSpeed;
+      
       speedUpTime.Disable();
+      speedUpTime.performed -= OnSpeedUpTime;
+      speedUpTime.canceled -= ReturnNormalSpeed;
+      
       jump.Disable();
+      jump.performed -= OnJump;
+      
+      crouch.Disable();
+      crouch.performed -= OnCrouch;
+
       fire.Disable();
+      fire.performed -= OnFire;
+      
       dash.Disable();
-      inputActionMap.Disable();
+      dash.performed -= OnDash;
+    }
+    
+    public void DisableInputsTutorial()
+    {
+      if (SystemInfo.deviceType == DeviceType.Handheld)
+      {
+        DisableGyro();
+      }
+
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 6)
+      {
+        speedUpTime.Enable();
+        speedUpTime.performed += OnSpeedUpTime;
+        speedUpTime.canceled += ReturnNormalSpeed;
+      }
+      else  if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 7)
+      {
+        speedUpTime.Enable();
+        speedUpTime.performed -= OnSpeedUpTime;
+        speedUpTime.canceled -= ReturnNormalSpeed;
+        speedUpTime.canceled += ReturnNormalSpeedTutorial;
+      }
+      else
+      {
+        speedUpTime.performed -= OnSpeedUpTime;
+        speedUpTime.canceled -= ReturnNormalSpeed;
+        speedUpTime.canceled -= ReturnNormalSpeedTutorial;
+        speedUpTime.Disable();
+      }
+      
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 4)
+      {
+        slowDownTime.Enable();
+        slowDownTime.performed += OnSlowTime;
+        slowDownTime.canceled += ReturnNormalSpeed;
+      }
+      else  if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 5)
+      {
+        slowDownTime.Enable();
+        slowDownTime.performed -= OnSlowTime;
+        slowDownTime.canceled -= ReturnNormalSpeed;
+        slowDownTime.canceled += ReturnNormalSpeedTutorial;
+      } else
+      {
+        slowDownTime.performed -= OnSlowTime;
+        slowDownTime.canceled -= ReturnNormalSpeed;
+        slowDownTime.canceled -= ReturnNormalSpeedTutorial;
+        slowDownTime.Disable();
+      }
+
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 0)
+      {
+        jump.Enable();
+        jump.performed += OnJump;
+      }
+      else
+      {
+        jump.Disable();
+        jump.performed -= OnJump;
+      }
+
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 1)
+      {
+        crouch.Enable();
+        crouch.performed += OnCrouch;
+      }
+      else
+      {
+        crouch.Disable();
+        crouch.performed -= OnCrouch;
+      }
+
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 2)
+      {
+        fire.Enable();
+        fire.performed += OnFire;
+      }
+      else
+      {
+        fire.Disable();
+        fire.performed -= OnFire;
+      }
+
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 3)
+      {
+        dash.Enable();
+        dash.performed += OnDash;
+      }
+      else
+      {
+        dash.Disable();
+        dash.performed -= OnDash;
+      }
     }
 
     public void SetActionMapState(bool enable)
     {
       if (enable)
       {
-        EnableInputs();
+        EnableAllInputs();
         playerAnimator.SetBool("isDead", false);
       }
       else
       {
-        DisableInputs();
+        DisableAllInputs();
         playerAnimator.SetBool("isDead", true);
       }
     }
+    
+    #endregion
 
     public void ChangeColor(Color color)
     {
@@ -324,7 +456,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     #region MobileInputs
 
-    public void OnJump( )
+    public void OnJump()
     {
       if (!_activeCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
       {

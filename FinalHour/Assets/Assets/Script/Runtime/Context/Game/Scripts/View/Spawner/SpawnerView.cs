@@ -7,6 +7,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
 {
   public class SpawnerView : EventView
   {
+    public RectTransform rectTransform;
+    
     [Serializable]
     public class WeightedObject
     {
@@ -17,5 +19,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Spawner
     }
 
     public List<WeightedObject> weightedObjects;
+    
+    public List<GameObject> tutorialObjects;
   }
 }

@@ -4,7 +4,6 @@ using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using DG.Tweening;
 using strange.extensions.mediation.impl;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
@@ -16,6 +15,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     SlowDownTime,
     SpeedUpTime,
     ReturnNormalSpeed,
+    ReturnNormalSpeedTutorial,
     Jump,
     Crouch,
     CrouchFinished
@@ -39,6 +39,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.AddListener(PlayerControllerEvents.SlowDownTime, OnSlowDownTimeAction);
       view.dispatcher.AddListener(PlayerControllerEvents.SpeedUpTime, OnSpeedUpTimeAction);
       view.dispatcher.AddListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
+      view.dispatcher.AddListener(PlayerControllerEvents.ReturnNormalSpeedTutorial, OnReturnNormalSpeedTutorial);
       view.dispatcher.AddListener(PlayerControllerEvents.Jump, OnJumpAction);
       view.dispatcher.AddListener(PlayerControllerEvents.Crouch, OnCrouchAction);
       view.dispatcher.AddListener(PlayerControllerEvents.CrouchFinished, OnCrouchFinished);
@@ -48,17 +49,28 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
       dispatcher.AddListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
       dispatcher.AddListener(PlayerEvent.CollectDash, OnCollectDash);
+      dispatcher.AddListener(GameEvent.SpeedTutorial, OnSpeedTutorial);
     }
 
     public override void OnInitialize()
     {
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) < 4)
+      {
+        playerModel.tutorialActive = true;
+      }
+      
       view.SetColliders(false);
       view.deadParticle.SetActive(false);
       dispatcher.Dispatch(GameEvent.GameStarted);    
-      StartCoroutine(Off());  
-
+      StartCoroutine(Off());
       speedModel.ReturnNormalSpeed();
-      view.SetActionMapState(true);
+      
+      view.SetInputs();
+      
+      if (playerModel.tutorialActive)
+      {
+        view.DisableAllInputs();
+      }
 
       StartCoroutine(SpeedUpGame());
     }
@@ -74,7 +86,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       while (playerModel.currentGameSpeed < GameMechanicSettings.MaxGameSpeed && playerModel.isAlive)
       {
+        while (speedModel.isPaused)
+        {
+          yield return null; 
+        }
+
         yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpTime);
+
+
         playerModel.ChangeGameSpeed(GameMechanicSettings.GameSpeedUpAmount);
       }
     }
@@ -90,14 +109,39 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnPause()
     {
-      view.DisableInputs();
+      if (!PlayerPrefs.HasKey(SettingKeys.FirstTime))
+      {
+        return;
+      }
+
+      if (!playerModel.tutorialActive)
+      {
+        view.DisableAllInputs();
+      }
+      else
+      {
+        view.DisableInputsTutorial();
+      }
     }
 
     private void OnContinue()
     {
-      if (playerModel.isAlive)
+      if (!playerModel.isAlive)
       {
-        view.EnableInputs();
+        return;
+      }
+      
+      if (!playerModel.tutorialActive)
+      {
+        view.EnableAllInputs();
+      }
+      else if (playerModel.tutorialActive && (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 5 || PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 7))
+      {
+        view.DisableInputsTutorial();
+      }
+      else
+      {
+        view.DisableAllInputs();
       }
     }
 
@@ -107,6 +151,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       {
         return;
       }
+
+      CheckTutorialStep(0);
       
       dispatcher.Dispatch(PlayerEvent.Jump);
       float posY = view.rectTransform.anchoredPosition.y;
@@ -133,6 +179,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       {
         return;
       }
+
+      CheckTutorialStep(1);
       
       dispatcher.Dispatch(PlayerEvent.Crouch);
 
@@ -157,6 +205,31 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private void OnReturnNormalSpeed()
     {
       speedModel.ReturnNormalSpeed();
+
+      if (!playerModel.tutorialActive || PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) != 6) return;
+      
+      speedModel.Pause();
+      dispatcher.Dispatch(GameEvent.TutorialStepStart);
+    }
+    
+    private void OnReturnNormalSpeedTutorial()
+    {
+      PlayerPrefs.SetInt(SettingKeys.CompletedTutorialSteps, PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) + 1);
+        
+      speedModel.ReturnNormalSpeed();
+      
+      speedModel.Pause();
+      dispatcher.Dispatch(GameEvent.TutorialStepStart); 
+    }
+    
+    private void OnSpeedTutorial()
+    {
+      PlayerPrefs.SetInt(SettingKeys.CompletedTutorialSteps, PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) + 1);
+        
+      speedModel.ReturnNormalSpeed();
+      
+      speedModel.Pause();
+      dispatcher.Dispatch(GameEvent.TutorialStepStart); 
     }
 
     private void OnDashAction()
@@ -171,6 +244,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         dispatcher.Dispatch(PlayerEvent.NotEnoughSeconds);
         return;
       }
+
+      CheckTutorialStep(3);
 
       view.isDashReady = false;
       playerModel.ChangeRemainingTime(-GameMechanicSettings.DashCost);
@@ -200,6 +275,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         dispatcher.Dispatch(PlayerEvent.NotEnoughSeconds);
         return;
       }
+
+      CheckTutorialStep(2);
       
       view.isFireReady = false;
 
@@ -215,11 +292,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
     private void OnSlowDownTimeAction()
     {
+      CheckTutorialStep(4);
+      
       speedModel.SlowDownTime();
     }
 
     private void OnSpeedUpTimeAction()
-    {
+    { 
+      CheckTutorialStep(6);
+      
       speedModel.SpeedUpTime();
     }
     
@@ -254,6 +335,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.isDashReady = true;
     }
 
+    private void CheckTutorialStep(int stepIndex)
+    {
+      if (!playerModel.tutorialActive || PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) != stepIndex) return;
+      
+      PlayerPrefs.SetInt(SettingKeys.CompletedTutorialSteps, stepIndex + 1);
+      speedModel.Continue();
+      dispatcher.Dispatch(GameEvent.TutorialStepComplete);
+    }
+
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(PlayerControllerEvents.FireBulletAction, OnFireBulletAction);
@@ -261,6 +351,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       view.dispatcher.RemoveListener(PlayerControllerEvents.SlowDownTime, OnSlowDownTimeAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.SpeedUpTime, OnSpeedUpTimeAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.ReturnNormalSpeed, OnReturnNormalSpeed);
+      view.dispatcher.RemoveListener(PlayerControllerEvents.ReturnNormalSpeedTutorial, OnReturnNormalSpeedTutorial);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Jump, OnJumpAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.Crouch, OnCrouchAction);
       view.dispatcher.RemoveListener(PlayerControllerEvents.CrouchFinished, OnCrouchFinished);
@@ -270,6 +361,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
       dispatcher.RemoveListener(PlayerEvent.CrashObstacle, OnCrashObstacle);
       dispatcher.RemoveListener(PlayerEvent.CollectDash, OnCollectDash);
+      dispatcher.RemoveListener(GameEvent.SpeedTutorial, OnSpeedTutorial);
     }
   }
 }
