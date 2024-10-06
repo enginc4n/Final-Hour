@@ -256,6 +256,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     private void ReturnNormalSpeed(InputAction.CallbackContext context)
     {
+      if (slowDownTime.IsPressed() || speedUpTime.IsPressed())
+      {
+        return;
+      }
+      
       _speedState = SpeedState.Normal;
       dispatcher.Dispatch(PlayerControllerEvents.ReturnNormalSpeed);
     }
