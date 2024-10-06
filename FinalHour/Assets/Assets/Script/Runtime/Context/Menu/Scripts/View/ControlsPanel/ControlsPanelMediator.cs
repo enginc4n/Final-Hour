@@ -2,6 +2,7 @@
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.View.CreditsPanel;
 using strange.extensions.mediation.impl;
+using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.View.ControlsPanel
 {
@@ -20,6 +21,13 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.ControlsPanel
     public override void OnRegister()
     { 
       view.dispatcher.AddListener(ControlsPanelEvent.Close, OnClose);
+    }
+
+
+    public override void OnInitialize()
+    {
+      view.mobileControls.SetActive(SystemInfo.deviceType == DeviceType.Handheld);
+      view.pcControls.SetActive(SystemInfo.deviceType == DeviceType.Desktop);
     }
     
     private void OnClose()
