@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 1182194433443709064}
   - component: {fileID: 4221993200353677057}
   - component: {fileID: 2881566008422515422}
+  - component: {fileID: 7462149964574733859}
   m_Layer: 5
   m_Name: ControlsButton
   m_TagString: Untagged
@@ -438,6 +439,18 @@ MonoBehaviour:
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
+--- !u!114 &7462149964574733859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793800198013075323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7142f22472264c309935cf8062cbf28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6357130279258095704
 GameObject:
   m_ObjectHideFlags: 0

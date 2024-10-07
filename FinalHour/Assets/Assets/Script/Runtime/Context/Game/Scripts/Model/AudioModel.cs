@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
+using strange.extensions.dispatcher.impl;
 using UnityEngine;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.Model
@@ -11,6 +12,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public AudioSource sfxSource { get; set; }
     public AudioSource timeSpeedSource { get; set; }
     public AudioSource deathSoundSource { get; set; }
+    
+    public AudioSource uiSource { get; set; }
 
     private bool _scaledMusicVolume;
     private bool _scaledSfxVolume;
@@ -126,6 +129,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
         timeSpeedSource.enabled = false;
         deathSoundSource.enabled = false;
         sfxSource.enabled = false;
+        uiSource.enabled = false;
         PlayerPrefs.SetInt(SettingKeys.SfxOn, 0);
       }
       else
@@ -133,6 +137,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
         timeSpeedSource.enabled = true;
         deathSoundSource.enabled = true;
         sfxSource.enabled = true;
+        uiSource.enabled = true;
         PlayerPrefs.SetInt(SettingKeys.SfxOn, 1);
       }
     }

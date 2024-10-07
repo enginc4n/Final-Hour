@@ -17,5 +17,7 @@
     public const string Dead = "Dead";
     public const string Grunt = "Grunt";
     public const string ClockTick = "ClockTick";
+    public const string ButtonHover = "ButtonHover";
+    public const string ButtonClick = "ButtonClick";
   }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Assets.Script.Runtime.Context.Menu.Scripts.View.SoundSettingsPanel;
 using strange.extensions.mediation.impl;
 using UnityEngine.UI;
 

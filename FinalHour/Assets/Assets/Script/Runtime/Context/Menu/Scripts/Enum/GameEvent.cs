@@ -13,6 +13,8 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.Enum
     TutorialStepStart,
     TutorialObstaclePassed,
     TutorialStepComplete,
-    SpeedTutorial
+    SpeedTutorial,
+    Hover,
+    Click
   }
 }

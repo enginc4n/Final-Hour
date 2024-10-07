@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 7835214907074376765}
   - component: {fileID: 8406599494497615715}
   - component: {fileID: 3495770829571051965}
+  - component: {fileID: 1111927293980212104}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -143,7 +144,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4699702684307695018}
         m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.OptionsPanelView,
           Assembly-CSharp
         m_MethodName: OnSettings
@@ -194,6 +195,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1111927293980212104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522580243646674892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7142f22472264c309935cf8062cbf28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2824514630957606166
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +219,7 @@ GameObject:
   - component: {fileID: 9209283270926815021}
   - component: {fileID: 3535015994557440577}
   - component: {fileID: 5054373044018639183}
+  - component: {fileID: 5783531205456314506}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -277,8 +291,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.SettingsPanelView,
+      - m_Target: {fileID: 4699702684307695018}
+        m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.OptionsPanelView,
           Assembly-CSharp
         m_MethodName: OnExit
         m_Mode: 1
@@ -328,6 +342,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5783531205456314506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2824514630957606166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7142f22472264c309935cf8062cbf28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2867116718811097596
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +366,7 @@ GameObject:
   - component: {fileID: 6318313524782069228}
   - component: {fileID: 7483462171117529518}
   - component: {fileID: 2399304502348257899}
+  - component: {fileID: 183716135368034104}
   m_Layer: 5
   m_Name: InstrucationsButton
   m_TagString: Untagged
@@ -411,7 +438,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4699702684307695018}
         m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.OptionsPanelView,
           Assembly-CSharp
         m_MethodName: OnInstructions
@@ -462,6 +489,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &183716135368034104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867116718811097596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7142f22472264c309935cf8062cbf28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3014758759296240211
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +513,7 @@ GameObject:
   - component: {fileID: 1250032932429302078}
   - component: {fileID: 1638923740041229300}
   - component: {fileID: 1301069021729004775}
+  - component: {fileID: 5548197977487464114}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -545,7 +585,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4699702684307695018}
         m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.OptionsPanelView,
           Assembly-CSharp
         m_MethodName: OnCredits
@@ -596,6 +636,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5548197977487464114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3014758759296240211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7142f22472264c309935cf8062cbf28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3880223459952117524
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,6 +872,7 @@ GameObject:
   - component: {fileID: 4865437757395126174}
   - component: {fileID: 7676021280145791098}
   - component: {fileID: 3749591569095125762}
+  - component: {fileID: 3160822834347941194}
   m_Layer: 5
   m_Name: ControlsButton
   m_TagString: Untagged
@@ -891,7 +944,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4699702684307695018}
         m_TargetAssemblyTypeName: Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel.OptionsPanelView,
           Assembly-CSharp
         m_MethodName: OnControls
@@ -942,6 +995,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3160822834347941194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440794308737890643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7142f22472264c309935cf8062cbf28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7232784873428478345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1057,6 +1122,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bf9c64b274d994ca4e098950a6d772, type: 3}
+--- !u!1 &3495176302639941296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6116275121401524025, guid: c2bf9c64b274d994ca4e098950a6d772, type: 3}
+  m_PrefabInstance: {fileID: 7232784873428478345}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7918307254265790486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3495176302639941296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7142f22472264c309935cf8062cbf28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5807468817978515901 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3816877218873837620, guid: c2bf9c64b274d994ca4e098950a6d772, type: 3}

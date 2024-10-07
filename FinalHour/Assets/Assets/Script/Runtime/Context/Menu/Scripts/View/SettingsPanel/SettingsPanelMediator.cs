@@ -1,13 +1,11 @@
 ﻿using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
-using Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using strange.extensions.mediation.impl;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.Script.Runtime.Context.Menu.Scripts.View.SoundSettingsPanel
+namespace Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel
 {
   public enum SettingsEvents
   {

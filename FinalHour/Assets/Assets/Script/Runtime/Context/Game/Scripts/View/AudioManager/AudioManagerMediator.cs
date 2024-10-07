@@ -28,11 +28,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.AddListener(PlayerEvent.CollectDash, OnDash);
       dispatcher.AddListener(PlayerEvent.FireSound, OnFireBullet);
       dispatcher.AddListener(PlayerEvent.BirdSound, OnBird);
+      
       dispatcher.AddListener(GameEvent.GameStarted, OnStartGame);
       dispatcher.AddListener(GameEvent.ClockTick, OnClockTick);
       dispatcher.AddListener(GameEvent.Menu, OnMenu);
       dispatcher.AddListener(GameEvent.Pause, OnPause);
       dispatcher.AddListener(GameEvent.Continue, OnContinue);
+      dispatcher.AddListener(GameEvent.Hover, OnHover);
+      dispatcher.AddListener(GameEvent.Click, OnClick);
     }
     
     public override void OnInitialize()
@@ -41,6 +44,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       audioModel.sfxSource = view.sfxSource;
       audioModel.timeSpeedSource = view.timeSpeedSource;
       audioModel.deathSoundSource = view.deathSoundSource;
+      audioModel.uiSource = view.uiSource;
 
       audioModel.ResetPitchVolume();
     }
@@ -133,6 +137,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       }
     }
     
+    private void OnHover()
+    { 
+      view.PlayUi(SoundKeys.ButtonHover);
+    }
+    
+    private void OnClick()
+    {
+      view.PlayUi(SoundKeys.ButtonClick);
+    }
+
     public override void OnRemove()
     {
       dispatcher.RemoveListener(PlayerEvent.Died, OnPlayerDied);
@@ -147,11 +161,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       dispatcher.RemoveListener(PlayerEvent.CollectDash, OnDash);
       dispatcher.RemoveListener(PlayerEvent.FireSound, OnFireBullet);
       dispatcher.RemoveListener(PlayerEvent.BirdSound, OnBird);
+      
       dispatcher.RemoveListener(GameEvent.ClockTick, OnClockTick);
       dispatcher.RemoveListener(GameEvent.GameStarted, OnStartGame);
       dispatcher.RemoveListener(GameEvent.Menu, OnMenu);
       dispatcher.RemoveListener(GameEvent.Pause, OnPause);
       dispatcher.RemoveListener(GameEvent.Continue, OnContinue);
+      dispatcher.RemoveListener(GameEvent.Hover, OnHover);
+      dispatcher.RemoveListener(GameEvent.Click, OnClick);
     }
   }
 }

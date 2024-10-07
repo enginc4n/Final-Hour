@@ -10,10 +10,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
   {
     public Sound[] musicSounds;
     public Sound[] sfxSounds;
+    public Sound[] uiSounds;
     public AudioSource musicSource;
     public AudioSource sfxSource;
     public AudioSource timeSpeedSource;
     public AudioSource deathSoundSource;
+    public AudioSource uiSource;
     private List<Sound> _playingSounds = new List<Sound>();
     
     public void PlayMusic(string name)
@@ -90,7 +92,20 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.AudioManager
       deathSoundSource.PlayOneShot(sound.clip);
       _playingSounds.Add(sound);
       StartCoroutine(RemoveWhenFinished(sound));
+    }
+    
+    public void PlayUi(string name)
+    {
+      Sound sound = Array.Find(uiSounds, sfx => sfx.name == name);
 
+      if (sound == null)
+      {
+        Debug.LogError("Sound not found with the name: " + name);
+        return;
+      }
+      
+      uiSource.clip = sound.clip;
+      uiSource.PlayOneShot(sound.clip);
     }
     
     private IEnumerator RemoveWhenFinished(Sound sound)
