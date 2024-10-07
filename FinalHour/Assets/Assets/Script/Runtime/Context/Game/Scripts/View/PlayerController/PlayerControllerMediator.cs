@@ -93,8 +93,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
           if (speedModel.isPaused)
           {
             yield return new WaitUntil(() => !speedModel.isPaused);
-            
-            Debug.LogError("waited pause");
           }
 
           yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpTime);
@@ -102,13 +100,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
           if (speedModel.isPaused)
           {
             yield return new WaitUntil(() => !speedModel.isPaused);
-            
-            Debug.LogError("waited pause");
           }
 
           playerModel.ChangeTrueGameSpeed(GameMechanicSettings.GameSpeedUpAmount);
-          
-          Debug.LogError("waited cd");
+
+          view.playerAnimator.SetFloat("speed", playerModel.trueGameSpeed / GameMechanicSettings.StartingGameSpeed);
         }
       }
 

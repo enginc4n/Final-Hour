@@ -835,12 +835,20 @@ PrefabInstance:
       value: 15.3
       objectReference: {fileID: 0}
     - target: {fileID: 955727472278511472, guid: da136db0be7c93641836773df5d6bc4a, type: 3}
+      propertyPath: VelocityModule.x.scalar
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 955727472278511472, guid: da136db0be7c93641836773df5d6bc4a, type: 3}
       propertyPath: ShapeModule.m_Position.x
       value: -7.65
       objectReference: {fileID: 0}
     - target: {fileID: 955727472278511472, guid: da136db0be7c93641836773df5d6bc4a, type: 3}
       propertyPath: ShapeModule.m_Position.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 955727472278511472, guid: da136db0be7c93641836773df5d6bc4a, type: 3}
+      propertyPath: VelocityModule.x.minScalar
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 955727472278511472, guid: da136db0be7c93641836773df5d6bc4a, type: 3}
       propertyPath: ShapeModule.radiusThickness
@@ -1026,6 +1034,7 @@ MonoBehaviour:
     m_Bindings: []
   isDashReady: 1
   isFireReady: 1
+  deviceType: 0
   jumpButton: {fileID: 682846569}
   crouchButton: {fileID: 954257691}
   fireButton: {fileID: 1460890569}
