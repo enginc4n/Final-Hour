@@ -123,17 +123,17 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         }
 
 
-        if (_rotation.x < -0.1f && _speedState != SpeedState.Slow)
+        if (_rotation.x < -0.2f && _speedState != SpeedState.Slow)
         {
           OnSlowTime();
         }
-        else if (_rotation.x > 0.1f && _speedState != SpeedState.Fast)
+        else if (_rotation.x > 0.2f && _speedState != SpeedState.Fast)
         {
           OnSpeedUpTime();
         }
         else
         {
-          if (_rotation.x is > -0.1f and < 0.1f && _speedState != SpeedState.Normal)
+          if (_rotation.x is > -0.21f and < 0.2f && _speedState != SpeedState.Normal)
           {
             if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 5 || PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 7)
             {

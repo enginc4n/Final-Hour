@@ -84,7 +84,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         PlayerPrefs.SetInt(SettingKeys.FirstTime, 1);
       }
 
-      view.deviceType = SystemInfo.deviceType;
+      view.deviceType = DeviceType.Handheld;
       view.SetState(true);
       view.SetShadowOpacity(0);
       view.SetIcon(speedModel.speedState);
@@ -96,7 +96,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void SetLayout()
     {
-      if (view.deviceType == DeviceType.Handheld)
+      if (view.deviceType == SystemInfo.deviceType)
       {
         view.pcHud.SetActive(false);
 
@@ -513,16 +513,20 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void OnApplicationFocus(bool hasFocus)
     {
+      Debug.LogError("focus");
       if (!hasFocus && view.deviceType == DeviceType.Desktop && !speedModel.isPaused)
       {
+        Debug.LogError("focus2");
         dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
       }
     }
     
     private void OnApplicationPause(bool hasFocus)
     {
-      if (hasFocus && view.deviceType == DeviceType.Handheld && !speedModel.isPaused)
+      Debug.LogError("pause");
+      if (!hasFocus && view.deviceType == DeviceType.Handheld && !speedModel.isPaused)
       {
+        Debug.LogError("pause2");
         dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
       }
     }

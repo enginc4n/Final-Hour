@@ -189,6 +189,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         
         if (deviceType == DeviceType.Handheld)
         {
+          UpdateTimer(dashCooldownImageMobile, dashCooldownTextMobile, _currentDashTime, GameMechanicSettings.DashCooldown);
+        }
+        else
+        {
+          UpdateTimer(dashCooldownImagePc, dashCooldownTextPc, _currentDashTime, GameMechanicSettings.DashCooldown);
+        };
+        
+        if (deviceType == DeviceType.Handheld)
+        {
           if (isTutorialActive)
           {
             return;
@@ -227,6 +236,15 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       {
         _currentFireTime = 0;
         CancelInvoke(nameof(UpdateFireTimer));
+        
+        if (deviceType == DeviceType.Handheld)
+        {
+          UpdateTimer(fireCooldownImageMobile, fireCooldownTextMobile, _currentFireTime, GameMechanicSettings.FireCooldown);
+        }
+        else
+        {
+          UpdateTimer(fireCooldownImagePc, fireCooldownTextPc, _currentFireTime, GameMechanicSettings.FireCooldown);
+        }
 
         if (deviceType == DeviceType.Handheld)
         {

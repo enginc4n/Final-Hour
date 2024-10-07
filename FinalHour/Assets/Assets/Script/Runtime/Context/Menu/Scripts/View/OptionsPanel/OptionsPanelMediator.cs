@@ -2,6 +2,7 @@
 using Assets.Script.Runtime.Context.Menu.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.View.SettingsPanel;
 using strange.extensions.mediation.impl;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
 {
@@ -12,7 +13,8 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
     Instructions,
     Settings,
     Credits,
-    Controls
+    Controls,
+    Menu
   }
   public class OptionsPanelMediator : EventMediator
   {
@@ -21,6 +23,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
     
     [Inject]
     public IUIModel uiModel { get; set; }
+
     
     public override void OnRegister()
     { 
@@ -30,6 +33,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
       view.dispatcher.AddListener(OptionsPanelEvent.Settings, OnSettings);
       view.dispatcher.AddListener(OptionsPanelEvent.Controls, OnControls);
       view.dispatcher.AddListener(OptionsPanelEvent.Credits, OnCredits);
+      view.dispatcher.AddListener(OptionsPanelEvent.Menu, OnMenu);
     }
     
     private void OnClose()
@@ -62,6 +66,12 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
       uiModel.OpenPanel(PanelKeys.CreditsPanel, transform.parent);
     }
     
+    private void OnMenu()
+    { 
+      OnClose();
+      SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+    
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(OptionsPanelEvent.Close, OnClose);
@@ -70,6 +80,7 @@ namespace Assets.Script.Runtime.Context.Menu.Scripts.View.OptionsPanel
       view.dispatcher.RemoveListener(OptionsPanelEvent.Settings, OnSettings);
       view.dispatcher.RemoveListener(OptionsPanelEvent.Controls, OnControls);
       view.dispatcher.RemoveListener(OptionsPanelEvent.Credits, OnCredits);
+      view.dispatcher.RemoveListener(OptionsPanelEvent.Menu, OnMenu);
     }
   }
 }

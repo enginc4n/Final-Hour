@@ -2,12 +2,14 @@
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
 {
   public enum DeadPanelEvent
   {
-    PlayAgain
+    PlayAgain,
+    Menu
   }
   public class DeadPanelMediator : EventMediator
   {
@@ -20,7 +22,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
     public override void OnRegister()
     {
       view.dispatcher.AddListener(DeadPanelEvent.PlayAgain, OnPlayAgain);
-      
+      view.dispatcher.AddListener(DeadPanelEvent.Menu, OnMenu);
+
       dispatcher.AddListener(PlayerEvent.Died, OnDied);
     }
 
@@ -39,10 +42,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
     {
       dispatcher.Dispatch(GameEvent.Start);
     }
+    
+    private void OnMenu()
+    {
+      SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
 
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(DeadPanelEvent.PlayAgain, OnPlayAgain);
+      view.dispatcher.RemoveListener(DeadPanelEvent.PlayAgain, OnPlayAgain);
+      view.dispatcher.RemoveListener(DeadPanelEvent.Menu, OnMenu);
       
       dispatcher.RemoveListener(PlayerEvent.Died, OnDied);
     }

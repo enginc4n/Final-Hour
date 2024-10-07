@@ -37,5 +37,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
     {
       dispatcher.Dispatch(DeadPanelEvent.PlayAgain);
     }
+
+
+    public void OnMenu()
+    {
+      dispatcher.Dispatch(DeadPanelEvent.Menu);
+    }
   }
 }
