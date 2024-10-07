@@ -11,6 +11,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
 
     public bool isAlive { get; set; }
     public float currentGameSpeed { get; set; }
+    public float trueGameSpeed { get; set; }
     public int score { get; set; }
     public float position { get; set; }
     public bool isDashing { get; set; }
@@ -23,6 +24,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     public void OnPostConstruct()
     {
       currentGameSpeed = GameMechanicSettings.StartingGameSpeed;
+      trueGameSpeed = GameMechanicSettings.StartingGameSpeed;
       score = 0;
       remainingTime = GameMechanicSettings.StartingTime;
 
@@ -50,6 +52,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
       }
     }
     
+    public void ChangeTrueGameSpeed(float value)
+    {
+      currentGameSpeed += value;
+      trueGameSpeed += value;
+    }
+    
     public void ChangeGameSpeed(float value)
     {
       currentGameSpeed += value;
@@ -59,6 +67,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     {
       isAlive = false;
       currentGameSpeed = GameMechanicSettings.StartingGameSpeed;
+      trueGameSpeed = GameMechanicSettings.StartingGameSpeed;
       dispatcher.Dispatch(PlayerEvent.Died);
     }
   }

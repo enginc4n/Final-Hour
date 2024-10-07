@@ -6,6 +6,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
   {
     bool isAlive { get; set; }
     float currentGameSpeed { get; set; }
+    float trueGameSpeed { get; set; }
     float position { get; set; }
     int score { get; set; }
     bool isDashing { get; set; }
@@ -16,5 +17,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.Model
     void ChangeScore(int value);
     void ChangeRemainingTime(float value);
     void ChangeGameSpeed(float value);
+    
+    void ChangeTrueGameSpeed(float value);
   }
 }

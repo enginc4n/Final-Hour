@@ -86,21 +86,31 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       playerModel.position = GameMechanicSettings.PlayerSpawnPosition.x - (view.playerBodyCollider.bounds.extents.x * view.playerBodyCollider.transform.localScale.x);;
     }
 
-    private IEnumerator SpeedUpGame()
-    {
-      while (playerModel.currentGameSpeed < GameMechanicSettings.MaxGameSpeed && playerModel.isAlive)
+      private IEnumerator SpeedUpGame()
       {
-        while (speedModel.isPaused)
+        while (playerModel.trueGameSpeed < GameMechanicSettings.MaxGameSpeed && playerModel.isAlive)
         {
-          yield return null; 
+          if (speedModel.isPaused)
+          {
+            yield return new WaitUntil(() => !speedModel.isPaused);
+            
+            Debug.LogError("waited pause");
+          }
+
+          yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpTime);
+
+          if (speedModel.isPaused)
+          {
+            yield return new WaitUntil(() => !speedModel.isPaused);
+            
+            Debug.LogError("waited pause");
+          }
+
+          playerModel.ChangeTrueGameSpeed(GameMechanicSettings.GameSpeedUpAmount);
+          
+          Debug.LogError("waited cd");
         }
-
-        yield return new WaitForSecondsRealtime(GameMechanicSettings.GameSpeedUpTime);
-
-
-        playerModel.ChangeGameSpeed(GameMechanicSettings.GameSpeedUpAmount);
       }
-    }
 
     private void OnDied()
     {

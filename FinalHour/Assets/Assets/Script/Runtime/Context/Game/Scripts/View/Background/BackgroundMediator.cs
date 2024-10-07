@@ -32,7 +32,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     private List<RectTransform> _treeRectTransforms;
     private List<RectTransform> _deleteList;
 
-    private const float BaseParticleMinVelocity = -5f;
+    private const float BaseParticleMinVelocity = -10f;
     private const float BaseParticleMaxVelocity = -25f;
     
     public override void OnRegister()
@@ -130,9 +130,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.Background
     private void UpdateParticle()
     {
       ParticleSystem.VelocityOverLifetimeModule velocityModule = view.ambientParticle.velocityOverLifetime;
-    
-      velocityModule.x = !playerModel.isAlive ? new ParticleSystem.MinMaxCurve(-1, 1) :
-        new ParticleSystem.MinMaxCurve(BaseParticleMinVelocity*playerModel.currentGameSpeed, BaseParticleMaxVelocity*playerModel.currentGameSpeed);
+
+      if (!playerModel.isAlive)
+        velocityModule.x = new ParticleSystem.MinMaxCurve(-1, 1);
+      else
+        velocityModule.x = new ParticleSystem.MinMaxCurve(BaseParticleMinVelocity * playerModel.currentGameSpeed, BaseParticleMaxVelocity * playerModel.currentGameSpeed);
     }
     
     private void OnDied()
