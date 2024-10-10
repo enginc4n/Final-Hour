@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "R68TB00BHML",
         "name": "com.CHashtag.FinalHour",
-        "processId": 20292,
+        "processId": 6545,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,6 +12,12 @@
             "deviceId": "R68TB00BHML",
             "name": "com.CHashtag.FinalHour",
             "processId": 20292,
+            "exited": false
+        },
+        {
+            "deviceId": "R68TB00BHML",
+            "name": "com.CHashtag.FinalHour",
+            "processId": 6545,
             "exited": false
         }
     ],

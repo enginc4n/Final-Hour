@@ -4,6 +4,7 @@ using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -54,6 +55,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     public Button crouchButton;
     public Button fireButton;
     public Button dashButton;
+    
+    public TextMeshProUGUI debugtext;
 
 
     protected override void Awake()
@@ -64,6 +67,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     private void EnableGyro()
     {
+      debugtext.text += "<br> Enable gyro";
+      
       if (gyroActive || accelActive)
       {
         return;
@@ -73,9 +78,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       {
         _gyro.enabled = true;
         gyroActive = _gyro.enabled;
+        debugtext.text += "<br> Supports gyro";
       } else if (SystemInfo.supportsAccelerometer)
       {
         accelActive = true;
+        debugtext.text += "<br> Supports accel";
       }
 
       StartCoroutine(MobileControlRoutine());
@@ -241,6 +248,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       if (!slowDownTime.enabled)
       {
+        debugtext.text += "<br> slowdowntime disabled";
         return;
       }
       
@@ -369,6 +377,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void DisableInputsTutorial()
     {
+      debugtext.text += "<br> disable inputs for tutorial" + PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps);
       if (deviceType == DeviceType.Handheld)
       {
         if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) > 3 && PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) < 8) 

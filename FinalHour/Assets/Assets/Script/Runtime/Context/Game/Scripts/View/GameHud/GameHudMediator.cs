@@ -196,13 +196,12 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.StartDashTimer();
 
       view.isTutorialActive = playerModel.tutorialActive;
-      
-      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 4)
-      {
-        speedModel.Pause();
 
-        OnTutorialStepStart();
-      }
+      if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) != 4 || !view.isTutorialActive) return;
+      
+      speedModel.Pause();
+
+      OnTutorialStepStart();
     }
 
     private void OnDashStarted()

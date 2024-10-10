@@ -223,6 +223,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
 
       if (!playerModel.tutorialActive || PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) != 6) return;
       
+      view.debugtext.text += "<br> tutorial start normal speed" + playerModel.tutorialActive + PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps);
       speedModel.Pause();
       dispatcher.Dispatch(GameEvent.TutorialStepStart);
     }
@@ -231,6 +232,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       PlayerPrefs.SetInt(SettingKeys.CompletedTutorialSteps, PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) + 1);
         
+      view.debugtext.text += "<br> tutorial start from normal speed tutor" + playerModel.tutorialActive + PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps);
+      
       speedModel.ReturnNormalSpeed();
       
       speedModel.Pause();
