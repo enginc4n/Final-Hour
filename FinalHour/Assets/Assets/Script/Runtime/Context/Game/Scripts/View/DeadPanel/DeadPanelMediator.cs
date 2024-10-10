@@ -36,15 +36,18 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
     {
       view.score = playerModel.score;
       view.SetState(true, playerModel.remainingTime <= 0);
+      view.ShowAd();
     }
 
     private void OnPlayAgain()
     {
+      view.HideAd();
       dispatcher.Dispatch(GameEvent.Start);
     }
     
     private void OnMenu()
     {
+      view.HideAd();
       SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 

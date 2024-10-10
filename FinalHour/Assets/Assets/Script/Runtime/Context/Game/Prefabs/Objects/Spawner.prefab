@@ -52,27 +52,15 @@ MonoBehaviour:
   rectTransform: {fileID: 6529436969997910708}
   weightedObjects:
   - obj: {fileID: 3626357716841573596, guid: a210c514a65a2cc4283e7ee4d24217f1, type: 3}
-    weight: 15
-    minHeight: 270
-    maxHeight: 270
-  - obj: {fileID: 9145313837844221693, guid: 0d354ac87b3dd9b468eecd2c9aaa20cb, type: 3}
-    weight: 10
-    minHeight: 250.36356
-    maxHeight: 250.36356
-  - obj: {fileID: 550066902203417223, guid: 62f21c1ff50ca0d4f81c825314cb52d3, type: 3}
-    weight: 10
+    weight: 20
     minHeight: 270
     maxHeight: 270
   - obj: {fileID: 4176128926188825328, guid: f57c0f0d428a663449bacda6a9aee939, type: 3}
-    weight: 15
+    weight: 20
     minHeight: 294.5454
     maxHeight: 294.5454
-  - obj: {fileID: 2909283366101930709, guid: 1c9aff8760c1ffd4d880b04ef1c7c82a, type: 3}
-    weight: 10
-    minHeight: 270
-    maxHeight: 270
   - obj: {fileID: 6778824324649852528, guid: 5a02ad6cfee7be34facffc03cbea69e4, type: 3}
-    weight: 15
+    weight: 20
     minHeight: 294.5454
     maxHeight: 294.5454
   - obj: {fileID: 8497182741174021961, guid: 2301afb9b79b43b429cdf86c1b0f1c78, type: 3}
@@ -87,6 +75,18 @@ MonoBehaviour:
     weight: 15
     minHeight: 500
     maxHeight: 500
+  - obj: {fileID: 9145313837844221693, guid: 0d354ac87b3dd9b468eecd2c9aaa20cb, type: 3}
+    weight: 7.5
+    minHeight: 250.36356
+    maxHeight: 250.36356
+  - obj: {fileID: 550066902203417223, guid: 62f21c1ff50ca0d4f81c825314cb52d3, type: 3}
+    weight: 7.5
+    minHeight: 270
+    maxHeight: 270
+  - obj: {fileID: 2909283366101930709, guid: 1c9aff8760c1ffd4d880b04ef1c7c82a, type: 3}
+    weight: 7.5
+    minHeight: 270
+    maxHeight: 270
   - obj: {fileID: 8032858546369814456, guid: c00229f13708a324bb9b8fa000a1e806, type: 3}
     weight: 5
     minHeight: 250

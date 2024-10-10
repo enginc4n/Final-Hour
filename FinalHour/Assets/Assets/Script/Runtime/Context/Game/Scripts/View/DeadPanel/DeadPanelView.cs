@@ -7,6 +7,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
   public class DeadPanelView : EventView
   {
     [SerializeField]
+    private AdManager adManager;
+    
+    [SerializeField]
     private TextMeshProUGUI scoreText;
     
     [SerializeField]
@@ -18,19 +21,21 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.DeadPanel
     {
       gameObject.SetActive(isActive);
 
-      if (isActive)
-      {
-        scoreText.text = score.ToString();
+      if (!isActive) return;
+      
+      scoreText.text = score.ToString();
         
-        if (timeDeath)
-        {
-          deathMessage.text = "You've run out of time!";
-        }
-        else
-        {
-          deathMessage.text = "Death has caught up to you...";
-        }
-      }
+      deathMessage.text = timeDeath ? "You've run out of time!" : "Death has caught up to you...";
+    }
+
+    public void ShowAd()
+    {
+      adManager.LoadAd();
+    }
+    
+    public void HideAd()
+    {
+      adManager.DestroyAd();
     }
 
     public void OnPlayAgain()

@@ -84,7 +84,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         PlayerPrefs.SetInt(SettingKeys.FirstTime, 1);
       }
 
-      view.deviceType = DeviceType.Handheld;
+      view.deviceType = SystemInfo.deviceType;
       view.SetState(true);
       view.SetShadowOpacity(0);
       view.SetIcon(speedModel.speedState);
@@ -96,7 +96,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void SetLayout()
     {
-      if (view.deviceType == SystemInfo.deviceType)
+      if (view.deviceType == DeviceType.Handheld)
       {
         view.pcHud.SetActive(false);
 
@@ -110,6 +110,9 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
         view.pcHud.SetActive(true);
         view.mobilePad.SetActive(false);
       }
+      
+      ParticleSystem.ShapeModule shape = view.timeBarParticle.shape;
+      shape.scale =new Vector3(view.rectTransform.rect.width / 10, view.timeBarParticle.shape.scale.y);
     }
 
     private void FixedUpdate()
@@ -120,6 +123,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
       view.timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
       view.timerText.color = playerModel.remainingTime is <= 10 and > 1 ? new Color(1f, 0.2290596f, 0.1650943f) : Color.white;
+
+      view.timeBarFill.fillAmount = playerModel.remainingTime / GameMechanicSettings.StartingTime;
+
+      view.timeBarParticle.gameObject.SetActive(playerModel.remainingTime > GameMechanicSettings.StartingTime);
+
+      if (playerModel.remainingTime > 10)
+      {
+        view.timeBarFill.color = new Color(0.3640531f, 0.9528302f, 0.9112695f);
+      }
+      else
+      {
+        view.timeBarFill.color = new Color(1f, 0.2290596f, 0.1650943f);
+      }
 
       if (playerModel.tutorialActive && PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 7 && playerModel.remainingTime <= 50)
       {
@@ -430,14 +446,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
           case 4:
             view.pcTutorialText.text = "Fire and Dash spend <color=#15C9BD>Seconds</color>. Hold [A] to Slow Down time and regain some";
             view.timerTransform.SetAsLastSibling();
+            view.timeBarTransform.SetAsLastSibling();
             view.timerTutorialArrow.SetActive(true);
             break;
           case 6:
             view.timerTransform.SetSiblingIndex(4);
+            view.timeBarTransform.SetSiblingIndex(7);
             view.timerTutorialArrow.SetActive(false);
             view.pcTutorialText.text = "<color=#574646>Death</color> closes the distance when you Slow Down. Hold [D] to Speed Up time and maintain your distance";
             view.deathTutorialArrow.SetActive(true);
-            view.shadowTransform.SetAsLastSibling();
+            view.shadowTransform.SetSiblingIndex(transform.childCount - 3);
             break;
           case 8:
             view.shadowTransform.SetAsFirstSibling();
@@ -513,20 +531,16 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     private void OnApplicationFocus(bool hasFocus)
     {
-      Debug.LogError("focus");
       if (!hasFocus && view.deviceType == DeviceType.Desktop && !speedModel.isPaused)
       {
-        Debug.LogError("focus2");
         dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
       }
     }
     
     private void OnApplicationPause(bool hasFocus)
     {
-      Debug.LogError("pause");
       if (!hasFocus && view.deviceType == DeviceType.Handheld && !speedModel.isPaused)
       {
-        Debug.LogError("pause2");
         dispatcher.Dispatch(GameEvent.OptionsPanel, transform);
       }
     }

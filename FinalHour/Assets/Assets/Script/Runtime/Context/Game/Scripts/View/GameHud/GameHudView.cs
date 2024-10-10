@@ -44,6 +44,14 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.GameHud
 
     public Button crouchButton;
 
+    public Transform timeBarTransform;
+
+    public Image timeBarFill;
+
+    public ParticleSystem timeBarParticle;
+
+    public RectTransform rectTransform;
+
     [SerializeField]
     private TextMeshProUGUI outOfSeconds;
 

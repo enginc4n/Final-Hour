@@ -311,8 +311,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1670475635}
     m_Modifications:
     - target: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+      propertyPath: randomSeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
       propertyPath: lengthInSec
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+      propertyPath: autoRandomSeed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
       propertyPath: simulationSpeed
@@ -709,7 +717,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -1550.0004, y: 0}
+  m_AnchoredPosition: {x: -1550.0005, y: 0}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1027141000
@@ -2838,6 +2846,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 682448568363996771, guid: 81d7733db6638824babd6c8692346153, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 831208212096381107, guid: 81d7733db6638824babd6c8692346153, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3174,6 +3186,14 @@ PrefabInstance:
     - target: {fileID: 6014263319591072342, guid: 81d7733db6638824babd6c8692346153, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6217314618315282735, guid: 81d7733db6638824babd6c8692346153, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6217314618315282735, guid: 81d7733db6638824babd6c8692346153, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1627313045
       objectReference: {fileID: 0}
     - target: {fileID: 6450577184004679256, guid: 81d7733db6638824babd6c8692346153, type: 3}
       propertyPath: m_AnchorMax.y
