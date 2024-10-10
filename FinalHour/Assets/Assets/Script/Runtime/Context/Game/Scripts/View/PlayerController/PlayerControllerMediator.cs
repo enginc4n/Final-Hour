@@ -58,6 +58,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
       {
         playerModel.tutorialActive = true;
       }
+      else
+      {
+        playerModel.tutorialActive = false;
+        PlayerPrefs.SetInt(SettingKeys.CompletedTutorialSteps, 9);
+      }
       
       view.SetColliders(false);
       view.deadParticle.SetActive(false);
