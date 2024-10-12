@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
-using Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -11,7 +8,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Assets.Script.Runtime.Context.Game.Scripts.View
+namespace Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles
 {
   public class ObstacleView : EventView
   {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Script.Runtime.Context.Game.Scripts.Enum;
 using Assets.Script.Runtime.Context.Game.Scripts.Model;
+using Assets.Script.Runtime.Context.Game.Scripts.View.Obstacles;
 using Assets.Script.Runtime.Context.Menu.Scripts.Enum;
 using strange.extensions.mediation.impl;
 using UnityEngine;

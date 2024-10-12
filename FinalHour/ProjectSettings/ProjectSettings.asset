@@ -137,7 +137,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 1.0
+  bundleVersion: 1.1
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 11400000, guid: f3d2247f52cba8a47b2d8402a006d022, type: 2}
@@ -162,14 +162,15 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   androidMinAspectRatio: 1
   applicationIdentifier:
+    Android: com.CHashtag.FinalHour
     Standalone: com.DefaultCompany.2DProject
   buildNumber:
     Bratwurst: 0
     Standalone: 0
     iPhone: 0
     tvOS: 0
-  overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 3
+  overrideDefaultApplicationIdentifier: 0
+  AndroidBundleVersionCode: 5
   AndroidMinSdkVersion: 25
   AndroidTargetSdkVersion: 34
   AndroidPreferredInstallLocation: 1
@@ -856,7 +857,7 @@ PlayerSettings:
     PS4: DOTWEEN
     PS5: DOTWEEN
     Stadia: DOTWEEN
-    Standalone: DOTWEEN
+    Standalone: 
     WebGL: DOTWEEN
     Windows Store Apps: DOTWEEN
     XboxOne: DOTWEEN
@@ -990,4 +991,4 @@ PlayerSettings:
   hmiLoadingImage: {fileID: 0}
   platformRequiresReadableAssets: 0
   virtualTexturingSupportEnabled: 0
-  insecureHttpOption: 0
+  insecureHttpOption: 2

@@ -34,9 +34,7 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     private float fireCoolDown;
     private Collider2D _activeCollider;
     
-    private UnityEngine.Gyroscope _gyro;
     private Vector3 _rotation;
-    private bool gyroActive;
     private bool accelActive;
     
     [HideInInspector]
@@ -69,20 +67,19 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       debugtext.text += "<br> Enable gyro";
       
-      if (gyroActive || accelActive)
+      if (accelActive)
       {
         return;
       }
       
-      if (SystemInfo.supportsGyroscope)
-      {
-        _gyro.enabled = true;
-        gyroActive = _gyro.enabled;
-        debugtext.text += "<br> Supports gyro";
-      } else if (SystemInfo.supportsAccelerometer)
+      if (SystemInfo.supportsAccelerometer)
       {
         accelActive = true;
         debugtext.text += "<br> Supports accel";
+      }
+      else
+      {
+        return;
       }
 
       StartCoroutine(MobileControlRoutine());
@@ -90,21 +87,13 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     private void DisableGyro()
     {
-      if (!gyroActive && !accelActive)
+      if (!accelActive)
       {
         return;
       }
 
-      if (SystemInfo.supportsGyroscope)
-      {
-        _gyro = Input.gyro;
-        _gyro.enabled = false;
-        gyroActive = _gyro.enabled;
-      } else if (SystemInfo.supportsAccelerometer)
-      {
-        accelActive = false;
-      }
-      
+      accelActive = false;
+
       StopCoroutine(MobileControlRoutine());
     }
     
@@ -112,44 +101,42 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       while (true)
       {
-        switch (gyroActive)
+        if (!accelActive)
         {
-          case false when !accelActive:
-            yield break;
-          case true:
-            _rotation = _gyro.attitude.eulerAngles;
-            break;
-          default:
-          {
-            if (SystemInfo.supportsAccelerometer)
-            {
-              _rotation = Input.acceleration;
-            }
-            break;
-          }
+          debugtext.text += "<br> neither accel or gyro active";
+          yield break;
         }
+        
+  
+        _rotation = Input.acceleration; 
+        debugtext.text += "<br> accel rotation= " + _rotation;
 
-
-        if (_rotation.x < -0.15f && _speedState != SpeedState.Slow)
+        
+        switch (_rotation.x)
         {
-          OnSlowTime();
-        }
-        else if (_rotation.x > 0.15f && _speedState != SpeedState.Fast)
-        {
-          OnSpeedUpTime();
-        }
-        else
-        {
-          if (_rotation.x is >= -0.15f and <= 0.15f && _speedState != SpeedState.Normal)
+          case < -0.15f when _speedState != SpeedState.Slow:
+            debugtext.text += "<br> call slowdown";
+            OnSlowTime();
+            break;
+          case > 0.15f when _speedState != SpeedState.Fast:
+            debugtext.text += "<br> call speedup";
+            OnSpeedUpTime();
+            break;
+          case >= -0.15f and <= 0.15f when _speedState != SpeedState.Normal:
           {
+            debugtext.text += "<br> call normalspeed";
             if (PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 5 || PlayerPrefs.GetInt(SettingKeys.CompletedTutorialSteps) == 7)
             {
+              debugtext.text += "<br> normalspeedfortutor";
               ReturnNormalSpeedTutorial();
             }
             else
             {
+              debugtext.text += "<br> normalspeed";
               ReturnNormalSpeed();
             }
+
+            break;
           }
         }
 
@@ -231,8 +218,11 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     {
       if (!speedUpTime.enabled)
       {
+        debugtext.text += "<br> speedup disabled";
         return;
       }
+      
+      debugtext.text += "<br> speedup";
       
       _speedState = SpeedState.Fast;
       dispatcher.Dispatch(PlayerControllerEvents.SpeedUpTime);
@@ -251,6 +241,8 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
         debugtext.text += "<br> slowdowntime disabled";
         return;
       }
+      
+      debugtext.text += "<br> slowdown";
       
       _speedState = SpeedState.Slow;
       dispatcher.Dispatch(PlayerControllerEvents.SlowDownTime);
@@ -296,11 +288,6 @@ namespace Assets.Script.Runtime.Context.Game.Scripts.View.PlayerController
     
     public void SetInputs()
     {
-      if (SystemInfo.supportsGyroscope)
-      {
-        _gyro = Input.gyro;
-      }
-
       crouch = playerInputActions.Player.Crouch;
       slowDownTime = playerInputActions.Player.SlowTime;
       speedUpTime = playerInputActions.Player.SpeedUpTime;
