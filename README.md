@@ -1,6 +1,6 @@
 # ⌛ Final-Hour
 
-* This is the Game Jam version of the game that was made in 48 hours. You can play polished game from the links at the bottom.
+* This is the Game Jam version of the game that was made in 48 hours. You can play the final version of the game from the links at the bottom.
 
 #### About Game
 
