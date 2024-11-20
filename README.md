@@ -1,8 +1,6 @@
 # ⌛ Final-Hour
 
-![Logo](https://img.itch.zone/aW1nLzE1MzM5OTM0LnBuZw==/original/ZtHwmT.png)
-
-* This game was made in 48 hours
+* This is the Game Jam version of the game that was made in 48 hours. You can play polished game from the links at the bottom.
 
 #### About Game
 
@@ -56,5 +54,9 @@ Death is chasing you; evade ostacles by jumping or crouching. Speed up time when
 
 
 #### Game Link:
+<a href="https://play.google.com/store/apps/details?id=com.CHashtag.FinalHour" target="_blank">
+  <img src="https://img.shields.io/badge/Google%20Play-Download-brightgreen?logo=googleplay" height="25">
+</a>
+
 <a href="https://enginc4n.itch.io/final-hour" target="_blank">
 <img src=https://img.shields.io/badge/itchio-enginc4n-critical?logo=Itch.io height="25">
